@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>Login</title>
+</head>
+<body>
+    <main>
+        <div id="caixaCentral">
+            <div id="logo">
+                <img src="../img/logo_Gestione2.jpeg">
+            </div>
+
+            <form action="">
+                <input type="email" name="E-mail" placeholder="E-mail" id="email" required>
+
+                <div id="caixaOlhinho">
+                    <input type="password" placeholder="Senha" id="senha" required>
+                    <span id="olhinho">
+                        <img src="../img/olhinhoFechado.png" id="imagemOlhinho" role="button" tabindex="0" onclick="exibirSenha()">
+                    </span>
+                </div>
+                <button type="submit">Entrar</button>
+            </form>
+             <a href="sei la ainda">Esqueceu a senha?</a>
+        </div>
+    </main>
+    <script src="../js/login.js"></script>
+</body>
+</html>

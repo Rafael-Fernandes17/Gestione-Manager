@@ -1,0 +1,167 @@
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(96 7 9);
+}
+
+#caixaCentral {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    grid-template-rows: 66.66% 33.33%;
+    height: 70%;
+    width: 90%;          /* No mobile ocupa quase tudo */
+    max-width: 450px;    /* No desktop não passa de 450px */
+}
+
+
+#logo {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    grid-row: 1;
+    height: 100%;
+    width: 100%;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+form {
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+    height: 100%;
+    width: 80%;
+    background-color: #f5e7da;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 5px 5px 5px 5px #530000;
+}
+
+input{
+    padding-right: 40px;
+    box-sizing: border-box;
+    height: 45px;
+    width: 90%;
+    border-radius: 10px;
+    border: 2px solid #f4d3a6;
+    padding-left: 55px;
+    transition: padding 0.3s ease;
+}
+
+#caixaOlhinho {
+    position: relative;
+    height: 45px;
+    width: 90%;
+}
+
+#imagemOlhinho {
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+    bottom: 10px;
+    top: 10px;
+    right: 10px;
+    height: 25px;
+    width: 25px;
+    z-index: 2;         /* Garante que o ícone fique na frente de tudo */
+    opacity: 0.6;
+}
+
+#imagemOlhinho:hover, #imagemOlhinho:active {
+    opacity: 1.0;
+    transform: scale(1.1);
+}
+
+#email {
+    background-image: url('../img/envelope.png');
+    background-repeat: no-repeat;
+    background-size: 2rem;
+    background-position: 5px center;
+}
+
+#senha {
+    background-image: url('../img/cadeado.png');
+    background-repeat: no-repeat;
+    background-size: 2rem;
+    background-position: 5px center;
+    width: 100%;
+}
+
+/* Quando o usuário clica (focus) ou quando já tem texto dentro */
+#senha:focus, #email:focus {
+    padding-left: 15px; /* O texto "volta" para perto da borda */
+    background-image: none; /* Remove o ícone para não atropelar o texto */
+}
+
+button {
+    height: 45px;
+    width: 90%;
+    font-weight: 1000;
+    text-transform: uppercase;
+    border: 2px solid #f4d3a6;
+    border-radius: 10px;
+    background-color: #bc7a2e;
+    color: rgb(248, 241, 221);
+    font-size: 1.2rem;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #955f21;
+}
+
+a {
+    text-decoration: none;
+    margin: 5%;
+    color: #f8d485;
+}
+
+@media (max-width: 1200px) {
+
+    a, input, button{
+        font-size: 1.5rem;
+    }
+    
+}
+
+@media (max-width: 500px) {
+
+    #caixaCentral {
+        height: auto;
+    }
+
+    form {
+        width: 80%;
+    }
+
+    img {
+        height: 70%;
+        width: 80%;
+    }
+
+    a, input, button{
+        font-size: 1.5rem;
+    }
+}
