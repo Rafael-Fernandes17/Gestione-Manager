@@ -1,0 +1,150 @@
+:root {
+    --primary-red: #800020;
+    --accent-gold: #c5a059;
+    --dark-red: #4a0404;
+    --bg-light: #f4f1ea;
+    --white: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg-light);
+}
+
+.main-header {
+    background-color: var(--primary-red);
+    color: var(--white);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid var(--accent-gold);
+}
+
+.logo-section h1 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--accent-gold);
+}
+
+.logo-section span {
+    font-size: 10px;
+    display: block;
+    letter-spacing: 5px;
+    color: var(--white);
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.form-container {
+    background: var(--white);
+    width: 100%;
+    max-width: 700px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.form-header {
+    padding: 25px 40px;
+    border-bottom: 1px solid #eee;
+}
+
+.form-header h3 {
+    margin: 0;
+    color: var(--dark-red);
+    text-transform: uppercase;
+}
+
+.form-grid {
+    padding: 30px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.input-box label {
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 2px 12px;
+}
+
+.input-field span {
+    color: var(--accent-gold);
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Estilo para Input e Select */
+.input-field input, 
+.input-field select {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 14px;
+    background: transparent;
+    color: #444;
+}
+
+.form-actions {
+    padding: 25px 40px;
+    background: #fdfdfd;
+    text-align: right;
+    border-radius: 0 0 12px 12px;
+}
+
+.btn-submit {
+    background-color: var(--accent-gold);
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: var(--dark-red);
+    transform: translateY(-2px);
+}
+
+
+
+.success-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+}
+.icon-success {
+    font-size: 80px;
+    color: var(--accent-gold);
+    margin-bottom: 20px;
+} 
