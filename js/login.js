@@ -35,6 +35,6 @@ async function login() {
             alert('Senha inválida');
             return;
         }
-        alert('Credenciais inválidas');
+        alert('Email não cadastrado');
     }
 }

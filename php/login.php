@@ -12,15 +12,15 @@
     );
 
     
-$stmt->bind_param('ss', $_POST['email']);
+$stmt->bind_param('s', $_POST['email']);
 $stmt->execute();
 
-$resultadoDoConsulta = $stmt->get_result();
-$usuario = [];
+$resultadoDaConsulta = $stmt->get_result();
+$funcionario = [];
 
-if ($resultadoDaConsulta->num_rows() > 0) {
-    while ($funcionarioDaTabela = $resultadoDaConsulta->fetch_assoc()) {
-        $funcionario[] = $funcionarioDaTabela;
+if ($resultadoDaConsulta->num_rows > 0) {
+    if($funcionarioDaTabela = $resultadoDaConsulta->fetch_assoc()) {
+        $funcionario = $funcionarioDaTabela;
     }
 
     $hashDaSenha = $funcionario['senha'];
@@ -28,21 +28,20 @@ if ($resultadoDaConsulta->num_rows() > 0) {
     if(!password_verify($_POST['senha'], $hashDaSenha)){
         $retorno['status'] = 'nok';
         $retorno['mensagem'] = 'senha invalida';
+    } else {
+        // Criar a sessão com os dados do usuário logado
+        unset($funcionario['senha']);
+        session_start();
+        $_SESSION['usuario'] = $funcionario;
+
+        $retorno['status'] = 'ok';
+        $retorno['mensagem'] = 'Login efetuado com sucesso';
+        $retorno['data'] = $funcionario;
     }
-    
-
-// Criar a sessão com os dados do usuário logado
-session_start();
-    $_SESSION['usuario'] = $funcionario;
-
-    $retorno['status'] = 'ok';
-    $retorno['mensagem'] = 'Login efetuado com sucesso';
-    $retorno['data'] = $funcionario;
 } else {
     $retorno['status'] = 'nok';
-    $retorno['mensagem'] = 'Email ou senha invalidos.';
+    $retorno['mensagem'] = 'Email inválido';
 }
-
 
 
 $stmt->close();
