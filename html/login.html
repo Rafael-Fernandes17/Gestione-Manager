@@ -8,13 +8,14 @@
     <title>Login</title>
 </head>
 <body>
+
     <main>
         <div id="caixaCentral">
             <div id="logo">
                 <img src="../img/logo_Gestione2.jpeg">
             </div>
 
-            <form action="">
+            <form action="../php/login.php" method="">
                 <input type="email" name="E-mail" placeholder="E-mail" id="email" required>
 
                 <div id="caixaOlhinho">
@@ -23,11 +24,11 @@
                         <img src="../img/olhinhoFechado.png" id="imagemOlhinho" role="button" tabindex="0" onclick="exibirSenha()">
                     </span>
                 </div>
-                <button type="submit">Entrar</button>
+                <button type="submit" id="botaoEnviar">Entrar</button>
             </form>
-             <a href="sei la ainda">Esqueceu a senha?</a>
         </div>
     </main>
+
     <script src="../js/login.js"></script>
 </body>
 </html>
