@@ -3,13 +3,15 @@ CREATE DATABASE gestione_maganer;
 USE gestione_maganer;
 
 CREATE TABLE produtosCardapio (
-id int AUTO_INCREMENT primary key NOT NULL,
-nomeProdutoCardapio char(40) NOT NULL,
+id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+nomeProdutoCardapio VARCHAR(40) NOT NULL,
 descricao VARCHAR(100) NOT NULL,
 tempoPreparo TIME NOT NULL,
-preco int NOT NULL,
+preco DECIMAL(10,2) NOT NULL,
+imagem LONGBLOB NOT NULL,
+quantidadeMedida INT NOT NULL,
 tipoMedida ENUM ('GM','ML', 'L') NOT NULL,
-statusProdutos ENUM ('Disponível', 'Indisponível')
+statusProdutos ENUM ('Disponível', 'Indisponível') NOT NULL
 );
 
 CREATE TABLE itensEstoque (
