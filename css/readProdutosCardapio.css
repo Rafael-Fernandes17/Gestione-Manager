@@ -152,7 +152,7 @@ td img {
   margin-top: 30px;
 }
 
-.btn-cadastrar {
+.btn-cadastrar, .btn-visualizar {
   background: #5f0608;
   color: white;
   padding: 12px 25px;
@@ -162,6 +162,6 @@ td img {
   cursor: pointer;
 }
 
-.btn-cadastrar:hover {
+.btn-cadastrar:hover, .btn-visualizar:hover {
   transform: scale(1.05);
 }

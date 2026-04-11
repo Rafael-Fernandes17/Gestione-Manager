@@ -60,6 +60,7 @@ mysqli_close($conn);
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Descrição</th>
+                    <th>Categoria</th>
                     <th>Tempo</th>
                     <th>Preço</th>
                     <th>Imagem</th>
@@ -74,6 +75,7 @@ mysqli_close($conn);
                         <td><?= $p['id'] ?></td>
                         <td><?= $p['nomeProdutoCardapio'] ?></td>
                         <td><?= $p['descricao'] ?></td>
+                        <td><?= $p['categoria'] ?></td>
                         <td><?= $p['tempoPreparo'] ?></td>
                         <td>R$ <?= $p['preco'] ?></td>
 
@@ -103,6 +105,7 @@ mysqli_close($conn);
                     </tr>
                 <?php endforeach; ?>
 
+
             </table>
 
         <?php else: ?>
@@ -121,10 +124,15 @@ mysqli_close($conn);
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='cadastrarProduto.php'">
+                onclick="window.location.href='../html/criandoProdutoCardapio.html'">
                 Cadastrar Outro Produto
             </button>
         </div>
+
+        <button class="btn-visualizar"
+            onclick="window.location.href='cardapio.php'">
+            Visualizar Cardápio
+        </button>
 
     </div>
 

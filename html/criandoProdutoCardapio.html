@@ -37,7 +37,16 @@
             <input type="text" id="nomeProdutoCardapio" name="nomeProdutoCardapio" required>
 
             <label for="descricao">Descrição:</label> 
-            <textarea id="descricao" name="descricao" required></textarea> 
+            <textarea id="descricao" name="descricao" required></textarea>
+            
+            <label for="categoria">Categoria:</label>  
+            <select id="categoria" name="categoria" required> 
+                <option value="">Selecione</option> 
+                <option value="Entradas">Entradas</option> 
+                <option value="Pratos Principais">Pratos Principais</option> 
+                <option value="Bebidas">Bebidas</option> 
+                <option value="Sobremesas">Sobremesas</option> 
+            </select> 
 
             <label for="tempoPreparo">Tempo de Preparo:</label> 
             <input type="time" id="tempoPreparo" name="tempoPreparo" required>
