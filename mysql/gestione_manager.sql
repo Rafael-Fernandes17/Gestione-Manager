@@ -6,6 +6,7 @@ CREATE TABLE produtosCardapio (
 id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 nomeProdutoCardapio VARCHAR(40) NOT NULL,
 descricao VARCHAR(100) NOT NULL,
+categoria ENUM ('Entradas', 'Pratos Principais', 'Bebidas', 'Sobremesas') NOT NULL,
 tempoPreparo TIME NOT NULL,
 preco DECIMAL(10,2) NOT NULL,
 imagem LONGBLOB NOT NULL,
