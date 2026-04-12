@@ -13,8 +13,9 @@ $nome = $_POST['nome'] ?? '';
 $email = $_POST['email'] ?? '';
 $senha = $_POST['senha'] ?? '';
 $eAdm = isset($_POST['eAdm']) ?? '';
+$senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
-if (empty($nome) || empty($email) || empty($senha)) {
+if (empty($nome) || empty($email) || empty($senha_hash)) {
     $retorno = [
         'status' => 'nok', 
         'mensagem' => 'Preencha todos os campos'
@@ -26,13 +27,12 @@ if (empty($nome) || empty($email) || empty($senha)) {
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $retorno = [
         'status' => 'nok', 
-        'mensagem' => 'Email invalido'
+        'mensagem' => 'email invalido'
         ];
     echo json_encode($retorno);
     exit;
 }
 
-$senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
 // Verifica se já existe
 $checandoEmail = $conexao->prepare('SELECT * FROM funcionario WHERE email = ?');
