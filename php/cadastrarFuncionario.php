@@ -14,7 +14,7 @@ $email = $_POST['email'] ?? '';
 $senha = $_POST['senha'] ?? '';
 $eAdm = isset($_POST['eAdm']) ?? '';
 
-if (empty($nome) || empty($email) || empty($senha) || empty($eAdm)) {
+if (empty($nome) || empty($email) || empty($senha)) {
     $retorno = [
         'status' => 'nok', 
         'mensagem' => 'Preencha todos os campos'
