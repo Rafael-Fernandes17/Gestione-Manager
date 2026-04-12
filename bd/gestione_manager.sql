@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS gestione_maganer;
-CREATE DATABASE gestione_maganer;
-USE gestione_maganer;
+DROP DATABASE IF EXISTS gestione_manager;
+CREATE DATABASE gestione_manager;
+USE gestione_manager;
 
 CREATE TABLE produtosCardapio (
 id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -27,8 +27,6 @@ CREATE TABLE funcionario (
 id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 nome VARCHAR(50) NOT NULL,
 email VARCHAR(40) NOT NULL,
-senha CHAR(8) NOT NULL
-);
-
-CREATE TABLE comanda (
+senha CHAR(8) NOT NULL,
+eAdm BOOLEAN DEFAULT FALSE
 );
