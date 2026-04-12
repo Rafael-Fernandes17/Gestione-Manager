@@ -1,1 +1,0 @@
-SELECT * FROM gestione_maganer.funcionario;
