@@ -12,7 +12,6 @@ function exibirSenha() {
     }
 }
 
-// js/cliente_login.js
 document.getElementById('botaoEnviar').addEventListener('click', (e) => {
     login(e);
 });
@@ -30,18 +29,13 @@ async function login(e) {
     });
     const resposta = await perguntaAoPHP.json();
 
-    if (resposta.status == 'ok' && resposta.funcionario['eAdm'] == true) {
-        window.location.href = '../index.html';
-        window.location.reload();
-    } else if (resposta.status == 'ok' && resposta.funcionario['eAdm'] == false) {
-        window.location.href = '../indexFuncionario.html';
-        window.location.reload();
-    }  
-    else if(resposta.status == 'nok') {
-        if(resposta.mensagem.toLowerCase() == 'senha invalida') {
-            alert('Senha inválida');
-            return;
+    if(resposta.status == 'ok') {
+        if(resposta.data.eAdm == true || resposta.data.eAdm == 1) {
+            window.location.href = '../index.html';
+        } else if(resposta.data.eAdm == false || resposta.data.eAdm == 0) {
+            window.location.href = '../indexFuncionario.html';
         }
-        alert('Email não cadastrado!');
+    } else if(resposta.status == 'nok') {
+        alert("Credenciais Inválidas!");
     }
 }

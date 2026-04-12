@@ -4,39 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../img/logo.jpeg">
-    <title>Cadastrar Produto para o Cardápio</title>
+    <link rel="stylesheet" href="../css/criandoProdutosCardapio.css">
+    <title>Cadastrar Produto</title>
 </head>
 <body>
-    <h1>Cadastrar Produto para o Cardápio</h1>
 
-    <form action="../php/createProdutoCardapio.php" method="post">
-        <label for="nomeProdutoCardapio">Nome do Produto:</label>
-        <input type="text" id="nomeProdutoCardapio" name="nomeProdutoCardapio" required>
+    <header>
+        <a href="../php/login.html" class="logo">
+            <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
+            <span>Gestione Manager</span>
+        </a>
 
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao"></textarea>
+        <nav>
+            <a href="../php/home.php">HOME</a>
+            <a href="../php/dashboardGerente.php">DASHBOARD</a>
+            <a href="../php/caixa.php">CAIXA</a>
+            <a href="../php/estoque.php">ESTOQUE</a>
+            <a href="../php/readProdutoCardapio.php">PRODUTOS</a>
+            <a href="../php/finaceiro.php">FINANCEIRO</a>
+            <a href="../php/relatorioGerente.php">RELATÓRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+        </nav>
+    </header>
+    
+    
+    <div class="form-container">
+        <h1>Cadastrar Produto para o Cardápio</h1>
 
-        <label for="tempoPreparo">Tempo de Preparo:</label>
-        <input type="text" id="tempoPreparo" name="tempoPreparo" required>
+        <form action="../php/createProdutoCardapio.php" method="post" enctype="multipart/form-data"> 
+            
+            <label for="nomeProdutoCardapio">Nome do Produto:</label> 
+            <input type="text" id="nomeProdutoCardapio" name="nomeProdutoCardapio" required>
 
-        <label for="preco">Preço:</label>
-        <input type="number" id="preco" name="preco" step="0.01" required>
+            <label for="descricao">Descrição:</label> 
+            <textarea id="descricao" name="descricao" required></textarea>
+            
+            <label for="categoria">Categoria:</label>  
+            <select id="categoria" name="categoria" required> 
+                <option value="">Selecione</option> 
+                <option value="Entradas">Entradas</option> 
+                <option value="Pratos Principais">Pratos Principais</option> 
+                <option value="Bebidas">Bebidas</option> 
+                <option value="Sobremesas">Sobremesas</option> 
+            </select> 
 
-        <label for="tipoMedida">Tipo de Medida:</label>
-        <select id="tipoMedida" name="tipoMedida">
-            <option value="kg">Quilograma</option>
-            <option value="g">Gramas</option>
-            <option value="l">Litros</option>
-            <option value="ml">Mililitros</option>
-        </select>
+            <label for="tempoPreparo">Tempo de Preparo:</label> 
+            <input type="time" id="tempoPreparo" name="tempoPreparo" required>
 
-        <label for="status">Status:</label>
-        <select id="status" name="status">
-            <option value="disponivel">Disponível</option>
-            <option value="indisponivel">Indisponível</option>
-        </select>
+            <label for="preco">Preço:</label>  
+            <input type="number" id="preco" name="preco" step="0.01" required> 
 
-        <button type="submit">Cadastrar Produto</button>
-    </form>
+            <label for="quantidade">Quantidade:</label> 
+            <input type="number" id="quantidade" name="quantidade" required> 
+
+            <label for="tipoMedida">Tipo de Medida:</label>  
+            <select id="tipoMedida" name="tipoMedida" required> 
+                <option value="">Selecione</option> 
+                <option value="GM">Gramas</option> 
+                <option value="ML">Mililitros</option> 
+                <option value="L">Litros</option> 
+            </select> 
+
+            <label for="imagem">Imagem do Produto:</label> 
+            <input type="file" id="imagem" name="imagem" accept="image/*" required>
+
+            <label for="statusProdutos">Status:</label>          
+            <select id="statusProdutos" name="statusProdutos" required> 
+                <option value="">Selecione</option> 
+                <option value="Disponível">Disponível</option> 
+                <option value="Indisponível">Indisponível</option> 
+            </select> 
+
+            <button class="submit-btn" type="submit">Cadastrar Produto</button> 
+        </form>
+    </div>
 </body>
 </html>
