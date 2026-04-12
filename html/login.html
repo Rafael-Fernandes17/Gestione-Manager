@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/login.css">
     <title>Login</title>
 </head>
@@ -16,15 +17,19 @@
             </div>
 
             <form>
-                <input type="email" name="email" placeholder="E-mail" id="email" required>
-
-                <div id="caixaOlhinho">
-                    <input type="password" name="senha" placeholder="Senha" id="senha" required>
-                    <span id="olhinho">
-                        <img src="../img/olhinhoFechado.png" id="imagemOlhinho" role="button" tabindex="0" onclick="exibirSenha()">
-                    </span>
+                <div class="caixa-organizadora">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" placeholder="E-mail" id="email" required>
                 </div>
-                <button type="submit" id="botaoEnviar">Entrar</button>
+                    
+                <div class="caixa-organizadora">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="senha" placeholder="Senha" id="senha" required>
+                </div>
+                
+                <div class="caixa-organizadora">
+                    <button type="submit" id="botaoEnviar">Entrar</button>
+                </div>
             </form>
         </div>
     </main>
