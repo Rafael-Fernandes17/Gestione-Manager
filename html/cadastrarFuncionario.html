@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Manager - Cadastro</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/cadastrarFuncionario.css">
+</head>
+
+<body>
+
+    <header>Cadastro de Funcionários</header>
+    <nav>
+        <div class="botoes-navegacao"> <a href="../index.html">Home</a></div>
+        <div class="botoes-navegacao"> <a href="../html/cadastroItens.html">Estoque</a></div> 
+        <div class="botoes-navegacao"> <a href="../html/criandoProdutoCardapio.html">Cadastrar Cardápio</a></div> 
+    </nav>
+
+    <main>
+        <form id="form">
+            <div class="caixa-organizadora">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" name="nome" placeholder="Nome" id="nome" required>
+            </div>
+
+            <div class="caixa-organizadora">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" name="email" placeholder="E-mail" required>
+            </div>
+
+            <div class="caixa-organizadora">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="senha" placeholder="Senha" required>
+            </div>
+
+            <div class="caixa-organizadora" id="caixa-adm">
+                <input type="checkbox" name="eAdm" placeholder="eAdm" id="eAdm" required> <p>O funcionário a ser cadastrado possuirá 
+                    permissões de administrador.</p>
+            </div>
+            
+            <div class="caixa-organizadora">
+                <button type="submit">CADASTRAR</button>
+            </div>
+        </form>
+    </main>
+
+    </div>
+ <script src="../js/cadastrarFuncionario.js"></script>
+</body>
+</html>
