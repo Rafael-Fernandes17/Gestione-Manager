@@ -11,38 +11,42 @@
 
 <body>
 
-    <div class="container">
-        <nav>
-            
-        </nav>
+    <header>Cadastro de Funcionários</header>
+    <nav>
+        <div class="botoes-navegacao"> <a href="../index.html">Home</a></div>
+        <div class="botoes-navegacao"> <a href="../html/cadastroItens.html">Estoque</a></div> 
+        <div class="botoes-navegacao"> <a href="../html/criandoProdutoCardapio.html">Cadastrar Cardápio</a></div> 
+    </nav>
 
-
-        <form action="../php/cadastrarFuncionario.php" method="POST">
-
-            <div class="caixa-input">
+    <main>
+        <form id="form">
+            <div class="caixa-organizadora">
                 <i class="fa-solid fa-user"></i>
-                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="nome" placeholder="Nome" id="nome" required>
             </div>
 
-            <div class="caixa-input">
+            <div class="caixa-organizadora">
                 <i class="fa-solid fa-envelope"></i>
                 <input type="email" name="email" placeholder="E-mail" required>
             </div>
 
-            <div class="caixa-input">
+            <div class="caixa-organizadora">
                 <i class="fa-solid fa-lock"></i>
                 <input type="password" name="senha" placeholder="Senha" required>
             </div>
 
-            <div class="caixa-input" id="caixa-adm">
+            <div class="caixa-organizadora" id="caixa-adm">
                 <input type="checkbox" name="eAdm" placeholder="eAdm" id="eAdm" required> <p>O funcionário a ser cadastrado possuirá 
-                    permissões de administrador?</p>
+                    permissões de administrador.</p>
             </div>
-
-            <button type="submit">CADASTRAR</button>
-        </div>
+            
+            <div class="caixa-organizadora">
+                <button type="submit">CADASTRAR</button>
+            </div>
+        </form>
+    </main>
 
     </div>
-
+ <script src="../js/cadastrarFuncionario.js"></script>
 </body>
 </html>
