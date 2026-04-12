@@ -12,6 +12,7 @@ form.addEventListener('submit', async function(e) {
             method: "POST",
             body: dadosDoForm // Aqui os dados do HTML estão indo para o PHP
         });
+    
 
         // 5. O PHP responde, e o JS lê essa resposta
         const resposta = await perguntaAoPHP.json();
@@ -19,10 +20,10 @@ form.addEventListener('submit', async function(e) {
         // 6. O JS age conforme o que o PHP disse
         if (resposta.mensagem.toLowerCase() == "email repetido") {
             alert("Este e-mail já está cadastrado!");
-        } else if (resposta.mensagem.toLowerCase() === "Preencha todos os campos") {
+        } else if (resposta.mensagem.toLowerCase() === "preencha todos os campos") {
             alert("Preencha todos os campos!");
         } else if (resposta.mensagem.toLowerCase() === "email invalido") {
-            alert("E-mail inválido!");
+            alert("E-mail inválido!"); 
         }  else if(resposta.status.toLowerCase() == 'nok') {
             alert("Erro ao cadastra, tente novamente.");
         } else if(resposta.status.toLowerCase() == 'ok') {
