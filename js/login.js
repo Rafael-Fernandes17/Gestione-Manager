@@ -13,28 +13,35 @@ function exibirSenha() {
 }
 
 // js/cliente_login.js
-document.getElementById('botaoEnviar').addEventListener('click', () => {
-    login();
+document.getElementById('botaoEnviar').addEventListener('click', (e) => {
+    login(e);
 });
 
-async function login() {
+async function login(e) {
+    e.preventDefault();
+
     const dadosFormulario = new FormData();
     dadosFormulario.append('email', document.getElementById('email').value);
     dadosFormulario.append('senha', document.getElementById('senha').value);
 
-    const retorno = await fetch('../php/login.php', {
+    const perguntaAoPHP = await fetch('../php/login.php', {
         method: 'POST',
         body: dadosFormulario
     });
-    const resposta = await retorno.json();
+    const resposta = await perguntaAoPHP.json();
 
-    if (resposta.status == 'ok') {
+    if (resposta.status == 'ok' && resposta.funcionario['eAdm'] == true) {
         window.location.href = '../index.html';
-    } else if(resposta.status == 'nok') {
-        if(resposta.mensagem.trim().Uppercase() == 'senha invalida') {
+        window.location.reload();
+    } else if (resposta.status == 'ok' && resposta.funcionario['eAdm'] == false) {
+        window.location.href = '../indexFuncionario.html';
+        window.location.reload();
+    }  
+    else if(resposta.status == 'nok') {
+        if(resposta.mensagem.toLowerCase() == 'senha invalida') {
             alert('Senha inválida');
             return;
         }
-        alert('Email não cadastrado');
+        alert('Email não cadastrado!');
     }
 }

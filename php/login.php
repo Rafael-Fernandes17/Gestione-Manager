@@ -1,6 +1,7 @@
 <?php // php/cliente_login.php
     include_once('conexao.php');
 
+    header('Content-type: application/json; charset=utf-8');
     $retorno = [
         'status' => '', 
         'mensagem' => '', 
@@ -8,9 +9,8 @@
         ];
 
     $stmt = $conexao->prepare(
-        'SELECT * FROM cliente WHERE email = ?'
+        'SELECT * FROM funcionario WHERE email = ?'
     );
-
     
 $stmt->bind_param('s', $_POST['email']);
 $stmt->execute();
@@ -40,11 +40,10 @@ if ($resultadoDaConsulta->num_rows > 0) {
     }
 } else {
     $retorno['status'] = 'nok';
-    $retorno['mensagem'] = 'Email inválido';
+    $retorno['mensagem'] = 'Email invalido';
 }
 
 
 $stmt->close();
 $conexao->close();
-header('Content-type: application/json; charset=utf-8');
 echo json_encode($retorno);
