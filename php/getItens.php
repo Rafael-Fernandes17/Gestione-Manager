@@ -13,7 +13,6 @@ if (!$conn) {
     die('Erro na conexão: ' . mysqli_connect_error());
 }
 
-// 1. Busca os dados atuais
 $sql = "SELECT * FROM itensestoque WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
@@ -27,10 +26,8 @@ if ($result->num_rows === 0) {
 $item = $result->fetch_assoc();
 $stmt->close();
 
-// 2. Processa a atualização
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // IMPORTANTÍSSIMO: Os nomes aqui devem ser IGUAIS ao 'name' no HTML abaixo
     $nomeItemPost = $_POST["nomeItem"] ?? '';
     $categoriaPost = $_POST["categoria"] ?? '';
     $tipoMedidaPost = $_POST["tipoMedida"] ?? '';
@@ -52,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("Erro no prepare: " . $conn->error);
         }
 
-        // sssdi: string, string, string, double, integer
         $stmt_update->bind_param(
             "sssdi", 
             $nomeItemPost,
@@ -89,8 +85,6 @@ $conn->close();
     <link rel="stylesheet" href="../css/editProdutosCardapio.css">
 </head>
 <body>
-<div class="container">
-
 <header>
         <a href="logout.php" class="logo">
             <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
@@ -109,6 +103,8 @@ $conn->close();
             <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
+
+<div class="container">
     <div class="form-card">
         <h2>Editar Item</h2>
 

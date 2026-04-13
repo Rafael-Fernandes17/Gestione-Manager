@@ -3,8 +3,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 session_start();
 include_once('verificaAdm.php');
-
-    include_once('conexao.php');
+include_once('conexao.php');
 
     header('Content-Type: application/json; charset=utf-8');
 

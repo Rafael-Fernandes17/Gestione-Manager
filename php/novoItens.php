@@ -11,7 +11,7 @@ if(!isset($_POST['nome'], $_POST['quantidade'], $_POST['unidade'])){
 $nome = $_POST['nome'];
 $quantidade = (int) $_POST['quantidade'];
 $unidade = $_POST['unidade'];
-$categoria = $_POST["categoria"]; // Valor padrão para o campo obrigatório do seu banco
+$categoria = $_POST["categoria"];
 
 if($quantidade <= 0){
     echo json_encode(['status' => 'nok', 'mensagem' => 'Quantidade deve ser maior que 0']);
@@ -19,11 +19,9 @@ if($quantidade <= 0){
 }
 
 
-// ingrediente_novo.php
-// Ajustado para a tabela 'itensEstoque' e colunas: nomeItem, tipoMedida, quantidadeUnitaria, categoria
 $stmt = $conexao->prepare("INSERT INTO itensestoque (nomeItem, tipoMedida, quantidadeUnitaria, categoria) VALUES (?, ?, ?, ?)");
 
-// "ssis" -> nome(s), unidade(s), quantidade(i), categoria(s)
+
 $stmt->bind_param("ssds", $nome, $unidade, $quantidade, $categoria);
 $stmt->execute();
 

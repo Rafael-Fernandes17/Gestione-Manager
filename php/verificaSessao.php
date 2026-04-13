@@ -4,18 +4,18 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['usuario'])) {
-    // Verificamos se a requisição é do JavaScript (AJAX/Fetch)
-    $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    // Verifica se a requisição veio do seu JavaScript (Fetch) pedindo JSON
     $wantsJson = isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 
-    if ($isAjax || $wantsJson) {
-        // Se for JS, mandamos JSON e PARAMOS (exit)
+    if ($wantsJson) {
+        // Cenário 2: É o JavaScript pedindo! Mandamos o JSON para ele não quebrar.
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(['status' => 'nok', 'mensagem' => 'sessao_invalida']);
+        echo json_encode(['status' => 'erro', 'mensagem' => 'sessao_invalida']);
         exit; 
     } else {
-        // Se for acesso direto pela barra de endereço, REDIRECIONAMOS
-        header("Location: ../html/login.html");
+        // Cenário 1: É o usuário tentando acessar a página direto na URL. Redirecionamos!
+        header("Location: ../html/login.html"); // (Ajuste o caminho se precisar)
         exit;
     }
 }
+?>

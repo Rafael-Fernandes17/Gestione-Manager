@@ -33,13 +33,7 @@ mysqli_close($conn);
 
 <body>
 
-    <header>
-        <a href="../php/logout.html" class="logo">
-            <img src="../img/logo.jpeg">
-            <span>Gestione Manager</span>
-        </a>
-
-    <header>
+     <header>
         <a href="logout.php" class="logo">
             <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
             <span>Gestione Manager</span>

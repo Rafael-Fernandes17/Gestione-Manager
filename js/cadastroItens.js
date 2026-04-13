@@ -22,9 +22,6 @@ const data = await resp.json();
 
     if (data.status === 'ok') {
         alert(data.mensagem); 
-        // Redireciona para a página que você desejar
         window.location.href = "../php/readItens.php"; 
-    } else {
-        alert("Erro: " + data.mensagem);
     }
 }   

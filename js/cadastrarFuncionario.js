@@ -3,16 +3,13 @@ const form = document.getElementById('form');
 form.addEventListener('submit', async function(e) {
     e.preventDefault(); 
 
-    // 3. O JS pega os dados que estão nos inputs do HTML
     const dadosDoForm = new FormData(this); 
 
-    // 4. O JS envia esses dados para o PHP e ESPERA a resposta
     try {
         const perguntaAoPHP = await fetch("../php/cadastrarFuncionario.php", {
             method: "POST",
             body: dadosDoForm,
             headers: {
-                // ESSAS DUAS LINHAS SÃO A CHAVE:
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
             }
@@ -20,13 +17,6 @@ form.addEventListener('submit', async function(e) {
     
 
         const resposta = await perguntaAoPHP.json();
-
-        // 1. Tratamento de Sessão (Prioridade máxima)
-        if (resposta.mensagem === 'sessao_invalida' || resposta.status === 'sessao_invalida') {
-            alert("Sua sessão expirou!");
-            window.location.href = "../html/login.html";
-            return; // Para o código aqui
-        }
 
 
         // 3. Uso do Optional Chaining (?.) para evitar que o JS quebre
