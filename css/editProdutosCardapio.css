@@ -1,0 +1,139 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    display: flex;
+    text-align: center;
+    padding: 5px;
+    justify-content: space-between;
+    background-color: #5f0608;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5em;
+  color: #d19035;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 120px;
+  width: auto;
+}
+
+.logo:hover {
+  color: #000;
+}
+
+nav {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: #d19035;
+  font-size: 0.95em;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: #ffffff;
+}
+
+.logout-btn {
+    margin-left: 20px;
+    background-color: transparent;
+    color: #d19035;
+    border: 2px solid #d19035;
+    border-radius: 10px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #d19035;
+    color: #530606;
+    border:#d19035;
+}
+
+.logout {
+  margin: 15px 20px;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+
+
+.form-card {
+    background-color: #ffffff;
+    width: 420px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+}
+
+
+.form-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #7b0000;
+}
+
+
+.form-card label {
+    font-size: 13px;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+
+.form-card input,
+.form-card textarea,
+.form-card select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+
+.form-card textarea {
+    resize: none;
+    height: 80px;
+}
+
+
+.form-card button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #7b0000;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-card button:hover {
+    background-color: #a00000;
+}
