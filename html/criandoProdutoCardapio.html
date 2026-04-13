@@ -10,20 +10,21 @@
 <body>
 
     <header>
-        <a href="../php/login.html" class="logo">
+        <a href="../php/logout.php" class="logo">
             <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
             <span>Gestione Manager</span>
         </a>
 
         <nav>
-            <a href="../php/home.php">HOME</a>
-            <a href="../php/dashboardGerente.php">DASHBOARD</a>
-            <a href="../php/caixa.php">CAIXA</a>
-            <a href="../php/estoque.php">ESTOQUE</a>
-            <a href="../php/readProdutoCardapio.php">PRODUTOS</a>
-            <a href="../php/finaceiro.php">FINANCEIRO</a>
-            <a href="../php/relatorioGerente.php">RELATÓRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+            <a href="../indexFuncionario.php">HOME</a>
+            <a href="../php/aindaNao.php">DASHBOARD</a>
+            <a href="../php/aindaNao.php">CAIXA</a>
+            <a href="./cadastroItens.html">ESTOQUE</a>
+            <a href="criandoProdutoCardapio.html">PRODUTOS</a>
+            <a href="../php/aindaNao.php">FINANCEIRO</a>
+            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="../php/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
         </nav>
     </header>
     
@@ -78,5 +79,7 @@
             <button class="submit-btn" type="submit">Cadastrar Produto</button> 
         </form>
     </div>
+
+    <script src="../js/filtraSessao.js"></script>
 </body>
 </html>

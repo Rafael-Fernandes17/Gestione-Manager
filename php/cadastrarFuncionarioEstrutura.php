@@ -7,16 +7,29 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/cadastrarFuncionario.css">
+    <script src="../js/filtraSessaoAdm.js"></script>
 </head>
 
 <body>
 
-    <header>Cadastro de Funcionários</header>
-    <nav>
-        <div class="botoes-navegacao"> <a href="../index.html">Home</a></div>
-        <div class="botoes-navegacao"> <a href="../html/cadastroItens.html">Estoque</a></div> 
-        <div class="botoes-navegacao"> <a href="../html/criandoProdutoCardapio.html">Cadastrar Cardápio</a></div> 
-    </nav>
+    <header>
+        <a href="logout.php" class="logo">
+            <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
+            <span>Gestione Manager</span>
+        </a>
+
+        <nav>
+            <a href="../indexFuncionario.php">HOME</a>
+            <a href="aindaNao.php">DASHBOARD</a>
+            <a href="aindaNao.php">CAIXA</a>
+            <a href="../html/cadastroItens.html">ESTOQUE</a>
+            <a href="../html/criandoProdutoCardapio.html">PRODUTOS</a>
+            <a href="aindaNao.php">FINANCEIRO</a>
+            <a href="aindaNao.php">RELATÓRIOS</a>
+            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+        </nav>
+    </header>
 
     <main>
         <form id="form">

@@ -12,54 +12,93 @@ body {
     background-color: var(--bg-light);
 }
 
-.main-header {
-    background-color: var(--primary-red);
-    color: var(--white);
-    padding: 15px 40px;
+header{
     display: flex;
+    text-align: center;
+    padding: 5px;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 4px solid var(--accent-gold);
+    background-color: #5f0608;
 }
 
-.logo-section h1 {
-    margin: 0;
-    font-size: 22px;
-    letter-spacing: 3px;
-    color: var(--accent-gold);
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5em;
+  color: #d19035;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-.logo-section span {
-    font-size: 10px;
-    display: block;
-    letter-spacing: 5px;
-    color: var(--white);
+.logo img {
+  height: 120px;
+  width: auto;
 }
 
-.content {
+.logo:hover {
+  color: #000;
+}
+
+nav {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: #d19035;
+  font-size: 0.95em;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: #ffffff;
+}
+
+.logout-btn {
+    margin-left: 20px;
+    background-color: transparent;
+    color: #d19035;
+    border: 2px solid #d19035;
+    border-radius: 10px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #d19035;
+    color: #530606;
+    border:#d19035;
+}
+
+.logout {
+  margin: 15px 20px;
+  font-size: 0.9em;
+  color: #333;
+}
+
+h1{
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    padding: 40px 20px;
+    margin: 20px;
+    color: #5f0608;
+    font-style: bold;
 }
 
-.form-container {
-    background: var(--white);
-    width: 100%;
-    max-width: 700px;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+h3 {
+    text-align: center;
+    font-size: 2rem;
 }
 
-.form-header {
-    padding: 25px 40px;
-    border-bottom: 1px solid #eee;
+.form-header p {
+    margin-top: 10px;
+    text-align: center;
 }
 
-.form-header h3 {
-    margin: 0;
-    color: var(--dark-red);
-    text-transform: uppercase;
-}
 
 .form-grid {
     padding: 30px 40px;
@@ -109,7 +148,7 @@ body {
 
 .form-actions {
     padding: 25px 40px;
-    background: #fdfdfd;
+    background: #f4f1ea;
     text-align: right;
     border-radius: 0 0 12px 12px;
 }

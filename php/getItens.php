@@ -1,21 +1,139 @@
 <?php
-include_once('conexao.php');
+include_once('verificaSessao.php');
 
-header("Content-Type: application/json");
+$id = $_GET['id'] ?? null;
 
-// AJUSTADO: Nome da tabela para itensestoque
-$stmt = $conexao->prepare("SELECT * FROM itensestoque");
-$stmt->execute();
-$resultado = $stmt->get_result();
-
-$tabela = [];
-
-while($linha = $resultado->fetch_assoc()){
-    $tabela[] = $linha;
+if (!$id || !is_numeric($id)) {
+    die("<h3>ID inválido.</h3>");
 }
 
-echo json_encode([
-    'status' => 'ok',
-    'data' => $tabela
-]);
+$conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
+
+if (!$conn) {
+    die('Erro na conexão: ' . mysqli_connect_error());
+}
+
+$sql = "SELECT * FROM itensestoque WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+    die("<h3>Item não encontrado.</h3>");
+}
+
+$item = $result->fetch_assoc();
+$stmt->close();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $nomeItemPost = $_POST["nomeItem"] ?? '';
+    $categoriaPost = $_POST["categoria"] ?? '';
+    $tipoMedidaPost = $_POST["tipoMedida"] ?? '';
+    $quantidadePost = $_POST["quantidadeEstoque"] ?? '';
+
+    if (empty($nomeItemPost) || empty($categoriaPost) || empty($tipoMedidaPost) || empty($quantidadePost)) {
+        echo "<h3 style='text-align:center;color:red;'>Preencha todos os campos!</h3>";
+    } else {
+        $sql_update = "UPDATE itensestoque SET 
+            nomeItem=?,
+            tipoMedida=?,
+            categoria=?,
+            quantidadeUnitaria=? 
+            WHERE id=?";
+
+        $stmt_update = $conn->prepare($sql_update);
+
+        if (!$stmt_update) {
+            die("Erro no prepare: " . $conn->error);
+        }
+
+        $stmt_update->bind_param(
+            "sssdi", 
+            $nomeItemPost,
+            $tipoMedidaPost,
+            $categoriaPost,
+            $quantidadePost,
+            $id
+        );
+
+        if ($stmt_update->execute()) {
+            header("Location: readItens.php?status=success");
+            exit;
+        } else {
+            echo "Erro ao atualizar: " . $stmt_update->error;
+        }
+        $stmt_update->close();
+    }
+}
+
+// 3. Prepara variáveis para o formulário (dados vindos do Banco)
+$idItem = htmlspecialchars($item['id']);
+$nomeItemBD = htmlspecialchars($item['nomeItem']);
+$categoriaBD = htmlspecialchars($item['categoria']);
+$tipoMedidaBD = htmlspecialchars($item['tipoMedida']);
+$quantidadeBD = htmlspecialchars($item['quantidadeUnitaria']);
+$conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Item</title>
+    <link rel="stylesheet" href="../css/editProdutosCardapio.css">
+</head>
+<body>
+<header>
+        <a href="logout.php" class="logo">
+            <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
+            <span>Gestione Manager</span>
+        </a>
+
+        <nav>
+            <a href="../indexFuncionario.php">HOME</a>
+            <a href="aindaNao.php">DASHBOARD</a>
+            <a href="aindaNao.php">CAIXA</a>
+            <a href="../html/cadastroItens.html">ESTOQUE</a>
+            <a href="../html/criandoProdutoCardapio.html">PRODUTOS</a>
+            <a href="aindaNao.php">FINANCEIRO</a>
+            <a href="aindaNao.php">RELATÓRIOS</a>
+            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+        </nav>
+    </header>
+
+<div class="container">
+    <div class="form-card">
+        <h2>Editar Item</h2>
+
+        <form method="POST">
+            <label>ID:</label>
+            <input type="text" value="<?= $idItem ?>" disabled>
+
+            <label>Nome:</label>
+            <input type="text" name="nomeItem" value="<?= $nomeItemBD ?>" required>
+
+            <label>Categoria:</label>
+            <select name="categoria">
+                <option value="ingredientes" <?= $categoriaBD == 'ingredientes' ? 'selected' : '' ?>>Ingredientes</option>
+                <option value="bebidas" <?= $categoriaBD == 'bebidas' ? 'selected' : '' ?>>Bebidas</option>
+            </select>
+
+            <label>Quantidade:</label>
+            <input type="number" step="0.01" name="quantidadeEstoque" value="<?= $quantidadeBD ?>" required>
+
+            <label>Tipo:</label>
+            <select name="tipoMedida">
+                <option value="GM" <?= $tipoMedidaBD == 'GM' ? 'selected' : '' ?>>GM</option>
+                <option value="ML" <?= $tipoMedidaBD == 'ML' ? 'selected' : '' ?>>ML</option>
+                <option value="L" <?= $tipoMedidaBD == 'L' ? 'selected' : '' ?>>L</option>
+            </select>
+
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

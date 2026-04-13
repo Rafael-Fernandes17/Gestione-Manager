@@ -1,4 +1,6 @@
 <?php
+include_once('verificaSessao.php');
+
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
 
 if (!$conn) {
