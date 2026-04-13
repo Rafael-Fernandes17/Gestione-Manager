@@ -80,11 +80,15 @@ mysqli_close($conn);
                         <td>R$ <?= $p['preco'] ?></td>
 
                         <td>
-                            <?php if (!empty($p['imagem'])): ?>
-                                <img src="data:image/jpeg;base64,<?= base64_encode($p['imagem']) ?>" width="80">
-                            <?php else: ?>
-                                Sem imagem
-                            <?php endif; ?>
+                            <?php
+                            if (!empty($p['imagem'])) {
+                                $finfo = new finfo(FILEINFO_MIME_TYPE);
+                                $mime = $finfo->buffer($p['imagem']);
+                                echo '<img src="data:' . $mime . ';base64,' . base64_encode($p['imagem']) . '" width="80">';
+                            } else {
+                                echo "Sem imagem";
+                            }
+                            ?>
                         </td>
 
                         <td><?= $p['tipoMedida'] ?></td>
@@ -93,22 +97,22 @@ mysqli_close($conn);
 
                         <td class="acoes">
                             <button class="btn-editar"
-                                onclick="window.location.href='editarProduto.php?id=<?= $p['id'] ?>'">
+                                onclick="window.location.href='editProdutoCardapio.php?id=<?= $p['id'] ?>'">
                                 Alterar
                             </button>
 
                             <button class="btn-excluir"
-                                onclick="if(confirm('Tem certeza?')) window.location.href='excluirProduto.php?id=<?= $p['id'] ?>'">
+                                onclick="if(confirm('Tem certeza?')) window.location.href='deleteProdutoCardapio.php?id=<?= $p['id'] ?>'">
                                 Excluir
                             </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
 
-
             </table>
 
         <?php else: ?>
+
             <p style="text-align:center; margin-top:20px;">
                 Nenhum produto cadastrado.
             </p>
@@ -116,20 +120,20 @@ mysqli_close($conn);
             <div class="container-btn">
                 <button class="btn-cadastrar"
                     onclick="window.location.href='cadastrarProduto.php'">
-                    + Cadastrar Produto
+                    Cadastrar Produto
                 </button>
             </div>
-        <?php endif; ?>
 
+        <?php endif; ?>
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='../html/criandoProdutoCardapio.html'">
+                onclick="window.location.href='../html/criandoProdutosCardapio.html'">
                 Cadastrar Outro Produto
             </button>
         </div>
 
-        <button class="btn-visualizar"
+        <button class="btn-cadastrar"
             onclick="window.location.href='cardapio.php'">
             Visualizar Cardápio
         </button>
