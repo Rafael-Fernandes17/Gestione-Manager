@@ -1,0 +1,231 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+.logo {
+    width: 200px;   /* ajusta aqui */
+    height: 160px;
+    margin-bottom: 20px;
+}
+
+.layout {
+    display: flex;
+    height: 100vh;
+    gap: 20px; 
+    padding: 15px;
+}
+
+.sidebar {
+    width: 220px;
+    background: #7a1f2a;
+    color: white;
+    padding: 20px;
+    border-radius: 16px;
+    
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar nav button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #a8323d;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+}
+
+.sidebar nav button.active {
+    background: #c9a66b;
+    color: black;
+}
+
+.conteudo {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 16px;
+    margin-left: 10px; /* separa da sidebar */
+}
+
+header {
+    text-align: center;
+    background: #7a1f2a;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.carrinho {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    background: #f9f9f9;
+    border-left: 1px solid #ccc;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.layout.ativo .carrinho {
+    width: 320px;
+    opacity: 1;
+    padding: 15px;
+}
+
+.item-carrinho {
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.linha-carrinho {
+    display: flex;
+    justify-content: space-between;
+}
+
+.controle-qtd {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.controle-qtd button {
+    background: transparent;
+    color: #7a1f2a;
+    border: 1.5px solid #7a1f2a;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.controle-qtd button:hover {
+    background: #7a1f2a;
+    color: white;
+}
+
+#finalizar-pedido {
+    width: 100%;
+    padding: 12px;
+    background: #7a1f2a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#finalizar-pedido:hover {
+    background: #5e1720;
+}
+
+#menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 25px;
+    background-color: #f5f5f5;
+}
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.info {
+    padding: 15px;
+}
+
+.info h2 {
+    font-size: 18px;
+    color: #5f0608;
+    margin-bottom: 8px;
+}
+
+.descricao {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.preco {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d19035;
+}
+
+
+.tempo {
+    font-size: 13px;
+    color: #777;
+}
+
+
+.status {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.status.ativo {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status.inativo {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .carrinho {
+        width: 100% !important;
+        opacity: 1 !important;
+    }
+}
