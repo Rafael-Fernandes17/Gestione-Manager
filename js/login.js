@@ -30,11 +30,7 @@ async function login(e) {
     const resposta = await perguntaAoPHP.json();
 
     if(resposta.status == 'ok') {
-        if(resposta.data.eAdm == true || resposta.data.eAdm == 1) {
-            window.location.href = '../index.html';
-        } else if(resposta.data.eAdm == false || resposta.data.eAdm == 0) {
-            window.location.href = '../indexFuncionario.html';
-        }
+            window.location.href = '../indexFuncionario.php';
     } else if(resposta.status == 'nok') {
         alert("Credenciais Inválidas!");
     }

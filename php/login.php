@@ -1,6 +1,7 @@
 <?php
-    include_once('conexao.php');
     session_start();
+    
+    include_once('conexao.php');
 
     header('Content-type: application/json; charset=utf-8');
     $retorno = [
@@ -30,6 +31,7 @@ if ($resultadoDaConsulta->num_rows > 0) {
         // Criar a sessão com os dados do usuário logado
         unset($funcionario['senha']);
         $_SESSION['usuario'] = $funcionario;
+        error_log("Dados gravados na sessão: " . print_r($_SESSION['usuario'], true));
 
         $retorno['status'] = 'ok';
         $retorno['mensagem'] = 'login efetuado com sucesso';
