@@ -13,11 +13,18 @@ async function cadastrar() {
     fd.append("unidade", unidade);
 
     
-    const resp = await fetch("gestione_manager/html/php/ingrediente_novo.php", {
-        method: "POST",
-        body: fd
-    });
+    const resp = await fetch("../php/novoItens.php", {
+    method: "POST",
+    body: fd
+});
 
-    const data = await resp.json();
-    alert(data.mensagem);
-}
+const data = await resp.json(); 
+
+    if (data.status === 'ok') {
+        alert(data.mensagem); 
+        // Redireciona para a página que você desejar
+        window.location.href = "../php/readItens.php"; 
+    } else {
+        alert("Erro: " + data.mensagem);
+    }
+}   

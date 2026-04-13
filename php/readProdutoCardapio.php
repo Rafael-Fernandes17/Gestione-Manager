@@ -1,4 +1,6 @@
 <?php
+include_once('verificaSessao.php');
+
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
 
 if (!$conn) {
@@ -32,20 +34,27 @@ mysqli_close($conn);
 <body>
 
     <header>
-        <a href="../php/login.html" class="logo">
+        <a href="../php/logout.html" class="logo">
             <img src="../img/logo.jpeg">
             <span>Gestione Manager</span>
         </a>
 
+    <header>
+        <a href="logout.php" class="logo">
+            <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
+            <span>Gestione Manager</span>
+        </a>
+
         <nav>
-            <a href="../php/home.php">HOME</a>
-            <a href="../php/dashboardGerente.php">DASHBOARD</a>
-            <a href="../php/caixa.php">CAIXA</a>
-            <a href="../php/estoque.php">ESTOQUE</a>
-            <a href="../php/readProdutoCardapio.php">PRODUTOS</a>
-            <a href="../php/finaceiro.php">FINANCEIRO</a>
-            <a href="../php/relatorioGerente.php">RELATÓRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='logout.php'">Logout</button>
+            <a href="../indexFuncionario.php">HOME</a>
+            <a href="aindaNao.php">DASHBOARD</a>
+            <a href="aindaNao.php">CAIXA</a>
+            <a href="../html/cadastroItens.html">ESTOQUE</a>
+            <a href="../html/criandoProdutoCardapio.html">PRODUTOS</a>
+            <a href="aindaNao.php">FINANCEIRO</a>
+            <a href="aindaNao.php">RELATÓRIOS</a>
+            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
 
@@ -119,7 +128,7 @@ mysqli_close($conn);
 
             <div class="container-btn">
                 <button class="btn-cadastrar"
-                    onclick="window.location.href='cadastrarProduto.php'">
+                    onclick="window.location.href='../html/criandoProdutoCardapio.html'">
                     Cadastrar Produto
                 </button>
             </div>
@@ -128,7 +137,7 @@ mysqli_close($conn);
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='../html/criandoProdutosCardapio.html'">
+                onclick="window.location.href='../html/criandoProdutoCardapio.html'">
                 Cadastrar Outro Produto
             </button>
         </div>
