@@ -1,10 +1,14 @@
 <?php
+// 1. Garante que o PHP vai falar "JSON" e não HTML
+header('Content-Type: application/json; charset=utf-8');
+
 include_once('verificaSessao.php');
 
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
 
 if (!$conn) {
-    die('Erro na conexão: ' . mysqli_connect_error());
+    echo json_encode(['status' => 'nok', 'mensagem' => 'Erro na conexão: ' . mysqli_connect_error()]);
+    exit;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $preco = (float) str_replace(',', '.', $preco);
 
+    // Validação de campos vazios
     if (
         empty($nomeProdutoCardapio) ||
         empty($descricao) ||
@@ -29,19 +34,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         empty($tipoMedida) ||
         empty($statusProdutos)
     ) {
-        echo "Todos os campos obrigatórios devem ser preenchidos.";
-        exit;
+        // 2. Avisa o erro e PARA a execução com o exit
+        echo json_encode(['status' => 'nok', 'mensagem' => 'preencha todos os campos']);
+        exit; 
     }
 
+    // Validação de imagem
     if (!isset($_FILES["imagem"]) || $_FILES["imagem"]["error"] !== 0) {
-        echo "Erro ao enviar imagem.";
+        echo json_encode(['status' => 'nok', 'mensagem' => 'erro ao enviar imagem']);
         exit;
     }
 
     $imagem = file_get_contents($_FILES["imagem"]["tmp_name"]);
 
     if ($imagem === false) {
-        echo "Erro ao ler a imagem.";
+        echo json_encode(['status' => 'nok', 'mensagem' => 'erro ao ler imagem']);
         exit;
     }
 
@@ -52,7 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ");
 
     if (!$stmt) {
-        die('Erro no prepare: ' . $conn->error);
+        echo json_encode(['status' => 'nok', 'mensagem' => 'erro no prepare']);
+        exit;
     }
 
     $stmt->bind_param("ssssdsiss",
@@ -67,15 +75,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $statusProdutos
     );
 
+    // 3. Devolvemos JSON de SUCESSO ao invés de redirecionar!
     if ($stmt->execute()) {
-        header("Location: readProdutoCardapio.php");
-        exit;
+        $retorno = [
+            'status' => 'ok',
+            'mensagem' => 'Produto cadastrado com sucesso!'
+        ];
     } else {
-        echo "Erro ao cadastrar produto: " . $stmt->error;
+        $retorno = [
+            'status' => 'nok',
+            'mensagem' => 'erro ao cadastrar produto'
+        ];
     }
 
     $stmt->close();
+    
+    echo json_encode($retorno);
 }
-
 $conn->close();
 ?>

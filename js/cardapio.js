@@ -24,4 +24,4 @@ botoes.forEach(botao => {
 });
 
 
-document.querySelector(".active").click();
+document.querySelector(".active")?.click();

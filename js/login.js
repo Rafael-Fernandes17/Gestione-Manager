@@ -25,7 +25,8 @@ async function login(e) {
 
     const perguntaAoPHP = await fetch('../php/login.php', {
         method: 'POST',
-        body: dadosFormulario
+        body: dadosFormulario,
+        headers: { 'Accept': 'application/json'}
     });
     const resposta = await perguntaAoPHP.json();
 

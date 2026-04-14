@@ -27,7 +27,6 @@ mysqli_close($conn);
     <title>Gestione</title>
     <link rel="icon" type="image/png" href="../img/logo.jpeg">
     <link rel="stylesheet" href="../css/cardapio.css">
-    <script src="../js/cardapio.js"></script>
 </head>
 
 <body>
@@ -36,7 +35,7 @@ mysqli_close($conn);
 
     
     <aside class="sidebar">
-        <img src="../imagens/Logo1.png" alt="Logo" class="logo">
+        <img src="../img/Logo1.png" alt="Logo" class="logo">
 
         <nav>
             <button data-categoria="entradas">Entradas</button>
@@ -101,6 +100,6 @@ mysqli_close($conn);
 
 </div>
 
-
+<script src="../js/cardapio.js"></script>
 </body>
 </html>
