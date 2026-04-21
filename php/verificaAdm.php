@@ -1,20 +1,22 @@
 <?php
-include_once('verificaSessao.php');
+// 1. Chama o porteiro primeiro. Se não tiver sessão, o PHP morre lá dentro e redireciona.
+require_once 'verificaSessao.php'; 
 
+$usuario = $_SESSION['usuario'];
+$eAdm = isset($usuario['eAdm']) ? (int)$usuario['eAdm'] : 0;
+$isFetch = (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest');
 
-$eAdm = isset($_SESSION['usuario']['eAdm']) ? (int)$_SESSION['usuario']['eAdm'] : 0;
-
-if ($eAdm === 1) {
-    return; 
-} else {
-    $isJson = (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
-
-    if ($isJson) {
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(['status' => 'nok', 'eAdm' => 'nok']);
-        exit;
-    } else {
-        echo json_encode(['status' => 'nok', 'eAdm' => 'nok']);
+if ($eAdm !== 1) {
+    if ($isFetch) {
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'nok', 'mensagem' => 'sem_permissao']);
         exit;
     }
+    return;
+}
+
+if ($isFetch) {
+    header('Content-Type: application/json');
+    echo json_encode(['status' => 'ok', 'eAdm' => 'ok']);
+    exit;
 }

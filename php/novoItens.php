@@ -1,5 +1,5 @@
 <?php
-include_once('verificaSessao.php');
+require_once 'verificaSessao.php';
 include_once('conexao.php');
 
 // O formulário continua enviando 'nome', 'quantidade' e 'unidade'

@@ -1,5 +1,5 @@
 <?php
-include_once('verificaSessao.php');
+require_once 'verificaSessao.php';
 
 $id = $_GET['id'] ?? null;
 
@@ -95,11 +95,11 @@ $conn->close();
             <a href="../indexFuncionario.php">HOME</a>
             <a href="aindaNao.php">DASHBOARD</a>
             <a href="aindaNao.php">CAIXA</a>
-            <a href="../html/cadastroItens.html">ESTOQUE</a>
-            <a href="../html/criandoProdutoCardapio.html">PRODUTOS</a>
+            <a href="../view/cadastroItens.php">ESTOQUE</a>
+            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
             <a href="aindaNao.php">FINANCEIRO</a>
             <a href="aindaNao.php">RELATÓRIOS</a>
-            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="../view/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>

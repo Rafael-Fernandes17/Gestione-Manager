@@ -1,9 +1,12 @@
-
 (async function verificarAcessoPagina() {
     try {
         const resposta = await fetch('../php/verificaAdm.php', {
-            headers: { 'Accept': 'application/json' }
+            headers: { 
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest' // Este é o sinal para o PHP
+            }
         });
+
         const dados = await resposta.json();
 
         if (dados.eAdm !== 'ok') {

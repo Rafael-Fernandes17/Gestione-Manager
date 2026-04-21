@@ -1,3 +1,7 @@
+<?php
+    require_once '../php/verificaSessao.php'
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +23,11 @@
             <a href="../indexFuncionario.php">HOME</a>
             <a href="../php/aindaNao.php">DASHBOARD</a>
             <a href="../php/aindaNao.php">CAIXA</a>
-            <a href="./cadastroItens.html">ESTOQUE</a>
-            <a href="criandoProdutoCardapio.html">PRODUTOS</a>
+            <a href="cadastroItens.php">ESTOQUE</a>
+            <a href="criandoProdutoCardapio.php">PRODUTOS</a>
             <a href="../php/aindaNao.php">FINANCEIRO</a>
             <a href="../php/aindaNao.php">RELATÓRIOS</a>
-            <a href="../php/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
         </nav>
     </header>
@@ -76,11 +80,11 @@
                 <option value="Indisponível">Indisponível</option> 
             </select> 
 
-            <button class="submit-btn" type="submit">Cadastrar Produto</button> 
+            <button class="submit-btn" type="submit" id="botao">Cadastrar Produto</button> 
         </form>
     </div>
 
-    <script src="../js/filtraSessao.js"></script>
-    <script src="../js/createProdutoCardapio.js"></script>
+    <script src="../js/filtraSessao.js" defer></script>
+    <script src="../js/createProdutoCardapio.js" defer></script>
 </body>
 </html>

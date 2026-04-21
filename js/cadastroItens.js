@@ -1,4 +1,11 @@
 async function cadastrar() {
+
+    const sessaoEstaAtiva = await verificarSessao();
+
+    if (!sessaoEstaAtiva) {
+        return; 
+    }
+    
     let nome = document.getElementById("nome").value;
     let categoria = document.getElementById("categoria").value;
     let quantidade = document.getElementById("quantidade").value;

@@ -1,25 +1,38 @@
 <?php
+// verificaSessao.php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$retorno = [
-    'status' => '',
-    'mensagem' => ''
-];
+$wantsJson = isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 
 if (!isset($_SESSION['usuario'])) {
-    // Verifica se a requisição veio do seu JavaScript (Fetch) pedindo JSON
-    $wantsJson = isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
-
     if ($wantsJson) {
-        // Cenário 2: É o JavaScript pedindo! Mandamos o JSON para ele não quebrar.
+        // Se o JS pediu, mandamos o erro em JSON
         header('Content-Type: application/json; charset=utf-8');
-        $retorno = ['status' => 'nok', 'mensagem' => 'sessao_invalida'];
-        exit; 
+        echo json_encode(['status' => 'nok', 'mensagem' => 'Sessão expirada']);
+        exit;
     } else {
-        // Cenário 1: É o usuário tentando acessar a página direto na URL. Redirecionamos!
-        $retorno = ['status' => 'nok', 'mensagem' => 'fora'];
+        $host = $_SERVER['HTTP_HOST']; 
+        
+        $pasta = '/Gestione-Manager'; 
+        
+        $url_login = "http://" . $host . $pasta . "/html/login.html";
+        
+        header("Location: $url_login");
+        exit;
     }
 }
-?>
+
+if (isset($soVerifica) && $soVerifica === true) {
+    return; // Apenas volta para o arquivo que chamou, sem dar echo nem exit
+}
+
+if ($wantsJson) {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['status' => 'ok', 'mensagem' => 'Sessão ativa']);
+    exit;
+} 
+
+// Se NÃO for JSON (ou seja, é um include no topo da página), 
+// o PHP não faz NENHUM echo. Ele apenas termina e deixa o HTML carregar.

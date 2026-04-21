@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+    $soVerificaAdm = true;
+    require_once '../php/verificaAdm.php'
+?>
+
+<?php if ($eAdm === 1): ?>
+        <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +19,7 @@
 <body>
 
     <header>
-        <a href="logout.php" class="logo">
+        <a href="../php/logout.php" class="logo">
             <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
             <span>Gestione Manager</span>
         </a>
@@ -27,7 +33,7 @@
             <a href="aindaNao.php">FINANCEIRO</a>
             <a href="aindaNao.php">RELATÓRIOS</a>
             <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
         </nav>
     </header>
 
@@ -63,3 +69,10 @@
  <script src="../js/cadastrarFuncionario.js"></script>
 </body>
 </html>
+
+<?php else: ?>
+    <div id="carregando"></div>
+
+    <script src="../js/filtraSessaoAdm.js"></script>
+<?php endif; ?>
+

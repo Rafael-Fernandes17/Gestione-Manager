@@ -1,3 +1,7 @@
+<?php
+    require_once '../php/verificaSessao.php'
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -25,7 +29,7 @@
             <a href="criandoProdutoCardapio.html">PRODUTOS</a>
             <a href="../php/aindaNao.php">FINANCEIRO</a>
             <a href="../php/aindaNao.php">RELATÓRIOS</a>
-            <a href="../php/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
         </nav>
     </header>
@@ -85,8 +89,8 @@
     </main>
 </div>
 
+<script src="../js/filtraSessao.js" defer></script>
 <script src="../js/cadastroItens.js" defer></script>
-<script src="../js/filtraSessao.js"></script>
 
 </body>
 </html>

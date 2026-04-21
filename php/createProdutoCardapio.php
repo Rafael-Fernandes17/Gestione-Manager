@@ -2,7 +2,7 @@
 // 1. Garante que o PHP vai falar "JSON" e não HTML
 header('Content-Type: application/json; charset=utf-8');
 
-include_once('verificaSessao.php');
+require_once 'verificaSessao.php';
 
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
 

@@ -1,11 +1,10 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+$soVerificaAdm = true;
 
-session_start();
-include_once('verificaAdm.php');
+require_once 'verificaAdm.php';
 include_once('conexao.php');
 
-    header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json; charset=utf-8');
 
     $retorno = [
         'status' => '',
@@ -16,7 +15,7 @@ include_once('conexao.php');
 $nome = $_POST['nome'] ?? '';
 $email = $_POST['email'] ?? '';
 $senha = $_POST['senha'] ?? '';
-$eAdm = isset($_POST['eAdm']) ?? '';
+$eAdm = isset($_POST['eAdm']) ? 1 : 0;
 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
 if (empty($nome) || empty($email) || empty($senha_hash)) {

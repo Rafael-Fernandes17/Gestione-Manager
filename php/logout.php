@@ -1,4 +1,6 @@
 <?php
+include_once('verificaSessao.php');
+
 session_start();
 
 // 1. Limpa todas as variáveis da memória
