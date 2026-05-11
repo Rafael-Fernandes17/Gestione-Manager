@@ -29,6 +29,13 @@ mysqli_close($conn);
     <title>Itens de Estoque</title>
     <link rel="icon" type="image/png" href="../img/logo.jpeg">
     <link rel="stylesheet" href="../css/readProdutosCardapio.css">
+    <style>
+        /* Estilos para manter o layout consistente */
+        .acoes {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -59,37 +66,39 @@ mysqli_close($conn);
         <?php if (count($itensestoque) > 0): ?>
 
             <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Tipo Medida</th>
-                    <th>Quantidade</th>
-                    <th>Categoria</th>
-                </tr>
-
-                <?php foreach ($itensestoque as $t): ?>
+                <thead>
                     <tr>
-                        <td><?= $t['id'] ?></td>
-                        <td><?= $t['nomeItem'] ?></td>
-                        <td><?= $t['tipoMedida'] ?></td>
-                        <td><?= $t['quantidadeUnitaria'] ?></td>
-                        <td><?= $t['categoria'] ?></td>
-
-
-                        <td class="acoes">
-                            <button class="btn-editar"
-                                onclick="window.location.href='getItens.php?id=<?= $t['id'] ?>'">
-                                Alterar
-                            </button>
-
-                            <button class="btn-excluir"
-                                onclick="if(confirm('Tem certeza?')) window.location.href='excluirItens.php?id=<?= $t['id'] ?>'">
-                                Excluir
-                            </button>
-                        </td>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Tipo Medida</th>
+                        <th>Quantidade</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
                     </tr>
-                <?php endforeach; ?>
+                </thead>
+                <tbody>
+                    <?php foreach ($itensestoque as $t): ?>
+                        <tr id="item-<?= $t['id'] ?>">
+                            <td><?= $t['id'] ?></td>
+                            <td><?= $t['nomeItem'] ?></td>
+                            <td><?= $t['tipoMedida'] ?></td>
+                            <td><?= $t['quantidadeUnitaria'] ?></td>
+                            <td><?= $t['categoria'] ?></td>
 
+                            <td class="acoes">
+                                <button class="btn-editar"
+                                    onclick="window.location.href='getItens.php?id=<?= $t['id'] ?>'">
+                                    Alterar
+                                </button>
+
+                                <button class="btn-excluir"
+                                    onclick="excluirItem(<?= $t['id'] ?>)">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
             </table>
 
         <?php else: ?>
@@ -100,7 +109,7 @@ mysqli_close($conn);
 
             <div class="container-btn">
                 <button class="btn-cadastrar"
-                    onclick="window.location.href='../html/cadastroItens'">
+                    onclick="window.location.href='../html/cadastroItens.html'">
                     Cadastrar Item
                 </button>
             </div>
@@ -109,11 +118,40 @@ mysqli_close($conn);
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='../html/cadastroItens'">
+                onclick="window.location.href='../html/cadastroItens.html'">
                 Cadastrar Outro Item
             </button>
         </div>
     </div>
+
+    <script>
+        async function excluirItem(id) {
+            if (confirm('Tem certeza que deseja excluir este item?')) {
+                try {
+                    // Chama o arquivo PHP que você transformou em API JSON
+                    const response = await fetch(`excluirItens.php?id=${id}`);
+                    const data = await response.json();
+
+                    if (data.status === 'success') {
+                        alert(data.mensagem);
+                        // Remove a linha da tabela sem recarregar a página inteira
+                        const row = document.getElementById(`item-${id}`);
+                        if (row) row.remove();
+                        
+                        // Opcional: recarregar se a tabela ficar vazia
+                        if (document.querySelectorAll('tbody tr').length === 0) {
+                            location.reload();
+                        }
+                    } else {
+                        alert('Erro: ' + data.mensagem);
+                    }
+                } catch (error) {
+                    console.error('Erro ao excluir:', error);
+                    alert('Erro na comunicação com o servidor.');
+                }
+            }
+        }
+    </script>
 
 </body>
 

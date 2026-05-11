@@ -1,27 +1,25 @@
 async function cadastrar() {
-    let nome = document.getElementById("nome").value;
-    let categoria = document.getElementById("categoria").value;
-    let quantidade = document.getElementById("quantidade").value;
-    let unidade = document.getElementById("unidade").value;
+    const formData = new FormData();
+    formData.append('nome', document.getElementById('nome').value);
+    formData.append('categoria', document.getElementById('categoria').value);
+    formData.append('unidade', document.getElementById('unidade').value);
+    formData.append('quantidade', document.getElementById('quantidade').value);
 
-    if (!nome || !categoria) return alert("Preencha o nome e a categoria!");
+    try {
+        const response = await fetch('../php/novoItens.php', {
+            method: 'POST',
+            body: formData
+        });
 
-    const fd = new FormData();
-    fd.append("nome", nome);
-    fd.append("categoria", categoria);
-    fd.append("quantidade", quantidade);
-    fd.append("unidade", unidade);
+        const result = await response.json();
 
-    
-    const resp = await fetch("../php/novoItens.php", {
-    method: "POST",
-    body: fd
-});
-
-const data = await resp.json(); 
-
-    if (data.status === 'ok') {
-        alert(data.mensagem); 
-        window.location.href = "../php/readItens.php"; 
+        if (result.status === 'ok') {
+            alert(result.mensagem);
+            window.location.href = 'readItens.php'; // Redireciona após sucesso
+        } else {
+            alert('Erro: ' + result.mensagem);
+        }
+    } catch (error) {
+        console.error('Erro na requisição:', error);
     }
-}   
+}

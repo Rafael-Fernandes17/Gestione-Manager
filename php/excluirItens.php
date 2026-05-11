@@ -1,44 +1,25 @@
 <?php
 include_once('verificaSessao.php');
+include_once('conexao.php');
 
-if (!isset($_GET["id"]) || empty($_GET["id"])) {
-    die("<h3>ID do Item não fornecido.</h3>");
+header('Content-Type: application/json');
+
+$id = $_GET["id"] ?? null;
+
+if (!$id || !is_numeric($id)) {
+    echo json_encode(['status' => 'error', 'mensagem' => 'ID inválido']);
+    exit;
 }
 
-$id = $_GET["id"];
-
-if (!is_numeric($id)) {
-    die("<h3>ID inválido.</h3>");
-}
-
-
-$conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
-
-if (!$conn) {
-    die('Erro na conexão: ' . mysqli_connect_error());
-}
-
-$sql = "DELETE FROM itensestoque WHERE id = ?";
-$stmt = $conn->prepare($sql);
-
-if (!$stmt) {
-    die('Erro no prepare: ' . $conn->error);
-}
-
+$stmt = $conexao->prepare("DELETE FROM itensestoque WHERE id = ?");
 $stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
-    // Redireciona de volta para a página de leitura com uma mensagem de sucesso
-    header("Location: readItens.php?status=deleted_success");
-    exit;
+    echo json_encode(['status' => 'success', 'mensagem' => 'Item excluído com sucesso']);
 } else {
-    // Redireciona de volta para a página de leitura com uma mensagem de erro
-    header("Location: readItens.php?status=deleted_error");
-    exit;
+    echo json_encode(['status' => 'error', 'mensagem' => 'Erro ao excluir']);
 }
 
-
 $stmt->close();
-$conn->close();
-
+$conexao->close();
 ?>

@@ -2,34 +2,37 @@
 include_once('verificaSessao.php');
 include_once('conexao.php');
 
-// O formulário continua enviando 'nome', 'quantidade' e 'unidade'
-if(!isset($_POST['nome'], $_POST['quantidade'], $_POST['unidade'])){
-    echo json_encode(['status' => 'nok', 'mensagem' => 'Dados não enviados']);
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['status' => 'nok', 'mensagem' => 'Método de requisição inválido']);
     exit;
 }
 
-$nome = $_POST['nome'];
-$quantidade = (int) $_POST['quantidade'];
-$unidade = $_POST['unidade'];
-$categoria = $_POST["categoria"];
 
-if($quantidade <= 0){
-    echo json_encode(['status' => 'nok', 'mensagem' => 'Quantidade deve ser maior que 0']);
+$nome = $_POST['nomeItem'] ?? null;
+$quantidade = $_POST['quantidadeEstoque'] ?? null;
+$unidade = $_POST['unidadeMedida'] ?? null;
+$categoria = $_POST['categoria'] ?? null;
+
+if (!$nome || !$quantidade || !$unidade || !$categoria) {
+    echo json_encode(['status' => 'nok', 'mensagem' => 'Por favor, preencha todos os campos.']);
     exit;
 }
 
+if ($quantidade <= 0) {
+    echo json_encode(['status' => 'nok', 'mensagem' => 'A quantidade deve ser maior que zero.']);
+    exit;
+}
 
 $stmt = $conexao->prepare("INSERT INTO itensestoque (nomeItem, tipoMedida, quantidadeUnitaria, categoria) VALUES (?, ?, ?, ?)");
 
-
 $stmt->bind_param("ssds", $nome, $unidade, $quantidade, $categoria);
-$stmt->execute();
 
-if($stmt->affected_rows > 0){
+if ($stmt->execute()) {
     echo json_encode(['status' => 'ok', 'mensagem' => 'Item cadastrado com sucesso!']);
-    exit();
 } else {
-    echo json_encode(['status' => 'nok', 'mensagem' => 'Erro ao cadastrar: ' . $conexao->error]);
+    echo json_encode(['status' => 'nok', 'mensagem' => 'Erro ao cadastrar no banco: ' . $conexao->error]);
 }
 
 $stmt->close();
