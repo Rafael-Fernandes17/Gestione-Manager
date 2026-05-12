@@ -11,6 +11,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Pagina ainda não realizada</h1>
+    <h1>Pagina não realizada</h1>
 </body>
 </html>
