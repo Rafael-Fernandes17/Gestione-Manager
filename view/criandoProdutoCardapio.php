@@ -1,5 +1,6 @@
 <?php
-    require_once '../php/verificaSessao.php'
+    require_once '../php/verificaPermissao.php'; 
+    verificaLogin(); 
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +85,6 @@
         </form>
     </div>
 
-    <script src="../js/filtraSessao.js" defer></script>
     <script src="../js/createProdutoCardapio.js" defer></script>
 </body>
 </html>

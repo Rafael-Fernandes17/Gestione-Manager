@@ -6,11 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
         botao.addEventListener("click", async function(event) {
 
             event.preventDefault(); 
-            const sessaoEstaAtiva = await verificarSessao();
-
-            if (!sessaoEstaAtiva) {
-                return; 
-            }
 
             // 1. Captura os valores usando os IDs exatos do seu HTML
             const nome = document.getElementById("nomeProdutoCardapio").value;
@@ -36,11 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("statusProdutos", statusProdutos);
             formData.append("imagem", arquivoFoto); 
 
-            const urlPHP = "../php/createProdutoCardapio.php"; 
-
             try {
                 // 4. Faz a requisição Fetch
-                const response = await fetch(urlPHP, {
+                const response = await fetch("../php/createProdutoCardapio.php", {
                     method: "POST",
                     body: formData,
                     headers: { 
@@ -76,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (data.status === "ok") {
-                    alert("✅ " + data.mensagem);
                     window.location.href = '../php/readProdutoCardapio.php';
                 }
 

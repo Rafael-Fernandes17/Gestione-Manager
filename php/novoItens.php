@@ -1,6 +1,7 @@
 <?php
-require_once 'verificaSessao.php';
-include_once('conexao.php');
+require_once 'verificaPermissao.php'; 
+require_once 'conexao.php';
+verificaLogin(); 
 
 // O formulário continua enviando 'nome', 'quantidade' e 'unidade'
 if(!isset($_POST['nome'], $_POST['quantidade'], $_POST['unidade'])){
@@ -30,6 +31,7 @@ if($stmt->affected_rows > 0){
     exit();
 } else {
     echo json_encode(['status' => 'nok', 'mensagem' => 'Erro ao cadastrar: ' . $conexao->error]);
+    exit();
 }
 
 $stmt->close();

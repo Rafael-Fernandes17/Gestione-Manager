@@ -1,46 +1,20 @@
 <?php
-    session_start();
-    include_once('conexao.php');
+    require_once 'verificaPermissao.php';
+    $resultado = realizarLogin();
 
-    header('Content-type: application/json; charset=utf-8');
     $retorno = [
-        'status' => 'nok', 
-        'mensagem' => 'credenciais invalidas', 
-        'data' => []
-        ];
+        'status' => '',
+        'mensagem' => '',
+        'dados' => ''
+    ];
 
-$email = $_POST['email'] ?? '';
-$senha = $_POST['senha'] ?? '';
 
-    $stmt = $conexao->prepare(
-        'SELECT * FROM funcionario WHERE email = ?'
-    );
-    
-$stmt->bind_param('s', $email);
-$stmt->execute();
-
-$resultadoDaConsulta = $stmt->get_result();
-$funcionario = [];
-
-if ($resultadoDaConsulta->num_rows > 0) {
-    $funcionarioDaTabela = $resultadoDaConsulta->fetch_assoc();
-    $funcionario = $funcionarioDaTabela;
-
-    if(password_verify($senha, $funcionario['senha'])){
-        // Criar a sessão com os dados do usuário logado
-        unset($funcionario['senha']);
-        $_SESSION['usuario'] = $funcionario;
-        error_log("Dados gravados na sessão: " . print_r($_SESSION['usuario'], true));
-
-        $retorno['status'] = 'ok';
-        $retorno['mensagem'] = 'login efetuado com sucesso';
-        $retorno['data'] = $funcionario;
+    if ($resultado !== 'login nao realizado') {
+        $retorno = ['status' => 'ok', 'mensagem' => 'cadastro realizado com sucesso'];
+    } else {
+        $retorno = ['status' => 'nok', 'mensagem' => 'credenciais invalidas'];
     }
-} else {
-    $retorno['status'] = 'nok';
-    $retorno['mensagem'] = 'credenciais invalidas';
-}
 
-$stmt->close();
-$conexao->close();
+header('Content-Type: application/json');
 echo json_encode($retorno);
+exit;

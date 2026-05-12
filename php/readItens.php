@@ -1,5 +1,6 @@
 <?php
-require_once 'verificaSessao.php';
+require_once 'verificaPermissao.php'; 
+verificaLogin(); 
 
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
 

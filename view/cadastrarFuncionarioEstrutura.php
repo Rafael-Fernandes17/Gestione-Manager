@@ -1,10 +1,9 @@
 <?php
-    $soVerificaAdm = true;
-    require_once '../php/verificaAdm.php'
+    require_once '../php/verificaPermissao.php'; 
+    verificaLogin();
 ?>
 
-<?php if ($eAdm === 1): ?>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +12,6 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/cadastrarFuncionario.css">
-    <script src="../js/filtraSessaoAdm.js"></script>
 </head>
 
 <body>
@@ -46,12 +44,12 @@
 
             <div class="caixa-organizadora">
                 <i class="fa-solid fa-envelope"></i>
-                <input type="email" name="email" placeholder="E-mail" required>
+                <input type="email" name="email" placeholder="E-mail" id="email" required>
             </div>
 
             <div class="caixa-organizadora">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" name="senha" placeholder="Senha" required>
+                <input type="password" name="senha" placeholder="Senha" id="senha" required>
             </div>
 
             <div class="caixa-organizadora" id="caixa-adm">
@@ -60,7 +58,7 @@
             </div>
             
             <div class="caixa-organizadora">
-                <button type="submit">CADASTRAR</button>
+                <button type="submit" id="botao">CADASTRAR</button>
             </div>
         </form>
     </main>
@@ -69,10 +67,3 @@
  <script src="../js/cadastrarFuncionario.js"></script>
 </body>
 </html>
-
-<?php else: ?>
-    <div id="carregando"></div>
-
-    <script src="../js/filtraSessaoAdm.js"></script>
-<?php endif; ?>
-

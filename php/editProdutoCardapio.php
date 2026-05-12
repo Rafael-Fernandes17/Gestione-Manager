@@ -1,5 +1,6 @@
 <?php
-require_once 'verificaSessao.php';
+require_once 'verificaPermissao.php'; 
+verificaLogin(); 
 
 $id = $_GET['id'] ?? null;
 

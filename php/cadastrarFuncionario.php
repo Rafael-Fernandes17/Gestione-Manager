@@ -1,8 +1,6 @@
 <?php
-$soVerificaAdm = true;
-
-require_once 'verificaAdm.php';
-include_once('conexao.php');
+require_once 'verificaPermissao.php'; 
+verificaLogin(); 
 
 header('Content-Type: application/json; charset=utf-8');
 

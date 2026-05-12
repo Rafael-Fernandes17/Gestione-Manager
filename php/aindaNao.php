@@ -1,3 +1,8 @@
+<?php 
+    require_once 'verificaPermissao.php'; 
+    verificaLogin(); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

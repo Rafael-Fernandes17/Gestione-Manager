@@ -1,5 +1,6 @@
 <?php
-require_once 'verificaSessao.php';
+require_once 'verificaPermissao.php'; 
+verificaLogin(); 
 
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
 
@@ -122,7 +123,7 @@ mysqli_close($conn);
 
             <div class="container-btn">
                 <button class="btn-cadastrar"
-                    onclick="window.location.href='../html/criandoProdutoCardapio.html'">
+                    onclick="window.location.href='../view/criandoProdutoCardapio.php'">
                     Cadastrar Produto
                 </button>
             </div>
@@ -131,7 +132,7 @@ mysqli_close($conn);
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='../html/criandoProdutoCardapio.html'">
+                onclick="window.location.href='../view/criandoProdutoCardapio.php'">
                 Cadastrar Outro Produto
             </button>
         </div>

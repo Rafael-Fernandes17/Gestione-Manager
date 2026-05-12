@@ -1,11 +1,3 @@
-const botaoLegal = document.getElementById("botaoLegal");
-const idade = document.getElementById("idade");
-
-botaoLegal.addEventListener("click", function(){
-    alert("Ola joao com idade " + idade.value);
-})
-
-
 function exibirSenha() {
     const input = document.getElementById('senha');
     const icone = document.getElementById('imagemOlhinho');
@@ -42,5 +34,6 @@ async function login(e) {
             window.location.href = '../indexFuncionario.php';
     } else if(resposta.status == 'nok') {
         alert("Credenciais Inválidas!");
+        window.location.reload();
     }
 }

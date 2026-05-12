@@ -1,5 +1,6 @@
 <?php
-    include_once('php/verificaSessao.php');
+    require_once './php/verificaPermissao.php'; 
+    verificaLogin();
 ?>
 
 <!DOCTYPE html>

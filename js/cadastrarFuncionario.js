@@ -1,14 +1,28 @@
-const form = document.getElementById('form');
-    
-form.addEventListener('submit', async function(e) {
-    e.preventDefault(); 
+const botao = document.getElementById("botao");
 
-    const dadosDoForm = new FormData(this); 
+botao.addEventListener('click', function(e) {
+    console.log("entrei aqui");
+    e.preventDefault(); 
+    cadastrarFuncionario();
+});
+
+async function cadastrarFuncionario() {
+    const fd = new FormData(); 
+
+    let nome = document.getElementById("nome").value;
+    let email = document.getElementById("email").value;
+    let senha = document.getElementById("senha").value;
+    let eAdm = document.getElementById("eAdm").value;
+
+    fd.append("nome", nome);
+    fd.append("email", email);
+    fd.append("senha", senha);
+    fd.append("eAdm", eAdm);
 
     try {
         const perguntaAoPHP = await fetch("../php/cadastrarFuncionario.php", {
             method: "POST",
-            body: dadosDoForm,
+            body: fd,
             headers: {
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
@@ -38,4 +52,4 @@ form.addEventListener('submit', async function(e) {
             } catch (erro) {
                 console.error("Erro ao ler o JSON do PHP:", erro);
             }
-});
+}
