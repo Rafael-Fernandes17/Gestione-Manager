@@ -37,43 +37,59 @@
                 <p>Identifique se o item é um insumo de cozinha ou produto de bar.</p>
             </div>
 
-            <div class="form-grid">
-                <div class="input-box full-width">
-                    <label>Nome do Item</label>
-                    <div class="input-field">
-                        <span class="material-symbols-outlined">edit_note</span>
-                        <input type="text" id="nome" placeholder="Ex: Filé Mignon ou Coca-Cola 350ml" name="nomeItem">
-                    </div>
-                </div>
+           <div class="form-grid">
+    <div class="input-box">
+        <label>Nome do Item</label>
+        <div class="input-field">
+            <span class="material-symbols-outlined">inventory</span>
+            <input type="text" id="nome" placeholder="Ex: Farinha" name="nomeItem">
+        </div>
+    </div>
 
-                <div class="input-box">
-                    <label>Categoria</label>
-                    <div class="input-field">
-                        <span class="material-symbols-outlined">layers</span>
-                        <select id="categoria" name="categoria">
-                            <option value="">Selecione...</option>
-                            <option value="ingredientes">Ingrediente (Cozinha)</option>
-                            <option value="bebidas">Bebida (Bar)</option>
-                        </select>
-                    </div>
-                </div>
+    <div class="input-box">
+        <label>Categoria</label>
+        <div class="input-field">
+            <span class="material-symbols-outlined">category</span>
+            <select id="categoria" name="categoria">
+                <option value="ingredientes">Cozinha</option>
+                <option value="bebidas">Bebida</option>
+            </select>
+        </div>
+    </div>
 
-                <div class="input-box">
-                    <label>Unidade de Medida</label>
-                    <div class="input-field">
-                        <span class="material-symbols-outlined">straighten</span>
-                        <input type="text" id="unidade" placeholder="kg, un, l, ml" name="unidadeMedida">
-                    </div>
-                </div>
+    <div class="input-box">
+        <label>Fornecedor</label>
+        <div class="input-field">
+            <span class="material-symbols-outlined">local_shipping</span>
+            <input type="text" id="fornecedor" placeholder="Nome da Empresa" name="fornecedor">
+        </div>
+    </div>
 
-                <div class="input-box full-width">
-                    <label>Quantidade em Estoque</label>
-                    <div class="input-field">
-                        <span class="material-symbols-outlined">inventory_2</span>
-                        <input type="number" id="quantidade" placeholder="0.00" name="quantidadeEstoque">
-                    </div>
-                </div>
-            </div>
+    <div class="input-box">
+        <label>Valor Unitário (R$)</label>
+        <div class="input-field">
+            <span class="material-symbols-outlined">payments</span>
+            <input type="number" step="0.01" id="valor" placeholder="0.00" name="valorItem">
+        </div>
+    </div>
+
+    <div class="input-box">
+        <label>Unidade de Medida</label>
+        <div class="input-field">
+            <span class="material-symbols-outlined">straighten</span>
+            <input type="text" id="unidade" placeholder="kg, un, l" name="unidadeMedida">
+        </div>
+    </div>
+
+    <div class="input-box">
+        <label>Estoque Mínimo (Alerta)</label>
+        <div class="input-field">
+            <span class="material-symbols-outlined">warning</span>
+            <input type="number" id="estoqueMinimo" placeholder="Avisar quando atingir..." name="estoqueMinimo">
+        </div>
+    </div>
+</div>
+            
             <div class="form-actions">
                     <button type="button" class="btn-submit" onclick="cadastrar()">
                         <span class="material-symbols-outlined">save</span>
