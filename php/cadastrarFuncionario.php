@@ -1,14 +1,26 @@
 <?php
+require_once 'conexao.php';
 require_once 'verificaPermissao.php'; 
-verificaLogin(); 
+
+verificaAdm();
 
 header('Content-Type: application/json; charset=utf-8');
 
+$retorno = [
+    'status' => '',
+    'mensagem' => '',
+    'data' => []
+];
+
+if($eAdm == false){   
     $retorno = [
-        'status' => '',
-        'mensagem' => '',
-        'data' => []
+        'status' => 'nok',
+        'mensagem' => 'nao e adm'
     ];
+
+    echo json_encode($retorno);
+    exit();
+}
 
 $nome = $_POST['nome'] ?? '';
 $email = $_POST['email'] ?? '';
@@ -16,11 +28,12 @@ $senha = $_POST['senha'] ?? '';
 $eAdm = isset($_POST['eAdm']) ? 1 : 0;
 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
-if (empty($nome) || empty($email) || empty($senha_hash)) {
+if (empty($nome) || empty($email) || empty($senha)) {
     $retorno = [
         'status' => 'nok', 
         'mensagem' => 'Preencha todos os campos'
         ];
+
     echo json_encode($retorno);
     exit;
 }
@@ -30,6 +43,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         'status' => 'nok', 
         'mensagem' => 'email invalido'
         ];
+
     echo json_encode($retorno);
     exit;
 }
@@ -68,10 +82,8 @@ if ($resultadoDaConsulta->num_rows > 0) {
             'mensagem' => 'cadastro nao efetuado'
         ];
     }
-    $stmt->close();
 }
 
 $conexao->close();
-echo json_encode($retorno);
-
+echo json_encode ($retorno);
 ?>

@@ -1,7 +1,6 @@
 const botao = document.getElementById("botao");
 
-botao.addEventListener('click', function(e) {
-    console.log("entrei aqui");
+botao.addEventListener('click', function(e) {  
     e.preventDefault(); 
     cadastrarFuncionario();
 });
@@ -44,12 +43,14 @@ async function cadastrarFuncionario() {
                 alert("Preencha todos os campos!");
             } else if (msg === "email invalido") {
                 alert("E-mail inválido!");
+            } else if (msg === "nao e adm") {
+                alert("Permissao negada");
             }
         } else if (status === 'ok') {
-                alert("Funcionário cadastrado com sucesso!");
-                window.location.reload();
+            alert("Funcionário cadastrado com sucesso!");
+            window.location.reload();
         }
-            } catch (erro) {
+    } catch (erro) {
                 console.error("Erro ao ler o JSON do PHP:", erro);
             }
 }

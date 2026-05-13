@@ -1,6 +1,6 @@
 <?php
     require_once '../php/verificaPermissao.php'; 
-    verificaLogin();
+    verificaAdm();
 ?>
 
 <!DOCTYPE html>

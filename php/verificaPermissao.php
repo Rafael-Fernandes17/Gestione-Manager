@@ -39,7 +39,7 @@ function realizarLogin() {
 }
 
 
-function verificaLogin() {
+function verificaLogin(){
     $esperaJson = isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
 
     if (!isset($_SESSION['usuario'])) {
@@ -50,5 +50,23 @@ function verificaLogin() {
             $url_login = "http://" . $host . $pasta . "/html/login.html";
             
             header("Location: $url_login");
+            return;
+    }
+
+}
+
+function verificaAdm(){
+    verificaLogin();
+
+    if ($_SESSION['usuario']['eAdm'] == 0) {
+        $host = $_SERVER['HTTP_HOST']; 
+            
+            $pasta = '/Gestione-Manager'; 
+            
+            $url_login = "http://" . $host . $pasta . "/php/naoPode.php";
+            
+            header("Location: $url_login");
+            return;
+    exit;
     }
 }
