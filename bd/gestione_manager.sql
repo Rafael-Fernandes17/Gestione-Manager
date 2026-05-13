@@ -2,8 +2,16 @@ DROP DATABASE IF EXISTS gestione_manager;
 CREATE DATABASE gestione_manager;
 USE gestione_manager;
 
+CREATE TABLE itensEstoque (
+	idItensEstoque INT AUTO_INCREMENT PRIMARY KEY,
+	nomeItem VARCHAR(50) NOT NULL,
+	tipoMedida ENUM ('GM', 'KG','ML', 'L', 'UNI') NOT NULL,
+	quantidadeUnitaria INT NOT NULL,
+	categoria ENUM ('ingredientes', 'bebidas') NOT NULL
+);
+
 CREATE TABLE produtosCardapio (
-	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	idProdutosCardapio INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	nomeProdutoCardapio VARCHAR(40) NOT NULL,
 	descricao VARCHAR(100) NOT NULL,
 	categoria ENUM ('Entradas', 'Pratos Principais', 'Bebidas', 'Sobremesas') NOT NULL,
@@ -12,16 +20,34 @@ CREATE TABLE produtosCardapio (
 	imagem LONGBLOB NOT NULL,
 	quantidadeMedida INT NOT NULL,
 	tipoMedida ENUM ('GM','ML', 'L') NOT NULL,
-	statusProdutos ENUM ('Disponível', 'Indisponível') NOT NULL
+	statusProdutos ENUM ('Disponível', 'Indisponível') NOT NULL,
 );
 
-CREATE TABLE itensEstoque (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	nomeItem VARCHAR(50) NOT NULL,
-	tipoMedida ENUM ('GM', 'KG','ML', 'L', 'UNI') NOT NULL,
-	quantidadeUnitaria INT NOT NULL,
-	categoria ENUM ('ingredientes', 'bebidas') NOT NULL
+CREATE TABLE produto_ingrediente (
+    idProdutoIngrediente INT AUTO_INCREMENT PRIMARY KEY,
+    idProduto INT NOT NULL,
+    idItemEstoque INT NOT NULL,
+    FOREIGN KEY (idProduto) REFERENCES produtosCardapio(idProdutosCardapio),
+    FOREIGN KEY (idItemEstoque) REFERENCES itensEstoque(idItensEstoque)
 );
+
+CREATE TABLE pedido(
+	idPedido int auto_increment primary key not null,
+	idProdutosCardapioSelecionados int not null,
+	quantidade int not null,
+	precoTotal double not null,
+	dataPedido datetime,
+	statusPedido enum ('cancelado','em preparo','finalizado'),
+	foreign key (idProdutosCardapioSelecionados) references produtosCardapio(idProdutosCardapio)
+);
+
+CREATE TABLE comanda(
+	idComanda int auto_increment primary key not null,
+    idPedidoReferente int not null,
+    valorTotal double not null,
+    foreign key (idPedidoReferente) references pedido(idPedido)
+);
+
 
 CREATE TABLE funcionario (
 	id INT AUTO_INCREMENT PRIMARY KEY,
