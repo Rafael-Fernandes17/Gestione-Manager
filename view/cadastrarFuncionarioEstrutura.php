@@ -1,6 +1,6 @@
 <?php
     require_once '../php/verificaPermissao.php'; 
-    verificaLogin();
+    verificaAdm();
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="caixa-organizadora" id="caixa-adm">
-                <input type="checkbox" name="eAdm" placeholder="eAdm" id="eAdm"> <p>O funcionário a ser cadastrado possuirá 
+                <input type="checkbox" name="eAdm" placeholder="eAdm" id="eAdm" value = "1"> <p>O funcionário a ser cadastrado possuirá 
                     permissões de administrador.</p>
             </div>
             
