@@ -2,7 +2,7 @@
 require_once 'conexao.php';
 require_once 'verificaPermissao.php'; 
 
-verificaAdm();
+$eAdm = verificaAdm();
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -11,16 +11,6 @@ $retorno = [
     'mensagem' => '',
     'data' => []
 ];
-
-if($eAdm == false){   
-    $retorno = [
-        'status' => 'nok',
-        'mensagem' => 'nao e adm'
-    ];
-
-    echo json_encode($retorno);
-    exit();
-}
 
 $nome = $_POST['nome'] ?? '';
 $email = $_POST['email'] ?? '';
