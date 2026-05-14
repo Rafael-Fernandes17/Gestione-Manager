@@ -1,3 +1,8 @@
+<?php
+    require_once '../php/verificaPermissao.php'; 
+    verificaAdm();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,13 +12,12 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/cadastrarFuncionario.css">
-    <script src="../js/filtraSessaoAdm.js"></script>
 </head>
 
 <body>
 
     <header>
-        <a href="logout.php" class="logo">
+        <a href="../php/logout.php" class="logo">
             <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
             <span>Gestione Manager</span>
         </a>
@@ -27,7 +31,7 @@
             <a href="aindaNao.php">FINANCEIRO</a>
             <a href="aindaNao.php">RELATÓRIOS</a>
             <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
         </nav>
     </header>
 
@@ -40,21 +44,21 @@
 
             <div class="caixa-organizadora">
                 <i class="fa-solid fa-envelope"></i>
-                <input type="email" name="email" placeholder="E-mail" required>
+                <input type="email" name="email" placeholder="E-mail" id="email" required>
             </div>
 
             <div class="caixa-organizadora">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" name="senha" placeholder="Senha" required>
+                <input type="password" name="senha" placeholder="Senha" id="senha" required>
             </div>
 
             <div class="caixa-organizadora" id="caixa-adm">
-                <input type="checkbox" name="eAdm" placeholder="eAdm" id="eAdm"> <p>O funcionário a ser cadastrado possuirá 
+                <input type="checkbox" name="eAdm" placeholder="eAdm" id="eAdm" value = "1"> <p>O funcionário a ser cadastrado possuirá 
                     permissões de administrador.</p>
             </div>
             
             <div class="caixa-organizadora">
-                <button type="submit">CADASTRAR</button>
+                <button type="submit" id="botao">CADASTRAR</button>
             </div>
         </form>
     </main>

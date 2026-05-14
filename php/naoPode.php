@@ -1,8 +1,3 @@
-<?php 
-    require_once 'verificaPermissao.php'; 
-    verificaLogin(); 
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Pagina não realizada</h1>
+    <h1>Voce não deveria estar aqui</h1>
+    <a href="../indexFuncionario.php"><button id="naoPode">Voltar a home</button></a>
+    <style>
+        #naoPode {
+            
+        }
+    </style>
 </body>
 </html>

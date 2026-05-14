@@ -1,6 +1,7 @@
 <?php
-include_once('verificaSessao.php');
-include_once('conexao.php');
+require_once 'verificaPermissao.php'; 
+require_once 'conexao.php';
+verificaLogin(); 
 
 header('Content-Type: application/json');
 
@@ -23,7 +24,12 @@ $stmt->bind_param("ssssdd", $nome, $unidade, $categoria, $fornecedor, $valor, $e
 if ($stmt->execute()) {
     echo json_encode(['status' => 'ok', 'mensagem' => 'Item e estoque mínimo registrados com sucesso!']);
 } else {
+<<<<<<< HEAD
     echo json_encode(['status' => 'nok', 'mensagem' => 'Erro no banco: ' . $conexao->error]);
+=======
+    echo json_encode(['status' => 'nok', 'mensagem' => 'Erro ao cadastrar: ' . $conexao->error]);
+    exit();
+>>>>>>> main
 }
 $stmt->close();
 $conexao->close();

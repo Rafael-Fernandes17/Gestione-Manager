@@ -1,3 +1,8 @@
+<?php
+    require_once '../php/verificaPermissao.php'; 
+    verificaLogin(); 
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -19,11 +24,18 @@
             <a href="aindaNao.php">CAIXA</a>
             <a href="cadastroItens.html" class="active">ESTOQUE</a>
             <a href="criandoProdutoCardapio.html">PRODUTOS</a>
+<<<<<<< HEAD:html/cadastroItens.html
             <a href="/Gestione-Manager/php/aindaNao.php">FINANCEIRO</a>
             <a href="/Gestione-Manager/php/aindaNao.php">RELATÓRIOS</a>
             <a href="/Gestione-Manager/php/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
 
             <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+=======
+            <a href="../php/aindaNao.php">FINANCEIRO</a>
+            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
+>>>>>>> main:view/cadastroItens.php
         </nav>
     </header>
     <div class="container">
@@ -80,11 +92,17 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD:html/cadastroItens.html
 
         <div class="form-actions">
             <button type="button" class="btn-cadastrar" onclick="cadastrar()">Salvar Item</button>
         </div>
     </div>
+=======
+    </main>
+</div>
+<script src="../js/cadastroItens.js" defer></script>
+>>>>>>> main:view/cadastroItens.php
 
     <script src="../js/cadastroItens.js"></script>
 </body>

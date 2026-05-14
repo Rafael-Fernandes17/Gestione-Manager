@@ -1,5 +1,6 @@
 <?php
-include_once('verificaSessao.php');
+require_once 'verificaPermissao.php'; 
+verificaLogin(); 
 
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
 
@@ -43,11 +44,11 @@ mysqli_close($conn);
             <a href="../indexFuncionario.php">HOME</a>
             <a href="aindaNao.php">DASHBOARD</a>
             <a href="aindaNao.php">CAIXA</a>
-            <a href="../html/cadastroItens.html">ESTOQUE</a>
-            <a href="../html/criandoProdutoCardapio.html">PRODUTOS</a>
+            <a href="../view/cadastroItens.php">ESTOQUE</a>
+            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
             <a href="aindaNao.php">FINANCEIRO</a>
             <a href="aindaNao.php">RELATÓRIOS</a>
-            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="../view/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
@@ -122,7 +123,7 @@ mysqli_close($conn);
 
             <div class="container-btn">
                 <button class="btn-cadastrar"
-                    onclick="window.location.href='../html/criandoProdutoCardapio.html'">
+                    onclick="window.location.href='../view/criandoProdutoCardapio.php'">
                     Cadastrar Produto
                 </button>
             </div>
@@ -131,7 +132,7 @@ mysqli_close($conn);
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='../html/criandoProdutoCardapio.html'">
+                onclick="window.location.href='../view/criandoProdutoCardapio.php'">
                 Cadastrar Outro Produto
             </button>
         </div>

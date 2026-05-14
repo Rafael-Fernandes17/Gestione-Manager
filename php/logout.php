@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once 'verificaPermissao.php'; 
+verificaLogin();
 
 // 1. Limpa todas as variáveis da memória
 $_SESSION = array();
@@ -14,8 +15,10 @@ if (ini_get("session.use_cookies")) {
 }
 
 // 3. Destrói a sessão no servidor
+session_unset();
 session_destroy();
 
 // 4. Redireciona
 header("Location: ../html/login.html");
+//
 exit;

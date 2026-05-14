@@ -1,8 +1,13 @@
 <?php
+<<<<<<< HEAD
 include_once('verificaSessao.php');
 include_once('conexao.php'); 
 
 header('Content-Type: application/json');
+=======
+require_once 'verificaPermissao.php';
+verificaLogin(); 
+>>>>>>> main
 
 $id = $_GET['id'] ?? null;
 
@@ -48,5 +53,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $stmt->close();
 }
+<<<<<<< HEAD
 $conexao->close();
 ?>
+=======
+
+// 3. Prepara variáveis para o formulário (dados vindos do Banco)
+$idItem = htmlspecialchars($item['id']);
+$nomeItemBD = htmlspecialchars($item['nomeItem']);
+$categoriaBD = htmlspecialchars($item['categoria']);
+$tipoMedidaBD = htmlspecialchars($item['tipoMedida']);
+$quantidadeBD = htmlspecialchars($item['quantidadeUnitaria']);
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Item</title>
+    <link rel="stylesheet" href="../css/editProdutosCardapio.css">
+</head>
+<body>
+<header>
+        <a href="logout.php" class="logo">
+            <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
+            <span>Gestione Manager</span>
+        </a>
+
+        <nav>
+            <a href="../indexFuncionario.php">HOME</a>
+            <a href="aindaNao.php">DASHBOARD</a>
+            <a href="aindaNao.php">CAIXA</a>
+            <a href="../view/cadastroItens.php">ESTOQUE</a>
+            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
+            <a href="aindaNao.php">FINANCEIRO</a>
+            <a href="aindaNao.php">RELATÓRIOS</a>
+            <a href="../view/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+        </nav>
+    </header>
+
+<div class="container">
+    <div class="form-card">
+        <h2>Editar Item</h2>
+
+        <form method="POST">
+            <label>ID:</label>
+            <input type="text" value="<?= $idItem ?>" disabled>
+
+            <label>Nome:</label>
+            <input type="text" name="nomeItem" value="<?= $nomeItemBD ?>" required>
+
+            <label>Categoria:</label>
+            <select name="categoria">
+                <option value="ingredientes" <?= $categoriaBD == 'ingredientes' ? 'selected' : '' ?>>Ingredientes</option>
+                <option value="bebidas" <?= $categoriaBD == 'bebidas' ? 'selected' : '' ?>>Bebidas</option>
+            </select>
+
+            <label>Quantidade:</label>
+            <input type="number" step="0.01" name="quantidadeEstoque" value="<?= $quantidadeBD ?>" required>
+
+            <label>Tipo:</label>
+            <select name="tipoMedida">
+                <option value="GM" <?= $tipoMedidaBD == 'GM' ? 'selected' : '' ?>>GM</option>
+                <option value="ML" <?= $tipoMedidaBD == 'ML' ? 'selected' : '' ?>>ML</option>
+                <option value="L" <?= $tipoMedidaBD == 'L' ? 'selected' : '' ?>>L</option>
+            </select>
+
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+>>>>>>> main

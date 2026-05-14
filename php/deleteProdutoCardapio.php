@@ -1,5 +1,6 @@
 <?php
-include_once('verificaSessao.php');
+require_once 'verificaPermissao.php'; 
+verificaLogin(); 
 
 if (!isset($_GET["id"]) || empty($_GET["id"])) {
     die("<h3>ID do produto não fornecido.</h3>");

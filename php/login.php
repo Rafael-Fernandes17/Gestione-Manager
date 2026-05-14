@@ -1,46 +1,20 @@
 <?php
-    session_start();
-    include_once('conexao.php');
+ini_set('display_errors', 0);
+error_reporting(0);
 
-    header('Content-type: application/json; charset=utf-8');
-    $retorno = [
-        'status' => 'nok', 
-        'mensagem' => 'credenciais invalidas', 
-        'data' => []
-        ];
+require_once '../php/verificaPermissao.php';
 
-$email = $_POST['email'] ?? '';
-$senha = $_POST['senha'] ?? '';
+header('Content-Type: application/json');
 
-    $stmt = $conexao->prepare(
-        'SELECT * FROM funcionario WHERE email = ?'
-    );
-    
-$stmt->bind_param('s', $email);
-$stmt->execute();
+$resultadoLogin = realizarLogin();
 
-$resultadoDaConsulta = $stmt->get_result();
-$funcionario = [];
-
-if ($resultadoDaConsulta->num_rows > 0) {
-    $funcionarioDaTabela = $resultadoDaConsulta->fetch_assoc();
-    $funcionario = $funcionarioDaTabela;
-
-    if(password_verify($senha, $funcionario['senha'])){
-        // Criar a sessão com os dados do usuário logado
-        unset($funcionario['senha']);
-        $_SESSION['usuario'] = $funcionario;
-        error_log("Dados gravados na sessão: " . print_r($_SESSION['usuario'], true));
-
-        $retorno['status'] = 'ok';
-        $retorno['mensagem'] = 'login efetuado com sucesso';
-        $retorno['data'] = $funcionario;
-    }
+if ($resultadoLogin === 'login nao realizado') {
+    echo json_encode(['status' => 'nok']);
+} elseif ($resultadoLogin === 'primeiro_acesso') {
+    echo json_encode(['status' => 'primeiro_acesso']);
+} elseif (is_array($resultadoLogin)) {
+    echo json_encode(['status' => 'ok']);
 } else {
-    $retorno['status'] = 'nok';
-    $retorno['mensagem'] = 'credenciais invalidas';
+    echo json_encode(['status' => 'error', 'message' => $resultadoLogin]);
 }
-
-$stmt->close();
-$conexao->close();
-echo json_encode($retorno);
+?>

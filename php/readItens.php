@@ -1,6 +1,11 @@
 <?php
+<<<<<<< HEAD
 include_once('verificaSessao.php');
 include_once('conexao.php');
+=======
+require_once 'verificaPermissao.php'; 
+verificaLogin(); 
+>>>>>>> main
 
 $sql = "SELECT * FROM itensEstoque";
 $result = mysqli_query($conexao, $sql);
@@ -18,7 +23,24 @@ $itens = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <header>
         </header>
 
+<<<<<<< HEAD
     <h1>Gestão de Itens e Limites</h1>
+=======
+        <nav>
+            <a href="../indexFuncionario.php">HOME</a>
+            <a href="aindaNao.php">DASHBOARD</a>
+            <a href="aindaNao.php">CAIXA</a>
+            <a href="../view/cadastroItens.php">ESTOQUE</a>
+            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
+            <a href="aindaNao.php">FINANCEIRO</a>
+            <a href="aindaNao.php">RELATÓRIOS</a>
+            <a href="../view/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+        </nav>
+    </header>
+
+    <h1>Itens de Estoque Cadastrados</h1>
+>>>>>>> main
 
     <div class="produto-cardapio">
         <table>
