@@ -41,6 +41,7 @@ $itens = mysqli_fetch_all($result, MYSQLI_ASSOC);
                     <td>R$ <?= number_format($i['valorItem'], 2, ',', '.') ?></td>
                     <td style="color: #800020; font-weight: bold;"><?= $i['estoqueMinimo'] ?></td>
                     <td>
+                        <button onclick="window.location.href='formFluxo.php?id=<?= $i['id']>'">Registrar Entrada/Saída</button>
                         <button onclick="window.location.href='getItens.php?id=<?= $i['id'] ?>'">Alterar</button>
                         <button onclick="excluirItem(<?= $i['id'] ?>)">Excluir</button>
                     </td>
