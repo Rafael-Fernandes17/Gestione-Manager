@@ -1,45 +1,31 @@
 <?php
+<<<<<<< HEAD
+include_once('verificaSessao.php');
+include_once('conexao.php');
+=======
 require_once 'verificaPermissao.php'; 
 verificaLogin(); 
+>>>>>>> main
 
-$conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
-
-if (!$conn) {
-    die("<h3>Erro ao conectar ao banco de dados.</h3>");
-}
-
-$sql = "SELECT * FROM itensestoque";
-$result = mysqli_query($conn, $sql);
-
-$itensestoque = [];
-
-if ($result && mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $itensestoque[] = $row;
-    }
-}
-
-mysqli_close($conn);
+$sql = "SELECT * FROM itensEstoque";
+$result = mysqli_query($conexao, $sql);
+$itens = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
-    <title>Itens de Estoque</title>
-    <link rel="icon" type="image/png" href="../img/logo.jpeg">
+    <title>Gestione Manager - Lista de Itens</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="../css/readProdutosCardapio.css">
 </head>
-
 <body>
-
     <header>
-        <a href="logout.php" class="logo">
-            <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
-            <span>Gestione Manager</span>
-        </a>
+        </header>
 
+<<<<<<< HEAD
+    <h1>Gestão de Itens e Limites</h1>
+=======
         <nav>
             <a href="../indexFuncionario.php">HOME</a>
             <a href="aindaNao.php">DASHBOARD</a>
@@ -54,68 +40,50 @@ mysqli_close($conn);
     </header>
 
     <h1>Itens de Estoque Cadastrados</h1>
+>>>>>>> main
 
     <div class="produto-cardapio">
-
-        <?php if (count($itensestoque) > 0): ?>
-
-            <table>
+        <table>
+            <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nome</th>
-                    <th>Tipo Medida</th>
-                    <th>Quantidade</th>
-                    <th>Categoria</th>
+                    <th>Item</th>
+                    <th>Fornecedor</th>
+                    <th>Valor</th>
+                    <th>Mínimo</th>
+                    <th>Ações</th>
                 </tr>
-
-                <?php foreach ($itensestoque as $t): ?>
-                    <tr>
-                        <td><?= $t['id'] ?></td>
-                        <td><?= $t['nomeItem'] ?></td>
-                        <td><?= $t['tipoMedida'] ?></td>
-                        <td><?= $t['quantidadeUnitaria'] ?></td>
-                        <td><?= $t['categoria'] ?></td>
-
-
-                        <td class="acoes">
-                            <button class="btn-editar"
-                                onclick="window.location.href='getItens.php?id=<?= $t['id'] ?>'">
-                                Alterar
-                            </button>
-
-                            <button class="btn-excluir"
-                                onclick="if(confirm('Tem certeza?')) window.location.href='excluirItens.php?id=<?= $t['id'] ?>'">
-                                Excluir
-                            </button>
-                        </td>
-                    </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($itens as $i): ?>
+                <tr id="item-<?= $i['id'] ?>">
+                    <td><?= $i['id'] ?></td>
+                    <td><?= $i['nomeItem'] ?> (<?= $i['tipoMedida'] ?>)</td>
+                    <td><?= $i['fornecedor'] ?></td>
+                    <td>R$ <?= number_format($i['valorItem'], 2, ',', '.') ?></td>
+                    <td style="color: #800020; font-weight: bold;"><?= $i['estoqueMinimo'] ?></td>
+                    <td>
+                        <button onclick="window.location.href='formFluxo.php?id=<?= $i['id']>'">Registrar Entrada/Saída</button>
+                        <button onclick="window.location.href='getItens.php?id=<?= $i['id'] ?>'">Alterar</button>
+                        <button onclick="excluirItem(<?= $i['id'] ?>)">Excluir</button>
+                    </td>
+                </tr>
                 <?php endforeach; ?>
-
-            </table>
-
-        <?php else: ?>
-
-            <p style="text-align:center; margin-top:20px;">
-                Nenhum item cadastrado.
-            </p>
-
-            <div class="container-btn">
-                <button class="btn-cadastrar"
-                    onclick="window.location.href='../html/cadastroItens'">
-                    Cadastrar Item
-                </button>
-            </div>
-
-        <?php endif; ?>
-
-        <div class="container-btn">
-            <button class="btn-cadastrar"
-                onclick="window.location.href='../html/cadastroItens'">
-                Cadastrar Outro Item
-            </button>
-        </div>
+            </tbody>
+        </table>
     </div>
 
+    <script>
+    async function excluirItem(id) {
+        if (confirm('Deseja excluir?')) {
+            const response = await fetch(`excluirItens.php?id=${id}`);
+            const data = await response.json();
+            if (data.status === 'success') {
+                document.getElementById(`item-${id}`).remove();
+                alert(data.mensagem);
+            }
+        }
+    }
+    </script>
 </body>
-
 </html>

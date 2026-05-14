@@ -23,6 +23,18 @@ CREATE TABLE produtosCardapio (
 	statusProdutos ENUM ('Disponível', 'Indisponível') NOT NULL
 );
 
+<<<<<<< HEAD
+CREATE TABLE itensEstoque (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nomeItem VARCHAR(50) NOT NULL,
+    tipoMedida VARCHAR(20) NOT NULL, 
+    categoria VARCHAR(50) NOT NULL,  
+    fornecedor VARCHAR(100) DEFAULT NULL,
+    valorItem DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    estoqueMinimo DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    quantidadeUnitaria DECIMAL(10,2) DEFAULT 0.00,
+    PRIMARY KEY (id)
+=======
 CREATE TABLE produto_ingrediente (
     idProdutoIngrediente INT AUTO_INCREMENT PRIMARY KEY,
     idProduto INT NOT NULL,
@@ -46,8 +58,8 @@ CREATE TABLE comanda(
     idPedidoReferente int not null,
     valorTotal double not null,
     foreign key (idPedidoReferente) references pedido(idPedido)
+>>>>>>> main
 );
-
 CREATE TABLE funcionario (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(50) NOT NULL,

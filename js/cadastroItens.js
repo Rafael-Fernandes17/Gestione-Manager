@@ -1,28 +1,46 @@
 async function cadastrar() {
+<<<<<<< HEAD
+    const nome = document.getElementById('nome').value;
+    const categoria = document.getElementById('categoria').value;
+    const fornecedor = document.getElementById('fornecedor').value;
+    const valor = document.getElementById('valor').value;
+    const unidade = document.getElementById('unidade').value;
+    const estoqueMinimo = document.getElementById('estoqueMinimo').value;
+=======
 
     let nome = document.getElementById("nome").value;
     let categoria = document.getElementById("categoria").value;
     let quantidade = document.getElementById("quantidade").value;
     let unidade = document.getElementById("unidade").value;
+>>>>>>> main
 
-    if (!nome || !categoria) return alert("Preencha o nome e a categoria!");
-
-    const fd = new FormData();
-    fd.append("nome", nome);
-    fd.append("categoria", categoria);
-    fd.append("quantidade", quantidade);
-    fd.append("unidade", unidade);
-
-    
-    const resp = await fetch("../php/novoItens.php", {
-    method: "POST",
-    body: fd
-});
-
-const data = await resp.json(); 
-
-    if (data.status === 'ok') {
-        alert(data.mensagem); 
-        window.location.href = "../php/readItens.php"; 
+    // Critério de Aceite 2
+    if (parseFloat(estoqueMinimo) <= 0) {
+        alert("Erro: O estoque mínimo precisa ser maior que 0.");
+        return;
     }
-}   
+
+    const formData = new FormData();
+    formData.append('nome', nome);
+    formData.append('categoria', categoria);
+    formData.append('fornecedor', fornecedor);
+    formData.append('valor', valor);
+    formData.append('unidade', unidade);
+    formData.append('estoqueMinimo', estoqueMinimo);
+
+    try {
+        const response = await fetch('../php/novoItens.php', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+
+        alert(data.mensagem);
+        if (data.status === 'ok') {
+            window.location.href = '../php/readItens.php';
+        }
+    } catch (error) {
+        console.error("Erro:", error);
+        alert("Erro ao conectar com o servidor.");
+    }
+}

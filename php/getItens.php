@@ -1,73 +1,62 @@
 <?php
+<<<<<<< HEAD
+include_once('verificaSessao.php');
+include_once('conexao.php'); 
+
+header('Content-Type: application/json');
+=======
 require_once 'verificaPermissao.php';
 verificaLogin(); 
+>>>>>>> main
 
 $id = $_GET['id'] ?? null;
 
 if (!$id || !is_numeric($id)) {
-    die("<h3>ID inválido.</h3>");
+    echo json_encode(['status' => 'error', 'mensagem' => 'ID inválido']);
+    exit;
 }
 
-$conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $stmt = $conexao->prepare("SELECT * FROM itensestoque WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $item = $result->fetch_assoc();
 
-if (!$conn) {
-    die('Erro na conexão: ' . mysqli_connect_error());
+    if ($item) {
+        echo json_encode(['status' => 'success', 'dados' => $item]);
+    } else {
+        echo json_encode(['status' => 'error', 'mensagem' => 'Item não encontrado']);
+    }
+    $stmt->close();
 }
-
-$sql = "SELECT * FROM itensestoque WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows === 0) {
-    die("<h3>Item não encontrado.</h3>");
-}
-
-$item = $result->fetch_assoc();
-$stmt->close();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nomeItem = $_POST["nomeItem"] ?? '';
+    $categoria = $_POST["categoria"] ?? '';
+    $tipoMedida = $_POST["tipoMedida"] ?? '';
+    $quantidade = $_POST["quantidadeEstoque"] ?? '';
 
-    $nomeItemPost = $_POST["nomeItem"] ?? '';
-    $categoriaPost = $_POST["categoria"] ?? '';
-    $tipoMedidaPost = $_POST["tipoMedida"] ?? '';
-    $quantidadePost = $_POST["quantidadeEstoque"] ?? '';
-
-    if (empty($nomeItemPost) || empty($categoriaPost) || empty($tipoMedidaPost) || empty($quantidadePost)) {
-        echo "<h3 style='text-align:center;color:red;'>Preencha todos os campos!</h3>";
-    } else {
-        $sql_update = "UPDATE itensestoque SET 
-            nomeItem=?,
-            tipoMedida=?,
-            categoria=?,
-            quantidadeUnitaria=? 
-            WHERE id=?";
-
-        $stmt_update = $conn->prepare($sql_update);
-
-        if (!$stmt_update) {
-            die("Erro no prepare: " . $conn->error);
-        }
-
-        $stmt_update->bind_param(
-            "sssdi", 
-            $nomeItemPost,
-            $tipoMedidaPost,
-            $categoriaPost,
-            $quantidadePost,
-            $id
-        );
-
-        if ($stmt_update->execute()) {
-            header("Location: readItens.php?status=success");
-            exit;
-        } else {
-            echo "Erro ao atualizar: " . $stmt_update->error;
-        }
-        $stmt_update->close();
+    if (empty($nomeItem) || empty($categoria) || empty($tipoMedida) || empty($quantidade)) {
+        echo json_encode(['status' => 'error', 'mensagem' => 'Preencha todos os campos']);
+        exit;
     }
+
+    $sql = "UPDATE itensestoque SET nomeItem=?, tipoMedida=?, categoria=?, quantidadeUnitaria=? WHERE id=?";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("sssdi", $nomeItem, $tipoMedida, $categoria, $quantidade, $id);
+
+    if ($stmt->execute()) {
+        echo json_encode(['status' => 'success', 'mensagem' => 'Item atualizado com sucesso']);
+    } else {
+        echo json_encode(['status' => 'error', 'mensagem' => 'Erro ao atualizar: ' . $conexao->error]);
+    }
+    $stmt->close();
 }
+<<<<<<< HEAD
+$conexao->close();
+?>
+=======
 
 // 3. Prepara variáveis para o formulário (dados vindos do Banco)
 $idItem = htmlspecialchars($item['id']);
@@ -138,3 +127,4 @@ $conn->close();
 </div>
 </body>
 </html>
+>>>>>>> main
