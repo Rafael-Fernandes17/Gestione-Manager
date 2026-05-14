@@ -20,7 +20,7 @@ CREATE TABLE produtosCardapio (
 	imagem LONGBLOB NOT NULL,
 	quantidadeMedida INT NOT NULL,
 	tipoMedida ENUM ('GM','ML', 'L') NOT NULL,
-	statusProdutos ENUM ('Disponível', 'Indisponível') NOT NULL,
+	statusProdutos ENUM ('Disponível', 'Indisponível') NOT NULL
 );
 
 CREATE TABLE produto_ingrediente (
@@ -32,13 +32,13 @@ CREATE TABLE produto_ingrediente (
 );
 
 CREATE TABLE pedido(
-	idPedido int auto_increment primary key not null,
-	idProdutosCardapioSelecionados int not null,
-	quantidade int not null,
-	precoTotal double not null,
-	dataPedido datetime,
-	statusPedido enum ('cancelado','em preparo','finalizado'),
-	foreign key (idProdutosCardapioSelecionados) references produtosCardapio(idProdutosCardapio)
+idPedido int auto_increment primary key not null,
+idProdutosCardapioSelecionados int not null,
+quantidade int not null,
+precoTotal double not null,
+dataPedido datetime,
+statusPedido enum ('cancelado','em preparo','finalizado'),
+foreign key (idProdutosCardapioSelecionados) references produtosCardapio(idProdutosCardapio)
 );
 
 CREATE TABLE comanda(
@@ -48,11 +48,14 @@ CREATE TABLE comanda(
     foreign key (idPedidoReferente) references pedido(idPedido)
 );
 
-
 CREATE TABLE funcionario (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(50) NOT NULL,
 	email VARCHAR(40) NOT NULL,
 	senha VARCHAR(255) NOT NULL,
-	eAdm BOOLEAN DEFAULT FALSE
+	eAdm BOOLEAN DEFAULT FALSE,
+    primeiroAcesso BOOLEAN DEFAULT TRUE
 );
+
+INSERT INTO funcionario (nome, email, senha, eAdm, primeiroAcesso) 
+VALUES ('Gerente Mario', 'Mario@gestione.com', '$2y$10$2A4Dv.nOIIVY0On0NkCZeO4H1GPgxdZr99FuNyae9jM1dhr/PqhX.', TRUE, TRUE);
