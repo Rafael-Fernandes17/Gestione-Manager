@@ -1,72 +1,72 @@
 <?php
+require_once 'conexao.php';
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 function realizarLogin() {
-    require_once 'conexao.php';
+    global $conexao;
 
     $email = $_POST['email'] ?? '';
     $senha = $_POST['senha'] ?? '';
 
-    $stmt = $conexao->prepare(
-        'SELECT * FROM funcionario WHERE email = ?'
-    );
-    
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
+    try {
+        $stmt = $conexao->prepare(
+            'SELECT id, nome, email, senha, eAdm, primeiroAcesso FROM funcionario WHERE email = :email'
+        );
+        
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
 
-    $resultadoDaConsulta = $stmt->get_result();
-    $funcionario = [];
+        $funcionario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($resultadoDaConsulta->num_rows > 0) {
-        $funcionarioDaTabela = $resultadoDaConsulta->fetch_assoc();
-        $funcionario = $funcionarioDaTabela;
-
-        if(password_verify($senha, $funcionario['senha'])){
-            unset($funcionario['senha']);
-            $_SESSION['usuario'] = $funcionario;
-            return $funcionario;
+        if ($funcionario) {
+            if (password_verify($senha, $funcionario['senha'])) {
+                unset($funcionario['senha']);
+                $_SESSION['usuario'] = $funcionario;
+                
+                if (isset($funcionario['primeiroAcesso']) && $funcionario['primeiroAcesso'] == 1) {
+                    return 'primeiro_acesso';
+                }
+                return $funcionario;
+            }
+            return 'login nao realizado';
+        } else {
+            return 'login nao realizado';
         }
-        return 'login nao realizado';
-
-    } else {
-        return 'login nao realizado';
+    } catch (PDOException $e) {
+        return 'Erro no banco de dados: ' . $e->getMessage();
     }
-
-    $stmt->close();
-    $conexao->close();
 }
 
-
-function verificaLogin(){
-    $esperaJson = isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false;
-
+function verificaLogin() {
     if (!isset($_SESSION['usuario'])) {
-            $host = $_SERVER['HTTP_HOST']; 
-            
-            $pasta = '/Gestione-Manager'; 
-            
-            $url_login = "http://" . $host . $pasta . "/html/login.html";
-            
-            header("Location: $url_login");
-            return;
+        $host = $_SERVER['HTTP_HOST'];
+        $pasta = '/teste';
+        $url_login = "http://" . $host . $pasta . "/html/login.html";
+        header("Location: $url_login");
+        exit;
     }
 
+    if (isset($_SESSION['usuario']['primeiroAcesso']) && $_SESSION['usuario']['primeiroAcesso'] == 1) {
+        $host = $_SERVER['HTTP_HOST'];
+        $pasta = '/teste';
+        $url_alterar_senha = "http://" . $host . $pasta . "/html/alterar_senha.html";
+        header("Location: $url_alterar_senha");
+        exit;
+    }
 }
 
-function verificaAdm(){
+function verificaAdm() {
     verificaLogin();
 
-    if ($_SESSION['usuario']['eAdm'] == 0) {
-        $host = $_SERVER['HTTP_HOST']; 
-            
-            $pasta = '/Gestione-Manager'; 
-            
-            $url_login = "http://" . $host . $pasta . "/php/naoPode.php";
-            
-            header("Location: $url_login");
-            return;
-    exit;
+    if (isset($_SESSION['usuario']['eAdm']) && $_SESSION['usuario']['eAdm'] == 0) {
+        $host = $_SERVER['HTTP_HOST'];
+        $pasta = '/teste';
+        $url_nao_pode = "http://" . $host . $pasta . "/php/naoPode.php";
+        header("Location: $url_nao_pode");
+        exit;
     }
 }
+?>
