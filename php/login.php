@@ -1,20 +1,20 @@
 <?php
-    require_once 'verificaPermissao.php';
-    $resultado = realizarLogin();
+ini_set('display_errors', 0);
+error_reporting(0);
 
-    $retorno = [
-        'status' => '',
-        'mensagem' => '',
-        'dados' => ''
-    ];
-
-
-    if ($resultado !== 'login nao realizado') {
-        $retorno = ['status' => 'ok', 'mensagem' => 'cadastro realizado com sucesso'];
-    } else {
-        $retorno = ['status' => 'nok', 'mensagem' => 'credenciais invalidas'];
-    }
+require_once '../php/verificaPermissao.php';
 
 header('Content-Type: application/json');
-echo json_encode($retorno);
-exit;
+
+$resultadoLogin = realizarLogin();
+
+if ($resultadoLogin === 'login nao realizado') {
+    echo json_encode(['status' => 'nok']);
+} elseif ($resultadoLogin === 'primeiro_acesso') {
+    echo json_encode(['status' => 'primeiro_acesso']);
+} elseif (is_array($resultadoLogin)) {
+    echo json_encode(['status' => 'ok']);
+} else {
+    echo json_encode(['status' => 'error', 'message' => $resultadoLogin]);
+}
+?>

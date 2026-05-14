@@ -2,13 +2,12 @@ function exibirSenha() {
     const input = document.getElementById('senha');
     const icone = document.getElementById('imagemOlhinho');
 
-    // O "comportamento" de alternar estados
     if (input.type === 'password') {
         input.type = 'text';
-        icone.src = '../img/olhinhoAberto2.png'; // Feedback de estado ativo
+        icone.src = '../img/olhinhoAberto2.png';
     } else {
         input.type = 'password';
-        icone.src = '../img/olhinhoFechado.png';  // Feedback de estado inativo
+        icone.src = '../img/olhinhoFechado.png';
     }
 }
 
@@ -26,13 +25,15 @@ async function login(e) {
     const perguntaAoPHP = await fetch('../php/login.php', {
         method: 'POST',
         body: dadosFormulario,
-        headers: { 'Accept': 'application/json'}
+        headers: { 'Accept': 'application/json' }
     });
     const resposta = await perguntaAoPHP.json();
 
-    if(resposta.status == 'ok') {
-            window.location.href = '../indexFuncionario.php';
-    } else if(resposta.status == 'nok') {
+    if (resposta.status == 'ok') {
+        window.location.href = '../indexFuncionario.php';
+    } else if (resposta.status == 'primeiro_acesso') {
+        window.location.href = '../html/alterar_senha.html';
+    } else if (resposta.status == 'nok') {
         alert("Credenciais Inválidas!");
         window.location.reload();
     }
