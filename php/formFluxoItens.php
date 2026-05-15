@@ -1,5 +1,7 @@
 <?php
-include_once('verificaSessao.php');
+require_once 'verificaPermissao.php';
+verificaLogin();
+include_once('conexao.php');
 
 $id = $_GET['id'] ?? null;
 
@@ -7,140 +9,102 @@ if (!$id || !is_numeric($id)) {
     die("<h3>ID inválido.</h3>");
 }
 
-$conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
+try {
+    // Agora buscamos também o valorItem (preço) do cadastro
+    $stmt = $conexao->prepare("SELECT id, nomeItem, tipoMedida, fornecedor, valorItem FROM itensEstoque WHERE id = ?");
+    $stmt->execute([$id]);
+    $item = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$conn) {
-    die('Erro na conexão: ' . mysqli_connect_error());
+    if (!$item) {
+        die("<h3>Item não encontrado no estoque.</h3>");
+    }
+} catch (PDOException $e) {
+    die("Erro: " . $e->getMessage());
 }
-
-$sql = "SELECT id, nomeItem, tipoMedida, categoria, fornecedor, valorItem, quantidadeUnitaria FROM produtosCardapio WHERE id = ?";
-$stmt = $conn->prepare($sql);
-
-if (!$stmt) {
-    die('Erro no prepare: ' . $conn->error);
-}
-
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows === 0) {
-    die("<h3>Produto não encontrado.</h3>");
-}
-
-$produto = $result->fetch_assoc();
-$stmt->close();
-
-$idProdutoCardapio = htmlspecialchars($produto['id']);
-$nomeProdutoCardapio = htmlspecialchars($produto['nomeProdutoCardapio']);
-$descricao = htmlspecialchars($produto['descricao']);
-$categoria = htmlspecialchars($produto['categoria']);
-$tempoPreparo = htmlspecialchars($produto['tempoPreparo']);
-$preco = htmlspecialchars($produto['preco']);
-$tipoMedida = htmlspecialchars($produto['tipoMedida']);
-$quantidade = htmlspecialchars($produto['quantidadeMedida']);
-$status = htmlspecialchars($produto['statusProdutos']);
-$imagem = $produto['imagem'];
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
-    <title>Editar Produto</title>
+    <title>Movimentação - <?= htmlspecialchars($item['nomeItem']) ?></title>
     <link rel="stylesheet" href="../css/editProdutosCardapio.css">
+    <style>
+        .info-group { margin-bottom: 15px; }
+        .info-label { font-weight: bold; color: #555; font-size: 0.9em; display: block; margin-bottom: 5px; }
+        .info-value { 
+            background: #f9f9f9; 
+            padding: 10px; 
+            border-radius: 4px; 
+            border: 1px solid #ddd; 
+            color: #333;
+            font-family: sans-serif;
+        }
+        .destaque-preco { color: #2c3e50; font-weight: bold; }
+        .btn-confirmar { 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            padding: 15px; 
+            width: 100%; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 16px;
+        }
+        .btn-confirmar:hover { background-color: #219150; }
+    </style>
 </head>
-
 <body>
-    <header>
-        <a href="logout.php" class="logo">
-            <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
-            <span>Gestione Manager</span>
-        </a>
-
-        <nav>
-            <a href="../indexFuncionario.php">HOME</a>
-            <a href="aindaNao.php">DASHBOARD</a>
-            <a href="aindaNao.php">CAIXA</a>
-            <a href="../html/cadastroItens.html">ESTOQUE</a>
-            <a href="../html/criandoProdutoCardapio.html">PRODUTOS</a>
-            <a href="aindaNao.php">FINANCEIRO</a>
-            <a href="aindaNao.php">RELATÓRIOS</a>
-            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
-        </nav>
-    </header>
-
     <div class="container">
         <div class="form-card">
-            <h2>Editar Produto</h2>
+            <h2>Registro de Entrada e Saída</h2>
 
-            <form method="POST" enctype="multipart/form-data">
+            <form action="processaFluxo.php" method="POST">
+                <input type="hidden" name="idItem" value="<?= $item['id'] ?>">
 
-                <label>ID:</label>
-                <input type="text" value="<?= $idProdutoCardapio ?>" disabled>
+                <div class="info-group">
+                    <label class="info-label">ID do Item:</label>
+                    <div class="info-value">#<?= $item['id'] ?></div>
+                </div>
 
-                <label>Nome:</label>
-                <input type="text" name="nomeProdutoCardapio" value="<?= $nomeProdutoCardapio ?>" required>
+                <div class="info-group">
+                    <label class="info-label">Nome do Insumo:</label>
+                    <div class="info-value"><?= htmlspecialchars($item['nomeItem']) ?></div>
+                </div>
 
-                <label>Descrição:</label>
-                <textarea name="descricao"><?= $descricao ?></textarea>
+                <div class="info-group">
+                    <label class="info-label">Fornecedor:</label>
+                    <div class="info-value"><?= htmlspecialchars($item['fornecedor']) ?></div>
+                </div>
 
-                <label>Categoria:</label>
-                <select name="categoria">
-                    <option value="Entradas" <?= $categoria == 'Entradas' ? 'selected' : '' ?>>Entradas</option>
-                    <option value="Pratos Principais" <?= $categoria == 'Pratos Principais' ? 'selected' : '' ?>>Pratos Principais</option>
-                    <option value="Bebidas" <?= $categoria == 'Bebidas' ? 'selected' : '' ?>>Bebidas</option>
-                    <option value="Sobremesas" <?= $categoria == 'Sobremesas' ? 'selected' : '' ?>>Sobremesas</option>
+                <div style="display: flex; gap: 10px;">
+                    <div class="info-group" style="flex: 1;">
+                        <label class="info-label">Preço Unitário:</label>
+                        <div class="info-value destaque-preco">R$ <?= number_format($item['valorItem'], 2, ',', '.') ?></div>
+                    </div>
+                    <div class="info-group" style="flex: 1;">
+                        <label class="info-label">Unidade:</label>
+                        <div class="info-value"><?= htmlspecialchars($item['tipoMedida']) ?></div>
+                    </div>
+                </div>
+
+                <hr style="margin: 20px 0; border: 0; border-top: 2px dashed #eee;">
+
+                <label>Tipo de Alteração:</label>
+                <select name="tipoMovimentacao" required>
+                    <option value="entrada" style="color: green;">⬆ ENTRADA (+)</option>
+                    <option value="saida" style="color: red;">⬇ SAÍDA (-)</option>
                 </select>
 
-                <label>Tempo:</label>
-                <input type="time" name="tempoPreparo" value="<?= $tempoPreparo ?>" required>
+                <label>Quantidade a alterar:</label>
+                <input type="number" step="0.01" name="quantidade" placeholder="0.00" required>
 
-                <label>Preço:</label>
-                <input type="number" step="0.01" name="preco" value="<?= $preco ?>" required>
-
-                <label>Imagem Atual:</label>
-
-                <?php if (!empty($imagem)): ?>
-                    <img src="data:image/jpeg;base64,<?= base64_encode($imagem) ?>" width="120">
-
-
-                <?php else: ?>
-                    Sem imagem
-
-
-                <?php endif; ?>
-
-                <label>Alterar Imagem:</label>
-                <input type="file" name="imagem">
-
-                <label>Quantidade:</label>
-                <input type="number" name="quantidadeMedida" value="<?= $quantidade ?>" required>
-
-                <label>Tipo:</label>
-                <select name="tipoMedida">
-                    <option value="GM" <?= $tipoMedida == 'GM' ? 'selected' : '' ?>>GM</option>
-                    <option value="ML" <?= $tipoMedida == 'ML' ? 'selected' : '' ?>>ML</option>
-                    <option value="L" <?= $tipoMedida == 'L' ? 'selected' : '' ?>>L</option>
-                </select>
-
-                <label>Status:</label>
-                <select name="statusProdutos">
-                    <option value="Disponível" <?= $status == 'Disponível' ? 'selected' : '' ?>>Disponível</option>
-                    <option value="Indisponível" <?= $status == 'Indisponível' ? 'selected' : '' ?>>Indisponível</option>
-                </select>
-
-                <button type="submit">Atualizar</button>
-
+                <button type="submit" class="btn-confirmar">Atualizar Estoque</button>
+                
+                <a href="readItens.php" style="display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none;">Voltar</a>
             </form>
         </div>
     </div>
-
 </body>
-
 </html>
-php?>

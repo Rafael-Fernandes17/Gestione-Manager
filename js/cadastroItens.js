@@ -1,18 +1,10 @@
 async function cadastrar() {
-<<<<<<< HEAD
     const nome = document.getElementById('nome').value;
     const categoria = document.getElementById('categoria').value;
     const fornecedor = document.getElementById('fornecedor').value;
     const valor = document.getElementById('valor').value;
     const unidade = document.getElementById('unidade').value;
     const estoqueMinimo = document.getElementById('estoqueMinimo').value;
-=======
-
-    let nome = document.getElementById("nome").value;
-    let categoria = document.getElementById("categoria").value;
-    let quantidade = document.getElementById("quantidade").value;
-    let unidade = document.getElementById("unidade").value;
->>>>>>> main
 
     // Critério de Aceite 2
     if (parseFloat(estoqueMinimo) <= 0) {
@@ -29,10 +21,10 @@ async function cadastrar() {
     formData.append('estoqueMinimo', estoqueMinimo);
 
     try {
-        const response = await fetch('../php/novoItens.php', {
-            method: 'POST',
-            body: formData
-        });
+        const response = await fetch('../php/novoItens.php', { 
+    method: 'POST',
+    body: formData
+});
         const data = await response.json();
 
         alert(data.mensagem);
