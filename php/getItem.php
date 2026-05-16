@@ -1,7 +1,7 @@
 <?php
-require_once 'verificaPermissao.php';
+require_once 'verifyPermissao.php';
 verificaLogin(); 
-include_once('conexao.php');
+include_once('connection.php');
 
 $id = $_GET['id'] ?? null;
 

@@ -1,6 +1,6 @@
 <?php
-require_once 'conexao.php';
-require_once 'verificaPermissao.php'; 
+require_once 'connection.php';
+require_once 'verifyPermissao.php'; 
 
 $eAdm = verificaAdm();
 

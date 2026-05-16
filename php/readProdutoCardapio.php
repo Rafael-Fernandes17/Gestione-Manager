@@ -1,5 +1,5 @@
 <?php
-require_once 'verificaPermissao.php'; 
+require_once 'verifyPermissao.php'; 
 verificaLogin(); 
 
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
@@ -41,14 +41,14 @@ mysqli_close($conn);
         </a>
 
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
-            <a href="aindaNao.php">DASHBOARD</a>
-            <a href="aindaNao.php">CAIXA</a>
-            <a href="../view/cadastroItens.php">ESTOQUE</a>
-            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
-            <a href="aindaNao.php">FINANCEIRO</a>
-            <a href="aindaNao.php">RELATÓRIOS</a>
-            <a href="../view/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="../view/homeFuncionario.php">HOME</a>
+            <a href="noReady.php">DASHBOARD</a>
+            <a href="noReady.php">CAIXA</a>
+            <a href="../view/registerItem.php">ESTOQUE</a>
+            <a href="../view/registerProdutoCardapio.php">PRODUTOS</a>
+            <a href="noReady.php">FINANCEIRO</a>
+            <a href="noReady.php">RELATÓRIOS</a>
+            <a href="../view/registerFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
@@ -123,7 +123,7 @@ mysqli_close($conn);
 
             <div class="container-btn">
                 <button class="btn-cadastrar"
-                    onclick="window.location.href='../view/criandoProdutoCardapio.php'">
+                    onclick="window.location.href='../view/registerProdutoCardapio.php'">
                     Cadastrar Produto
                 </button>
             </div>
@@ -132,13 +132,13 @@ mysqli_close($conn);
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='../view/criandoProdutoCardapio.php'">
+                onclick="window.location.href='../view/registerProdutoCardapio.php'">
                 Cadastrar Outro Produto
             </button>
         </div>
 
         <button class="btn-cadastrar"
-            onclick="window.location.href='cardapio.php'">
+            onclick="window.location.href='menu.php'">
             Visualizar Cardápio
         </button>
 

@@ -3,7 +3,7 @@
 ini_set("display_errors", 0);
 error_reporting(0);
 
-require_once 'conexao.php';
+require_once 'connection.php';
 
 header('Content-Type: application/json');
 
@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             // Usar a conexão PDO global
-            global $conexao;
-            $stmt = $conexao->prepare('UPDATE funcionario SET senha = :senha, primeiroAcesso = FALSE WHERE id = :id');
+            global $connection;
+            $stmt = $connection->prepare('UPDATE funcionario SET senha = :senha, primeiroAcesso = FALSE WHERE id = :id');
             $stmt->bindParam(':senha', $senhaHash);
             $stmt->bindParam(':id', $userId);
             $stmt->execute();

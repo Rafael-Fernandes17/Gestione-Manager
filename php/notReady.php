@@ -1,5 +1,5 @@
 <?php 
-    require_once 'verificaPermissao.php'; 
+    require_once 'verifyPermissao.php'; 
     verificaLogin(); 
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once 'connection.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -52,7 +52,7 @@ function verificaLogin() {
     if (isset($_SESSION['usuario']['primeiroAcesso']) && $_SESSION['usuario']['primeiroAcesso'] == 1) {
         $host = $_SERVER['HTTP_HOST'];
         $pasta = '/teste';
-        $url_alterar_senha = "http://" . $host . $pasta . "/html/alterar_senha.html";
+        $url_alterar_senha = "http://" . $host . $pasta . "/html/alterSenha.html";
         header("Location: $url_alterar_senha");
         exit;
     }
@@ -64,7 +64,7 @@ function verificaAdm() {
     if (isset($_SESSION['usuario']['eAdm']) && $_SESSION['usuario']['eAdm'] == 0) {
         $host = $_SERVER['HTTP_HOST'];
         $pasta = '/teste';
-        $url_nao_pode = "http://" . $host . $pasta . "/php/naoPode.php";
+        $url_nao_pode = "http://" . $host . $pasta . "/php/naoAutorizado.php";
         header("Location: $url_nao_pode");
         exit;
     }

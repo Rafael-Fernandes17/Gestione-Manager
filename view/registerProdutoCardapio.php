@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../img/logo.jpeg">
-    <link rel="stylesheet" href="../css/criandoProdutosCardapio.css">
+    <link rel="stylesheet" href="../css/registerProdutosCardapio.css">
     <title>Cadastrar Produto</title>
 </head>
 <body>
@@ -21,14 +21,14 @@
         </a>
 
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
+            <a href="homeFuncionario.php">HOME</a>
             <a href="../php/aindaNao.php">DASHBOARD</a>
             <a href="../php/aindaNao.php">CAIXA</a>
             <a href="cadastroItens.php">ESTOQUE</a>
             <a href="criandoProdutoCardapio.php">PRODUTOS</a>
             <a href="../php/aindaNao.php">FINANCEIRO</a>
             <a href="../php/aindaNao.php">RELATÓRIOS</a>
-            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="registerFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
         </nav>
     </header>

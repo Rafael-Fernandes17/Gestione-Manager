@@ -26,7 +26,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <title>Gestione</title>
     <link rel="icon" type="image/png" href="../img/logo.jpeg">
-    <link rel="stylesheet" href="../css/cardapio.css">
+    <link rel="stylesheet" href="../css/menu.css">
 </head>
 
 <body>
@@ -100,6 +100,6 @@ mysqli_close($conn);
 
 </div>
 
-<script src="../js/cardapio.js"></script>
+<script src="../js/menu.js"></script>
 </body>
 </html>

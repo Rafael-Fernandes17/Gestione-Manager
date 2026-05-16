@@ -2,10 +2,10 @@ const botao = document.getElementById("botao");
 
 botao.addEventListener('click', function(e) {  
     e.preventDefault(); 
-    cadastrarFuncionario();
+    registerFuncionario();
 });
 
-async function cadastrarFuncionario() {
+async function registerFuncionario() {
     const fd = new FormData(); 
 
     fd.append("nome", document.getElementById("nome").value);
@@ -21,7 +21,7 @@ async function cadastrarFuncionario() {
     }
 
     try {
-        const perguntaAoPHP = await fetch("../php/cadastrarFuncionario.php", {
+        const perguntaAoPHP = await fetch("../php/createFuncionario.php", {
             method: "POST",
             body: fd,
             headers: {

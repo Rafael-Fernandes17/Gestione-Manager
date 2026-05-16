@@ -1,7 +1,7 @@
 <?php
-require_once 'verificaPermissao.php'; 
+require_once 'verifyPermissao.php'; 
 verificaLogin(); 
-include_once('conexao.php');
+include_once('connection.php');
 header('Content-Type: application/json');
 
 $id = $_GET['id'] ?? null;
@@ -12,7 +12,7 @@ if (!$id) {
 }
 
 try {
-    $stmt = $conexao->prepare("DELETE FROM itensEstoque WHERE id = ?");
+    $stmt = $connection->prepare("DELETE FROM itensEstoque WHERE id = ?");
     if ($stmt->execute([$id])) {
         echo json_encode(['status' => 'success', 'mensagem' => 'Item removido!']);
     } else {

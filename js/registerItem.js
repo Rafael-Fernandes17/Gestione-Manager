@@ -21,7 +21,7 @@ async function cadastrar() {
     formData.append('estoqueMinimo', estoqueMinimo);
 
     try {
-        const response = await fetch('../php/novoItens.php', { 
+        const response = await fetch('../php/createItem.php', { 
     method: 'POST',
     body: formData
 });
@@ -29,7 +29,7 @@ async function cadastrar() {
 
         alert(data.mensagem);
         if (data.status === 'ok') {
-            window.location.href = '../php/readItens.php';
+            window.location.href = '../php/readItem.php';
         }
     } catch (error) {
         console.error("Erro:", error);

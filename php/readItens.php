@@ -1,11 +1,11 @@
 <?php
-require_once 'verificaPermissao.php'; 
+require_once 'verifyPermissao.php'; 
 verificaLogin(); 
-include_once('conexao.php');
+include_once('connection.php');
 
 try {
     $sql = "SELECT * FROM itensEstoque";
-    $stmt = $conexao->query($sql);
+    $stmt = $connection->query($sql);
     $itens = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Erro ao carregar dados: " . $e->getMessage());
@@ -74,7 +74,7 @@ try {
     async function excluirItem(id) {
         if (confirm('Deseja excluir?')) {
             try {
-                const response = await fetch(`excluirItens.php?id=${id}`);
+                const response = await fetch(`deleteItem.php?id=${id}`);
                 const data = await response.json();
                 if (data.status === 'success' || data.status === 'ok') {
                     document.getElementById(`item-${id}`).remove();

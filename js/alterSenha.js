@@ -14,7 +14,7 @@ document.getElementById("formAlterarSenha").addEventListener("submit", async (e)
     dadosFormulario.append("confirmar_senha", confirmarSenha);
 
     try {
-        const respostaPHP = await fetch("../php/alterar_senha.php", {
+        const respostaPHP = await fetch("../php/alterSenha.php", {
             method: "POST",
             body: dadosFormulario,
             headers: { "Accept": "application/json" }
@@ -23,7 +23,7 @@ document.getElementById("formAlterarSenha").addEventListener("submit", async (e)
 
         if (resposta.status === "ok") {
             alert(resposta.message);
-            window.location.href = "../indexFuncionario.php"; // Redirecionar para a página principal após a alteração
+            window.location.href = "../view/homeFuncionario.php"; // Redirecionar para a página principal após a alteração
         } else {
             alert(resposta.message);
         }

@@ -1,7 +1,7 @@
 <?php
-require_once 'verificaPermissao.php';
+require_once 'verificyPermissao.php';
 verificaLogin();
-include_once('conexao.php');
+include_once('connection.php');
 
 $id = $_GET['id'] ?? null;
 
@@ -11,7 +11,7 @@ if (!$id || !is_numeric($id)) {
 
 try {
     // Agora buscamos também o valorItem (preço) do cadastro
-    $stmt = $conexao->prepare("SELECT id, nomeItem, tipoMedida, fornecedor, valorItem FROM itensEstoque WHERE id = ?");
+    $stmt = $connection->prepare("SELECT id, nomeItem, tipoMedida, fornecedor, valorItem FROM itensEstoque WHERE id = ?");
     $stmt->execute([$id]);
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
 

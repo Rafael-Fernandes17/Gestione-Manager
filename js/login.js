@@ -30,9 +30,9 @@ async function login(e) {
     const resposta = await perguntaAoPHP.json();
 
     if (resposta.status == 'ok') {
-        window.location.href = '../indexFuncionario.php';
+        window.location.href = '../view/homeFuncionario.php';
     } else if (resposta.status == 'primeiro_acesso') {
-        window.location.href = '../html/alterar_senha.html';
+        window.location.href = '../html/alterSenha.html';
     } else if (resposta.status == 'nok') {
         alert("Credenciais Inválidas!");
         window.location.reload();

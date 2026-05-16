@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Voce não deveria estar aqui</h1>
-    <a href="../indexFuncionario.php"><button id="naoPode">Voltar a home</button></a>
+    <a href="../view/homeFuncionario.php"><button id="naoPode">Voltar a home</button></a>
     <style>
         #naoPode {
             
