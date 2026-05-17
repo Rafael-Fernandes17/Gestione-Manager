@@ -1,6 +1,6 @@
 <?php
 require_once 'verificaPermissao.php'; 
-verificaLogin(); 
+verificaLogin();    
 
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
 
@@ -76,7 +76,7 @@ mysqli_close($conn);
 
                 <?php foreach ($produtosCardapio as $p): ?>
                     <tr>
-                        <td><?= $p['id'] ?></td>
+                        <td><?= $p['idProdutosCardapio'] ?></td>
                         <td><?= $p['nomeProdutoCardapio'] ?></td>
                         <td><?= $p['descricao'] ?></td>
                         <td><?= $p['categoria'] ?></td>
@@ -101,12 +101,12 @@ mysqli_close($conn);
 
                         <td class="acoes">
                             <button class="btn-editar"
-                                onclick="window.location.href='editProdutoCardapio.php?id=<?= $p['id'] ?>'">
+                                onclick="window.location.href='editProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
                                 Alterar
                             </button>
 
                             <button class="btn-excluir"
-                                onclick="if(confirm('Tem certeza?')) window.location.href='deleteProdutoCardapio.php?id=<?= $p['id'] ?>'">
+                                onclick="if(confirm('Tem certeza?')) window.location.href='deleteProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
                                 Excluir
                             </button>
                         </td>

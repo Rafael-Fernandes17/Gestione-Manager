@@ -12,21 +12,26 @@ function realizarLogin() {
     $senha = $_POST['senha'] ?? '';
 
     try {
-        $stmt = $conexao->prepare(
-            'SELECT id, nome, email, senha, eAdm, primeiroAcesso FROM funcionario WHERE email = :email'
-        );
-        
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
 
-        $funcionario = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $conexao->prepare(
+            "SELECT id, nome, email, senha, eAdm, primeiroAcesso 
+             FROM funcionario 
+             WHERE email = ?"
+        );
+
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $funcionario = $resultado->fetch_assoc();
 
         if ($funcionario) {
             if (password_verify($senha, $funcionario['senha'])) {
+
                 unset($funcionario['senha']);
+
                 $_SESSION['usuario'] = $funcionario;
-                
-                if (isset($funcionario['primeiroAcesso']) && $funcionario['primeiroAcesso'] == 1) {
+
+                if (isset($funcionario['primeiroAcesso']) &&$funcionario['primeiroAcesso'] == 1 ){
                     return 'primeiro_acesso';
                 }
                 return $funcionario;
@@ -35,7 +40,7 @@ function realizarLogin() {
         } else {
             return 'login nao realizado';
         }
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         return 'Erro no banco de dados: ' . $e->getMessage();
     }
 }
@@ -43,7 +48,7 @@ function realizarLogin() {
 function verificaLogin() {
     if (!isset($_SESSION['usuario'])) {
         $host = $_SERVER['HTTP_HOST'];
-        $pasta = '/teste';
+        $pasta = '/Gestione-Manager';
         $url_login = "http://" . $host . $pasta . "/html/login.html";
         header("Location: $url_login");
         exit;
@@ -51,7 +56,7 @@ function verificaLogin() {
 
     if (isset($_SESSION['usuario']['primeiroAcesso']) && $_SESSION['usuario']['primeiroAcesso'] == 1) {
         $host = $_SERVER['HTTP_HOST'];
-        $pasta = '/teste';
+        $pasta = '/Gestione-Manager';
         $url_alterar_senha = "http://" . $host . $pasta . "/html/alterar_senha.html";
         header("Location: $url_alterar_senha");
         exit;
@@ -63,7 +68,7 @@ function verificaAdm() {
 
     if (isset($_SESSION['usuario']['eAdm']) && $_SESSION['usuario']['eAdm'] == 0) {
         $host = $_SERVER['HTTP_HOST'];
-        $pasta = '/teste';
+        $pasta = '/Gestione-Manager';
         $url_nao_pode = "http://" . $host . $pasta . "/php/naoPode.php";
         header("Location: $url_nao_pode");
         exit;
