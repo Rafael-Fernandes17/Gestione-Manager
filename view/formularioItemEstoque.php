@@ -9,8 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestione Manager - Cadastro de Insumos</title>
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/cadastrosItens.css">
+    <link rel="stylesheet" href="../css/resetando.css">
+    <link rel="stylesheet" href="../css/cadastrarItemEstoque.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>  
@@ -23,15 +23,15 @@
         </a>
 
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
+            <a href="paginaPrincipalFuncionario.php">HOME</a>
             <a href="../php/aindaNao.php">DASHBOARD</a>
             <a href="../php/aindaNao.php">CAIXA</a>
-            <a href="./cadastroItens.html">ESTOQUE</a>
-            <a href="criandoProdutoCardapio.html">PRODUTOS</a>
+            <a href="listaItemEstoque.php">ESTOQUE</a>
+            <a href="listaProdutoCardapio.php">PRODUTOS</a>
             <a href="../php/aindaNao.php">FINANCEIRO</a>
             <a href="../php/aindaNao.php">RELATÓRIOS</a>
-            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
+            <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
 
@@ -67,7 +67,15 @@
                     <label>Unidade de Medida</label>
                     <div class="input-field">
                         <span class="material-symbols-outlined">straighten</span>
-                        <input type="text" id="unidade" placeholder="kg, un, l, ml" name="unidadeMedida">
+                        <select id="tipoMedida" name="tipoMedida">
+                            <option value="">Selecione...</option>
+                            <option value="KG">Quilograma (kg)</option>
+                            <option value="MG">Miligrama (mg)</option>
+                            <option value="G">Grama (g)</option>
+                            <option value="L">Litro (l)</option>
+                            <option value="ML">Mililitro (ml)</option>
+                            <option value="UN">Unidade (un)</option>
+                        </select>
                     </div>
                 </div>
 
@@ -89,7 +97,7 @@
         </div>
     </main>
 </div>
-<script src="../js/cadastroItens.js" defer></script>
+<script src="../js/cadastrarItemEstoque.js" defer></script>
 
 </body>
 </html>

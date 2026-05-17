@@ -1,5 +1,5 @@
 <?php
-require_once 'verificaPermissao.php'; 
+require_once '../php/verificaPermissao.php'; 
 verificaLogin(); 
 
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
@@ -29,7 +29,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <title>Itens de Estoque</title>
     <link rel="icon" type="image/png" href="../img/logo.jpeg">
-    <link rel="stylesheet" href="../css/readProdutosCardapio.css">
+    <link rel="stylesheet" href="../css/listaProdutosCardapio.css">
 </head>
 
 <body>
@@ -41,14 +41,14 @@ mysqli_close($conn);
         </a>
 
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
-            <a href="aindaNao.php">DASHBOARD</a>
-            <a href="aindaNao.php">CAIXA</a>
-            <a href="../view/cadastroItens.php">ESTOQUE</a>
-            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
-            <a href="aindaNao.php">FINANCEIRO</a>
-            <a href="aindaNao.php">RELATÓRIOS</a>
-            <a href="../view/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="paginaPrincipalFuncionario.php">HOME</a>
+            <a href="../php/aindaNao.php">DASHBOARD</a>
+            <a href="../php/aindaNao.php">CAIXA</a>
+            <a href="listaItemEstoque.php">ESTOQUE</a>
+            <a href="listaProdutoCardapio.php">PRODUTOS</a>
+            <a href="../php/aindaNao.php">FINANCEIRO</a>
+            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>

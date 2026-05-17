@@ -1,5 +1,5 @@
 <?php
-require_once 'verificaPermissao.php'; 
+require_once '../php/verificaPermissao.php'; 
 verificaLogin(); 
 
 $id = $_GET['id'] ?? null;
@@ -83,14 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("Erro no prepare: " . $conn->error);
         }
 
-        // O tipo 'b' para BLOB ainda é usado, mas para grandes BLOBs, send_long_data é mais robusto.
-        // No entanto, para simplificar e manter a compatibilidade, vamos tentar com 'b' primeiro
-        // e se o problema persistir, a alternativa com send_long_data será necessária.
-        // Para o caso de BLOBs, o bind_param com 'b' é o correto.
-        // O problema pode ser que o mysqli_stmt_send_long_data é necessário para BLOBs maiores que o buffer padrão.
-        // Vamos ajustar o bind_param para 's' para a imagem e usar send_long_data.
-        
-        // Alteração: Usar 's' para a imagem no bind_param e depois send_long_data
+
         $stmt_update->bind_param(
             "sssssssssi", // 's' para imagem, 'i' para id
             $nomeProdutoCardapio,
@@ -142,7 +135,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Editar Produto</title>
-    <link rel="stylesheet" href="../css/editProdutosCardapio.css">
+    <link rel="stylesheet" href="../css/alterandoProdutosCardapio.css">
 </head>
 
 <body>
@@ -153,14 +146,14 @@ $conn->close();
         </a>
 
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
-            <a href="aindaNao.php">DASHBOARD</a>
-            <a href="aindaNao.php">CAIXA</a>
-            <a href="../view/cadastroItens.php">ESTOQUE</a>
-            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
-            <a href="aindaNao.php">FINANCEIRO</a>
-            <a href="aindaNao.php">RELATÓRIOS</a>
-            <a href="../view/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="paginaPrincipalFuncionario.php">HOME</a>
+            <a href="../php/aindaNao.php">DASHBOARD</a>
+            <a href="../php/aindaNao.php">CAIXA</a>
+            <a href="listaItemEstoque.php">ESTOQUE</a>
+            <a href="listaProdutoCardapio.php">PRODUTOS</a>
+            <a href="../php/aindaNao.php">FINANCEIRO</a>
+            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>

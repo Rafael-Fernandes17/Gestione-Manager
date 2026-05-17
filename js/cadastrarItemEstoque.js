@@ -14,7 +14,7 @@ async function cadastrar() {
     fd.append("unidade", unidade);
 
     
-    const resp = await fetch("../php/novoItens.php", {
+    const resp = await fetch("../php/cadastrarItemEstoque.php", {
     method: "POST",
     body: fd
 });
@@ -23,6 +23,6 @@ const data = await resp.json();
 
     if (data.status === 'ok') {
         alert(data.mensagem); 
-        window.location.href = "../php/readItens.php"; 
+        window.location.href = "../view/listaItemEstoque.php"; 
     }
 }   

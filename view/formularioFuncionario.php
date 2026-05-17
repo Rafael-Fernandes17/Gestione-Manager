@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestione Manager - Cadastro</title>
-    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/resetando.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/cadastrarFuncionario.css">
 </head>
@@ -23,15 +23,15 @@
         </a>
 
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
-            <a href="aindaNao.php">DASHBOARD</a>
-            <a href="aindaNao.php">CAIXA</a>
-            <a href="../html/cadastroItens.html">ESTOQUE</a>
-            <a href="../html/criandoProdutoCardapio.html">PRODUTOS</a>
-            <a href="aindaNao.php">FINANCEIRO</a>
-            <a href="aindaNao.php">RELATÓRIOS</a>
-            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
+            <a href="paginaPrincipalFuncionario.php">HOME</a>
+            <a href="../php/aindaNao.php">DASHBOARD</a>
+            <a href="../php/aindaNao.php">CAIXA</a>
+            <a href="listaItemEstoque.php">ESTOQUE</a>
+            <a href="listaProdutoCardapio.php">PRODUTOS</a>
+            <a href="../php/aindaNao.php">FINANCEIRO</a>
+            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
 
