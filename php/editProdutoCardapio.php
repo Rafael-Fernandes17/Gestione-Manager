@@ -14,7 +14,7 @@ if (!$conn) {
     die('Erro na conexão: ' . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM produtosCardapio WHERE id = ?";
+$sql = "SELECT * FROM produtosCardapio WHERE idProdutosCardapio = ?";
 $stmt = $conn->prepare($sql);
 
 if (!$stmt) {
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             quantidadeMedida=?,
             statusProdutos=?,
             imagem=?
-            WHERE id=?";
+            WHERE idProdutosCardapio=?";
 
         $stmt_update = $conn->prepare($sql_update);
 
@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$idProdutoCardapio = htmlspecialchars($produto['id']);
+$idProdutoCardapio = htmlspecialchars($produto['idProdutosCardapio']);
 $nomeProdutoCardapio = htmlspecialchars($produto['nomeProdutoCardapio']);
 $descricao = htmlspecialchars($produto['descricao']);
 $categoria = htmlspecialchars($produto['categoria']);
