@@ -43,7 +43,7 @@ function realizarLogin() {
 function verificaLogin() {
     if (!isset($_SESSION['usuario'])) {
         $host = $_SERVER['HTTP_HOST'];
-        $pasta = '/teste';
+        $pasta = '/Gestione-Manager';
         $url_login = "http://" . $host . $pasta . "/html/login.html";
         header("Location: $url_login");
         exit;
@@ -51,7 +51,7 @@ function verificaLogin() {
 
     if (isset($_SESSION['usuario']['primeiroAcesso']) && $_SESSION['usuario']['primeiroAcesso'] == 1) {
         $host = $_SERVER['HTTP_HOST'];
-        $pasta = '/teste';
+        $pasta = '/Gestione-Manager';
         $url_alterar_senha = "http://" . $host . $pasta . "/html/alterar_senha.html";
         header("Location: $url_alterar_senha");
         exit;
@@ -63,7 +63,7 @@ function verificaAdm() {
 
     if (isset($_SESSION['usuario']['eAdm']) && $_SESSION['usuario']['eAdm'] == 0) {
         $host = $_SERVER['HTTP_HOST'];
-        $pasta = '/teste';
+        $pasta = '/Gestione-Manager';
         $url_nao_pode = "http://" . $host . $pasta . "/php/naoPode.php";
         header("Location: $url_nao_pode");
         exit;
