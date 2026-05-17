@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/cadastrarFuncionario.css">
-    <script src='js/filtraSessao.js' defer></script>
     <title>Document</title>
 </head>
 <body>
