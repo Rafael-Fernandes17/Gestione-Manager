@@ -19,7 +19,7 @@ if (!$conn) {
     die('Erro na conexão: ' . mysqli_connect_error());
 }
 
-$sql = "DELETE FROM itensestoque WHERE id = ?";
+$sql = "DELETE FROM itensestoque WHERE idItensEstoque = ?";
 $stmt = $conn->prepare($sql);
 
 if (!$stmt) {

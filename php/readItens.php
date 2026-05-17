@@ -70,7 +70,7 @@ mysqli_close($conn);
 
                 <?php foreach ($itensestoque as $t): ?>
                     <tr>
-                        <td><?= $t['id'] ?></td>
+                        <td><?= $t['idItensEstoque'] ?></td>
                         <td><?= $t['nomeItem'] ?></td>
                         <td><?= $t['tipoMedida'] ?></td>
                         <td><?= $t['quantidadeUnitaria'] ?></td>
@@ -78,13 +78,12 @@ mysqli_close($conn);
 
 
                         <td class="acoes">
-                            <button class="btn-editar"
-                                onclick="window.location.href='getItens.php?id=<?= $t['id'] ?>'">
+                            <button class="btn-editar" onclick="window.location.href='getItens.php?id=<?= $t['idItensEstoque'] ?>'">
                                 Alterar
                             </button>
 
                             <button class="btn-excluir"
-                                onclick="if(confirm('Tem certeza?')) window.location.href='excluirItens.php?id=<?= $t['id'] ?>'">
+                                onclick="if(confirm('Tem certeza?')) window.location.href='excluirItens.php?id=<?= $t['idItensEstoque'] ?>'">
                                 Excluir
                             </button>
                         </td>
@@ -101,7 +100,7 @@ mysqli_close($conn);
 
             <div class="container-btn">
                 <button class="btn-cadastrar"
-                    onclick="window.location.href='../html/cadastroItens'">
+                    onclick="window.location.href='../view/cadastroItens.php'">
                     Cadastrar Item
                 </button>
             </div>
@@ -110,7 +109,7 @@ mysqli_close($conn);
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='../html/cadastroItens'">
+                onclick="window.location.href='../view/cadastroItens.php'">
                 Cadastrar Outro Item
             </button>
         </div>

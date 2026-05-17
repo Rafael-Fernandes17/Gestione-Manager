@@ -14,7 +14,7 @@ if (!$conn) {
     die('Erro na conexão: ' . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM itensestoque WHERE id = ?";
+$sql = "SELECT * FROM itensestoque WHERE idItensEstoque = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             tipoMedida=?,
             categoria=?,
             quantidadeUnitaria=? 
-            WHERE id=?";
+            WHERE idItensEstoque=?";
 
         $stmt_update = $conn->prepare($sql_update);
 
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // 3. Prepara variáveis para o formulário (dados vindos do Banco)
-$idItem = htmlspecialchars($item['id']);
+$idItem = htmlspecialchars($item['idItensEstoque']);
 $nomeItemBD = htmlspecialchars($item['nomeItem']);
 $categoriaBD = htmlspecialchars($item['categoria']);
 $tipoMedidaBD = htmlspecialchars($item['tipoMedida']);

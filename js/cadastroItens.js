@@ -19,8 +19,7 @@ async function cadastrar() {
     body: fd
 });
 
-const data = await resp.text(); 
-console.log(data);
+const data = await resp.json(); 
 
     if (data.status === 'ok') {
         alert(data.mensagem); 
