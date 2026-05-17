@@ -12,21 +12,26 @@ function realizarLogin() {
     $senha = $_POST['senha'] ?? '';
 
     try {
-        $stmt = $conexao->prepare(
-            'SELECT id, nome, email, senha, eAdm, primeiroAcesso FROM funcionario WHERE email = :email'
-        );
-        
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
 
-        $funcionario = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $conexao->prepare(
+            "SELECT id, nome, email, senha, eAdm, primeiroAcesso 
+             FROM funcionario 
+             WHERE email = ?"
+        );
+
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $funcionario = $resultado->fetch_assoc();
 
         if ($funcionario) {
             if (password_verify($senha, $funcionario['senha'])) {
+
                 unset($funcionario['senha']);
+
                 $_SESSION['usuario'] = $funcionario;
-                
-                if (isset($funcionario['primeiroAcesso']) && $funcionario['primeiroAcesso'] == 1) {
+
+                if (isset($funcionario['primeiroAcesso']) &&$funcionario['primeiroAcesso'] == 1 ){
                     return 'primeiro_acesso';
                 }
                 return $funcionario;
@@ -35,7 +40,7 @@ function realizarLogin() {
         } else {
             return 'login nao realizado';
         }
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         return 'Erro no banco de dados: ' . $e->getMessage();
     }
 }
