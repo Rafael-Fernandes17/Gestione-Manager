@@ -14,8 +14,8 @@
 </head>
 <body>
      <header>
-        <a href="./php/logout.php" class="logo">
-            <img src="./img/logo.jpeg" alt="Gestione Manager Logo">
+        <a href="../php/logout.php" class="logo">
+            <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
             <span>Gestione Manager</span>
         </a>
 
