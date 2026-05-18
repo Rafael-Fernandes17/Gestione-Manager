@@ -6,10 +6,26 @@ async function cadastrar() {
     const unidade = document.getElementById('unidade').value;
     const estoqueMinimo = document.getElementById('estoqueMinimo').value;
 
-    // Critério de Aceite 2
-    if (parseFloat(estoqueMinimo) <= 0) {
-        alert("Erro: O estoque mínimo precisa ser maior que 0.");
-        return;
+
+    if (!nome || !categoria) return alert("Preencha o nome e a categoria!");
+
+    const fd = new FormData();
+    fd.append("nome", nome);
+    fd.append("categoria", categoria);
+    fd.append("quantidade", quantidade);
+    fd.append("unidade", unidade);
+
+    
+    const resp = await fetch("../php/cadastrarItemEstoque.php", {
+    method: "POST",
+    body: fd
+});
+
+const data = await resp.json(); 
+
+    if (data.status === 'ok') {
+        alert(data.mensagem); 
+        window.location.href = "../view/listaItemEstoque.php"; 
     }
 
     const formData = new FormData();
@@ -21,7 +37,7 @@ async function cadastrar() {
     formData.append('estoqueMinimo', estoqueMinimo);
 
     try {
-        const response = await fetch('../php/novoItens.php', { 
+        const response = await fetch('../php/cadastrarItemEstoque.php', { 
     method: 'POST',
     body: formData
 });
@@ -29,7 +45,7 @@ async function cadastrar() {
 
         alert(data.mensagem);
         if (data.status === 'ok') {
-            window.location.href = '../php/readItens.php';
+            window.location.href = '../view/listaItemEstoque.php';
         }
     } catch (error) {
         console.error("Erro:", error);

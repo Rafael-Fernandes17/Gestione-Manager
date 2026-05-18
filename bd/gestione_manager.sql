@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS gestione_manager;
 CREATE DATABASE gestione_manager;
 USE gestione_manager;
 
-CREATE TABLE itensEstoque (
+CREATE TABLE itemEstoque (
 	idItensEstoque INT AUTO_INCREMENT PRIMARY KEY,
 	nomeItem VARCHAR(50) NOT NULL,
 	tipoMedida ENUM ('GM', 'KG','ML', 'L', 'UNI') NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE itensEstoque (
 	categoria ENUM ('ingredientes', 'bebidas') NOT NULL
 );
 
-CREATE TABLE produtosCardapio (
+CREATE TABLE produtoCardapio (
 	idProdutosCardapio INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	nomeProdutoCardapio VARCHAR(40) NOT NULL,
 	descricao VARCHAR(100) NOT NULL,

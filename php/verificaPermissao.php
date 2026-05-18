@@ -57,7 +57,7 @@ function verificaLogin() {
     if (isset($_SESSION['usuario']['primeiroAcesso']) && $_SESSION['usuario']['primeiroAcesso'] == 1) {
         $host = $_SERVER['HTTP_HOST'];
         $pasta = '/Gestione-Manager';
-        $url_alterar_senha = "http://" . $host . $pasta . "/html/alterar_senha.html";
+        $url_alterar_senha = "http://" . $host . $pasta . "/html/alterarSenha.html";
         header("Location: $url_alterar_senha");
         exit;
     }

@@ -1,5 +1,5 @@
 <?php
-require_once 'verificaPermissao.php'; 
+require_once '../php/verificaPermissao.php'; 
 verificaLogin();    
 
 $conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
@@ -29,7 +29,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <title>Produtos do Cardápio</title>
     <link rel="icon" type="image/png" href="../img/logo.jpeg">
-    <link rel="stylesheet" href="../css/readProdutosCardapio.css">
+    <link rel="stylesheet" href="../css/listaProdutosCardapio.css">
 </head>
 
 <body>
@@ -41,14 +41,14 @@ mysqli_close($conn);
         </a>
 
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
-            <a href="aindaNao.php">DASHBOARD</a>
-            <a href="aindaNao.php">CAIXA</a>
-            <a href="../view/cadastroItens.php">ESTOQUE</a>
-            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
-            <a href="aindaNao.php">FINANCEIRO</a>
-            <a href="aindaNao.php">RELATÓRIOS</a>
-            <a href="../view/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="paginaPrincipalFuncionario.php">HOME</a>
+            <a href="../php/aindaNao.php">DASHBOARD</a>
+            <a href="../php/aindaNao.php">CAIXA</a>
+            <a href="listaItemEstoque.php">ESTOQUE</a>
+            <a href="listaProdutoCardapio.php">PRODUTOS</a>
+            <a href="../php/aindaNao.php">FINANCEIRO</a>
+            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
@@ -101,12 +101,12 @@ mysqli_close($conn);
 
                         <td class="acoes">
                             <button class="btn-editar"
-                                onclick="window.location.href='editProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
+                                onclick="window.location.href='alterandoProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
                                 Alterar
                             </button>
 
                             <button class="btn-excluir"
-                                onclick="if(confirm('Tem certeza?')) window.location.href='deleteProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
+                                onclick="if(confirm('Tem certeza?')) window.location.href='../php/excluindoProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
                                 Excluir
                             </button>
                         </td>
@@ -123,7 +123,7 @@ mysqli_close($conn);
 
             <div class="container-btn">
                 <button class="btn-cadastrar"
-                    onclick="window.location.href='../view/criandoProdutoCardapio.php'">
+                    onclick="window.location.href='formularioProdutoCardapio.php'">
                     Cadastrar Produto
                 </button>
             </div>
@@ -132,7 +132,7 @@ mysqli_close($conn);
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='../view/criandoProdutoCardapio.php'">
+                onclick="window.location.href='formularioProdutoCardapio.php'">
                 Cadastrar Outro Produto
             </button>
         </div>

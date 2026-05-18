@@ -30,11 +30,11 @@ $stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
     // Redireciona de volta para a página de leitura com uma mensagem de sucesso
-    header("Location: readProdutoCardapio.php?status=deleted_success");
+    header("Location: listaProdutoCardapio.php?status=deleted_success");
     exit;
 } else {
     // Redireciona de volta para a página de leitura com uma mensagem de erro
-    header("Location: readProdutoCardapio.php?status=deleted_error");
+    header("Location: listaProdutoCardapio.php?status=deleted_error");
     exit;
 }
 
