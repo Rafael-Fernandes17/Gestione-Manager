@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../img/logo.jpeg">
-    <link rel="stylesheet" href="../css/criandoProdutosCardapio.css">
+    <link rel="stylesheet" href="../css/formularioProdutosCardapio.css">
     <title>Cadastrar Produto</title>
 </head>
 <body>
@@ -21,15 +21,15 @@
         </a>
 
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
+            <a href="paginaPrincipalFuncionario.php">HOME</a>
             <a href="../php/aindaNao.php">DASHBOARD</a>
             <a href="../php/aindaNao.php">CAIXA</a>
-            <a href="cadastroItens.php">ESTOQUE</a>
-            <a href="criandoProdutoCardapio.php">PRODUTOS</a>
+            <a href="listaItemEstoque.php">ESTOQUE</a>
+            <a href="listaProdutoCardapio.php">PRODUTOS</a>
             <a href="../php/aindaNao.php">FINANCEIRO</a>
             <a href="../php/aindaNao.php">RELATÓRIOS</a>
-            <a href="cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
+            <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
     
@@ -37,7 +37,7 @@
     <div class="form-container">
         <h1>Cadastrar Produto para o Cardápio</h1>
 
-        <form action="../php/createProdutoCardapio.php" method="post" enctype="multipart/form-data"> 
+        <form action="../php/cadastrarProdutoCardapio.php" method="post" enctype="multipart/form-data"> 
             
             <label for="nomeProdutoCardapio">Nome do Produto:</label> 
             <input type="text" id="nomeProdutoCardapio" name="nomeProdutoCardapio" required>
@@ -85,6 +85,6 @@
         </form>
     </div>
 
-    <script src="../js/createProdutoCardapio.js" defer></script>
+    <script src="../js/cadastrarProdutoCardapio.js" defer></script>
 </body>
 </html>

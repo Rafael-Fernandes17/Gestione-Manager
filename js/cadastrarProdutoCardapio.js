@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             try {
                 // 4. Faz a requisição Fetch
-                const response = await fetch("../php/createProdutoCardapio.php", {
+                const response = await fetch("../php/cadastrarProdutoCardapio.php", {
                     method: "POST",
                     body: formData,
                     headers: { 
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (data.status === "ok") {
-                    window.location.href = '../php/readProdutoCardapio.php';
+                    window.location.href = '../view/listaProdutoCardapio.php';
                 }
 
             } catch (error) {

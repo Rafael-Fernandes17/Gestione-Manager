@@ -1,5 +1,5 @@
 <?php
-require_once 'verificaPermissao.php';
+require_once '../php/verificaPermissao.php';
 verificaLogin(); 
 include_once('conexao.php');
 
@@ -110,14 +110,14 @@ $conn->close();
         </a>
 
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
-            <a href="aindaNao.php">DASHBOARD</a>
-            <a href="aindaNao.php">CAIXA</a>
-            <a href="../view/cadastroItens.php">ESTOQUE</a>
-            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
-            <a href="aindaNao.php">FINANCEIRO</a>
-            <a href="aindaNao.php">RELATÓRIOS</a>
-            <a href="../view/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="paginaPrincipalFuncionario.php">HOME</a>
+            <a href="../php/aindaNao.php">DASHBOARD</a>
+            <a href="../php/aindaNao.php">CAIXA</a>
+            <a href="listaItemEstoque.php">ESTOQUE</a>
+            <a href="listaProdutoCardapio.php">PRODUTOS</a>
+            <a href="../php/aindaNao.php">FINANCEIRO</a>
+            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
@@ -144,7 +144,10 @@ $conn->close();
 
             <label>Tipo:</label>
             <select name="tipoMedida">
-                <option value="GM" <?= $tipoMedidaBD == 'GM' ? 'selected' : '' ?>>GM</option>
+                <option value="UN" <?= $tipoMedidaBD == 'UN'? 'selected' : '' ?>>UN</option>
+                <option value="KG" <?= $tipoMedidaBD == 'KG'? 'selected' : '' ?>>KG</option>
+                <option value="G" <?= $tipoMedidaBD == 'G'? 'selected' : '' ?>>G</option>
+                <option value="MG" <?= $tipoMedidaBD == 'GM' ? 'selected' : '' ?>>GM</option>
                 <option value="ML" <?= $tipoMedidaBD == 'ML' ? 'selected' : '' ?>>ML</option>
                 <option value="L" <?= $tipoMedidaBD == 'L' ? 'selected' : '' ?>>L</option>
             </select>
