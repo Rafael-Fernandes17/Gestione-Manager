@@ -12,7 +12,7 @@ if (!$id) {
     exit;
 }
 
-$stmt = $conexao->prepare("DELETE FROM itensEstoque WHERE id = ?");
+$stmt = $conexao->prepare("DELETE FROM itensEstoque WHERE idItensEstoque = ?");
 
 if (!$stmt) {
     echo json_encode(['status' => 'error', 'mensagem' => 'Erro ao preparar query: ' . $conexao->error]);
@@ -23,8 +23,10 @@ $stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
     echo json_encode(['status' => 'success', 'mensagem' => 'Item removido!']);
+    exit;
 } else {
     echo json_encode(['status' => 'error', 'mensagem' => 'Erro ao excluir: ' . $stmt->error]);
+    exit;
 }
 
 $stmt->close();

@@ -74,18 +74,18 @@ while ($row = $resultado->fetch_assoc()) {
             </thead>
             <tbody>
                 <?php foreach ($itens as $i): ?>
-                <tr id="item-<?= $i['id'] ?>">
-                    <td><?= $i['id'] ?></td>
+                <tr id="item-<?= $i['idItensEstoque'] ?>">
+                    <td><?= $i['idItensEstoque'] ?></td>
                     <td><?= htmlspecialchars($i['nomeItem']) ?> (<?= htmlspecialchars($i['tipoMedida']) ?>)</td>
                     <td><?= htmlspecialchars($i['fornecedor']) ?></td>
                     <td>R$ <?= number_format($i['valorItem'], 2, ',', '.') ?></td>
                     <td style="color: #800020; font-weight: bold;"><?= $i['estoqueMinimo'] ?></td>
                     <td class="acoes">
-                        <button class="btn-registro" onclick="window.location.href='formFluxoItens.php?id=<?= $i['id'] ?>'">
+                        <button class="btn-registro" onclick="window.location.href='formFluxoItens.php?id=<?= $i['idItensEstoque'] ?>'">
                             Registro de Entrada/Saída
                         </button>
-                        <button class="btn-editar" onclick="window.location.href='alterandoItemEstoque.php?id=<?= $i['id'] ?>'">Alterar</button>
-                        <button class="btn-excluir" onclick="excluirItem(<?= $i['id'] ?>)">Excluir</button>
+                        <button class="btn-editar" onclick="window.location.href='alterandoItemEstoque.php?id=<?= $i['idItensEstoque'] ?>'">Alterar</button>
+                        <button class="btn-excluir" onclick="excluirItem(<?= $i['idItensEstoque'] ?>)">Excluir</button>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -105,18 +105,38 @@ while ($row = $resultado->fetch_assoc()) {
     </div>
 
     <script>
-    async function excluirItem(id) {
-        if (confirm('Deseja excluir?')) {
-            try {
-                const response = await fetch(`excluirItens.php?id=${id}`);
-                const data = await response.json();
-                if (data.status === 'success' || data.status === 'ok') {
-                    document.getElementById(`item-${id}`).remove();
-                    alert("Removido com sucesso!");
+async function excluirItem(id) {
+    if (confirm('Deseja realimente excluir este item?')) {
+        try {
+            // Correção: Alterado de idItensEstoque para id
+            const response = await fetch(`../php/excluindoItemEstoque.php?id=${id}`);
+
+            
+            // Se o arquivo PHP der erro 500, 404 ou 403, isso vai capturar
+            if (!response.ok) {
+                const textoErro = await response.text();
+                alert(`Erro no Servidor (${response.status}): ${textoErro}`);
+                return;
+            }
+
+            const data = await response.text();
+            console.log(data);
+            if (data.status === 'success'){
+                // Correção: Alterado de idItensEstoque para id
+                const elemento = document.getElementById(`item-${id}`);
+                if (elemento) {
+                    elemento.remove();
                 }
-            } catch (e) { alert("Erro ao comunicar com o servidor."); }
+                alert("Removido com sucesso!");
+            } else if (data.status === "error") {
+                alert("O servidor respondeu com erro: " + (data.message || "Erro desconhecido."));
+            }
+        } catch (e) { 
+            alert("Erro ao comunicar com o servidor ou processar o JSON."); 
+            console.error(e);
         }
     }
-    </script>
+}
+</script>
 </body>
 </html>

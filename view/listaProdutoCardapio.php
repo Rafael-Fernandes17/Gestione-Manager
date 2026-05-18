@@ -101,12 +101,12 @@ mysqli_close($conn);
 
                         <td class="acoes">
                             <button class="btn-editar"
-                                onclick="window.location.href='editProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
+                                onclick="window.location.href='alterandoProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
                                 Alterar
                             </button>
 
                             <button class="btn-excluir"
-                                onclick="if(confirm('Tem certeza?')) window.location.href='deleteProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
+                                onclick="if(confirm('Tem certeza?')) window.location.href='../php/excluindoProdutoCardapio.php?id=<?= $p['idProdutosCardapio'] ?>'">
                                 Excluir
                             </button>
                         </td>
@@ -123,7 +123,7 @@ mysqli_close($conn);
 
             <div class="container-btn">
                 <button class="btn-cadastrar"
-                    onclick="window.location.href='../view/criandoProdutoCardapio.php'">
+                    onclick="window.location.href='formularioProdutoCardapio.php'">
                     Cadastrar Produto
                 </button>
             </div>
@@ -132,7 +132,7 @@ mysqli_close($conn);
 
         <div class="container-btn">
             <button class="btn-cadastrar"
-                onclick="window.location.href='../view/criandoProdutoCardapio.php'">
+                onclick="window.location.href='formularioProdutoCardapio.php'">
                 Cadastrar Outro Produto
             </button>
         </div>

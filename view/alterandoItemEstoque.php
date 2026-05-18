@@ -1,21 +1,10 @@
 <?php
 require_once '../php/verificaPermissao.php';
 verificaLogin(); 
-include_once('conexao.php');
+include_once('../php/conexao.php');
 
 $id = $_GET['id'] ?? null;
 
-<<<<<<< HEAD
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    header('Content-Type: application/json');
-    try {
-        $stmt = $conexao->prepare("SELECT * FROM itensEstoque WHERE id = ?");
-        $stmt->execute([$id]);
-        $item = $stmt->fetch(PDO::FETCH_ASSOC);
-        echo json_encode(['status' => 'success', 'dados' => $item]);
-    } catch (PDOException $e) {
-        echo json_encode(['status' => 'error', 'mensagem' => $e->getMessage()]);
-=======
 if (!$id || !is_numeric($id)) {
     die("<h3>ID inválido.</h3>");
 }
@@ -72,19 +61,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
 
         if ($stmt_update->execute()) {
-            header("Location: readItens.php?status=success");
+            header("Location: listaItemEstoque.php?status=success");
             exit;
         } else {
             echo "Erro ao atualizar: " . $stmt_update->error;
         }
         $stmt_update->close();
->>>>>>> 2cd921ff9c87c95fd64f22f86014260427eda96d
     }
     exit;
 }
-<<<<<<< HEAD
-?>
-=======
 
 // 3. Prepara variáveis para o formulário (dados vindos do Banco)
 $idItem = htmlspecialchars($item['idItensEstoque']);
@@ -100,7 +85,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Editar Item</title>
-    <link rel="stylesheet" href="../css/editProdutosCardapio.css">
+    <link rel="stylesheet" href="../css/alterandoProdutosCardapio.css">
 </head>
 <body>
 <header>
@@ -158,4 +143,3 @@ $conn->close();
 </div>
 </body>
 </html>
->>>>>>> 2cd921ff9c87c95fd64f22f86014260427eda96d

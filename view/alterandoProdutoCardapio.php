@@ -105,10 +105,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($stmt_update->execute()) {
-            header("Location: readProdutoCardapio.php?status=success");
+            header("Location: listaProdutoCardapio.php?status=success");
             exit;
         } else {
-            header("Location: readProdutoCardapio.php?status=error");
+            header("Location: listaProdutoCardapio.php?status=error");
             exit;
         }
 

@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="../css/resetando.css">
     <link rel="stylesheet" href="../css/cadastrarItemEstoque.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="../css/cadastrosItens.css">
 </head>
 <body>
     <header>
@@ -138,7 +137,5 @@
     </main>
 </div>
 <script src="../js/cadastrarItemEstoque.js" defer></script>
-
-    <script src="../js/cadastroItens.js"></script>
 </body>
 </html>

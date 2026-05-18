@@ -6,16 +6,6 @@ async function cadastrar() {
     const unidade = document.getElementById('unidade').value;
     const estoqueMinimo = document.getElementById('estoqueMinimo').value;
 
-<<<<<<< HEAD:js/cadastroItens.js
-    // Critério de Aceite 2
-    if (parseFloat(estoqueMinimo) <= 0) {
-        alert("Erro: O estoque mínimo precisa ser maior que 0.");
-        return;
-=======
-    let nome = document.getElementById("nome").value;
-    let categoria = document.getElementById("categoria").value;
-    let quantidade = document.getElementById("quantidade").value;
-    let unidade = document.getElementById("unidade").value;
 
     if (!nome || !categoria) return alert("Preencha o nome e a categoria!");
 
@@ -36,7 +26,6 @@ const data = await resp.json();
     if (data.status === 'ok') {
         alert(data.mensagem); 
         window.location.href = "../view/listaItemEstoque.php"; 
->>>>>>> a9adef64fe42e02cbc5a8b525479c22871fe412b:js/cadastrarItemEstoque.js
     }
 
     const formData = new FormData();
@@ -48,7 +37,7 @@ const data = await resp.json();
     formData.append('estoqueMinimo', estoqueMinimo);
 
     try {
-        const response = await fetch('../php/novoItens.php', { 
+        const response = await fetch('../php/cadastrarItemEstoque.php', { 
     method: 'POST',
     body: formData
 });
@@ -56,7 +45,7 @@ const data = await resp.json();
 
         alert(data.mensagem);
         if (data.status === 'ok') {
-            window.location.href = '../php/readItens.php';
+            window.location.href = '../view/listaItemEstoque.php';
         }
     } catch (error) {
         console.error("Erro:", error);
