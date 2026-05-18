@@ -65,9 +65,58 @@ try {
                         <button class="btn-excluir" onclick="excluirItem(<?= $i['id'] ?>)">Excluir</button>
                     </td>
                 </tr>
+<<<<<<< HEAD
                 <?php endforeach; ?>
             </tbody>
         </table>
+=======
+
+                <?php foreach ($itensestoque as $t): ?>
+                    <tr>
+                        <td><?= $t['idItensEstoque'] ?></td>
+                        <td><?= $t['nomeItem'] ?></td>
+                        <td><?= $t['tipoMedida'] ?></td>
+                        <td><?= $t['quantidadeUnitaria'] ?></td>
+                        <td><?= $t['categoria'] ?></td>
+
+
+                        <td class="acoes">
+                            <button class="btn-editar" onclick="window.location.href='getItens.php?id=<?= $t['idItensEstoque'] ?>'">
+                                Alterar
+                            </button>
+
+                            <button class="btn-excluir"
+                                onclick="if(confirm('Tem certeza?')) window.location.href='excluirItens.php?id=<?= $t['idItensEstoque'] ?>'">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
+            </table>
+
+        <?php else: ?>
+
+            <p style="text-align:center; margin-top:20px;">
+                Nenhum item cadastrado.
+            </p>
+
+            <div class="container-btn">
+                <button class="btn-cadastrar"
+                    onclick="window.location.href='../view/cadastroItens.php'">
+                    Cadastrar Item
+                </button>
+            </div>
+
+        <?php endif; ?>
+
+        <div class="container-btn">
+            <button class="btn-cadastrar"
+                onclick="window.location.href='../view/cadastroItens.php'">
+                Cadastrar Outro Item
+            </button>
+        </div>
+>>>>>>> 2cd921ff9c87c95fd64f22f86014260427eda96d
     </div>
 
     <script>

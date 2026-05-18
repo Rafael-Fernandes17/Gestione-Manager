@@ -19,7 +19,7 @@ if (!$conn) {
     die('Erro na conexão: ' . mysqli_connect_error());
 }
 
-$sql = "DELETE FROM produtosCardapio WHERE id = ?";
+$sql = "DELETE FROM produtosCardapio WHERE idProdutosCardapio = ?";
 $stmt = $conn->prepare($sql);
 
 if (!$stmt) {
