@@ -1,4 +1,7 @@
 async function cadastrar() {
+    // Captura o ID (se tiver valor é alteração, se estiver vazio é cadastro novo)
+    let idItem = document.getElementById('idItem') ? document.getElementById('idItem').value : '';
+    
     const nome = document.getElementById('nome').value;
     const categoria = document.getElementById('categoria').value;
     const fornecedor = document.getElementById('fornecedor').value;
@@ -6,29 +9,19 @@ async function cadastrar() {
     const unidade = document.getElementById('unidade').value;
     const estoqueMinimo = document.getElementById('estoqueMinimo').value;
 
+    // Validações obrigatórias
+    if (!nome || !estoqueMinimo) {
+        alert("Erro: Preencha os campos obrigatórios (Nome e Estoque Mínimo).");
+        return;
+    }
 
-    if (!nome || !categoria) return alert("Preencha o nome e a categoria!");
-
-    const fd = new FormData();
-    fd.append("nome", nome);
-    fd.append("categoria", categoria);
-    fd.append("quantidade", quantidade);
-    fd.append("unidade", unidade);
-
-    
-    const resp = await fetch("../php/cadastrarItemEstoque.php", {
-    method: "POST",
-    body: fd
-});
-
-const data = await resp.json(); 
-
-    if (data.status === 'ok') {
-        alert(data.mensagem); 
-        window.location.href = "../view/listaItemEstoque.php"; 
+    if (parseFloat(estoqueMinimo) <= 0) {
+        alert("Erro: O estoque mínimo precisa ser maior que 0.");
+        return;
     }
 
     const formData = new FormData();
+    formData.append('idItem', idItem); 
     formData.append('nome', nome);
     formData.append('categoria', categoria);
     formData.append('fornecedor', fornecedor);
@@ -37,18 +30,21 @@ const data = await resp.json();
     formData.append('estoqueMinimo', estoqueMinimo);
 
     try {
-        const response = await fetch('../php/cadastrarItemEstoque.php', { 
-    method: 'POST',
-    body: formData
-});
+        // Envia com a terminação .php explícita para não gerar erro de rota
+        const response = await fetch('../php/cadastrarItemEstoque.php', {
+            method: 'POST',
+            body: formData
+        });
+        
         const data = await response.json();
-
         alert(data.mensagem);
+        
         if (data.status === 'ok') {
-            window.location.href = '../view/listaItemEstoque.php';
+            // Redireciona de volta para a sua tabela moderna e alinhada
+            window.location.href = 'listaItemEstoque.php';
         }
     } catch (error) {
-        console.error("Erro:", error);
-        alert("Erro ao conectar com o servidor.");
+        console.error("Erro na requisição:", error);
+        alert("Erro ao conectar com o servidor. Verifique o console.");
     }
 }
