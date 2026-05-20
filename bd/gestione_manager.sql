@@ -2,6 +2,14 @@ DROP DATABASE IF EXISTS gestione_manager;
 CREATE DATABASE gestione_manager;
 USE gestione_manager;
 
+CREATE TABLE itemEstoque (
+	idItensEstoque INT AUTO_INCREMENT PRIMARY KEY,
+	nomeItem VARCHAR(50) NOT NULL,
+	tipoMedida ENUM ('GM', 'KG','ML', 'L', 'UNI') NOT NULL,
+	quantidadeUnitaria INT NOT NULL,
+	categoria ENUM ('ingredientes', 'bebidas') NOT NULL
+);
+
 CREATE TABLE produtoCardapio (
 	idProdutosCardapio INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	nomeProdutoCardapio VARCHAR(40) NOT NULL,
@@ -15,7 +23,7 @@ CREATE TABLE produtoCardapio (
 	statusProdutos ENUM ('Disponível', 'Indisponível') NOT NULL
 );
 
-
+<<<<<<< HEAD
 CREATE TABLE itensEstoque (
     id INT(11) NOT NULL AUTO_INCREMENT,
     nomeItem VARCHAR(50) NOT NULL,
@@ -26,9 +34,7 @@ CREATE TABLE itensEstoque (
     estoqueMinimo DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     quantidadeUnitaria DECIMAL(10,2) DEFAULT 0.00,
     PRIMARY KEY (id)
-);
-
-
+=======
 CREATE TABLE produto_ingrediente (
     idProdutoIngrediente INT AUTO_INCREMENT PRIMARY KEY,
     idProduto INT NOT NULL,
@@ -52,7 +58,7 @@ CREATE TABLE comanda(
     idPedidoReferente int not null,
     valorTotal double not null,
     foreign key (idPedidoReferente) references pedido(idPedido)
-
+>>>>>>> main
 );
 CREATE TABLE funcionario (
 	id INT AUTO_INCREMENT PRIMARY KEY,
