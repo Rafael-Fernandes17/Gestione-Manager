@@ -23,7 +23,7 @@
             <a href="paginaPrincipalFuncionario.php">HOME</a>
             <a href="../php/aindaNao.php">DASHBOARD</a>
             <a href="../php/aindaNao.php">CAIXA</a>
-            <a href="listaItemEstoque.php">ESTOQUE</a>
+            <a href="formularioItemEstoque.php">ESTOQUE</a>
             <a href="listaProdutoCardapio.php">PRODUTOS</a>
             <a href="../php/aindaNao.php">FINANCEIRO</a>
             <a href="../php/aindaNao.php">RELATÓRIOS</a>
