@@ -19,7 +19,7 @@
             <span>Gestione Manager</span>
         </a>
 
-        <nav>
+       <nav>
             <a href="paginaPrincipalFuncionario.php">HOME</a>
             <a href="../php/aindaNao.php">DASHBOARD</a>
             <a href="../php/aindaNao.php">CAIXA</a>
@@ -28,7 +28,7 @@
             <a href="../php/aindaNao.php">FINANCEIRO</a>
             <a href="../php/aindaNao.php">RELATÓRIOS</a>
             <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
+            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
         </nav>
     </header>
 </body>

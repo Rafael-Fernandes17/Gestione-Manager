@@ -20,7 +20,7 @@
             <span>Gestione Manager</span>
         </a>
 
-        <nav>
+       <nav>
             <a href="paginaPrincipalFuncionario.php">HOME</a>
             <a href="../php/aindaNao.php">DASHBOARD</a>
             <a href="../php/aindaNao.php">CAIXA</a>
