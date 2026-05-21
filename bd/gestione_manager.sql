@@ -13,6 +13,18 @@ CREATE TABLE itensEstoque (
     quantidadeUnitaria DECIMAL(10,2) DEFAULT 0.00
 );
 
+CREATE TABLE fluxoEstoque (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_item INT(11) NOT NULL,
+    tipo_operacao VARCHAR(10) NOT NULL,
+    quantidade DECIMAL(10,2) NOT NULL,
+    data_operacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    motivo VARCHAR(255) DEFAULT NULL,
+    documento_nf LONGBLOB DEFAULT NULL,
+    documento_nf_tipo VARCHAR(255) DEFAULT NULL,
+    FOREIGN KEY (id_item) REFERENCES itensEstoque(id)
+);
+
 CREATE TABLE produtoCardapio (
 	idProdutosCardapio INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	nomeProdutoCardapio VARCHAR(40) NOT NULL,

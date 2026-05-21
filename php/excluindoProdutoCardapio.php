@@ -1,6 +1,7 @@
 <?php
-require_once 'verificaPermissao.php'; 
-verificaLogin(); 
+require_once '../php/verificaPermissao.php';
+verificaLogin();
+include_once('../php/conexao.php');
 
 if (!isset($_GET["id"]) || empty($_GET["id"])) {
     die("<h3>ID do produto não fornecido.</h3>");
@@ -12,34 +13,23 @@ if (!is_numeric($id)) {
     die("<h3>ID inválido.</h3>");
 }
 
+// Remove ingredientes vinculados antes de excluir o produto
+$stmt_ing = $conexao->prepare("DELETE FROM produto_ingrediente WHERE idProduto = ?");
+$stmt_ing->bind_param("i", $id);
+$stmt_ing->execute();
+$stmt_ing->close();
 
-$conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
-
-if (!$conn) {
-    die('Erro na conexão: ' . mysqli_connect_error());
-}
-
-$sql = "DELETE FROM produtosCardapio WHERE idProdutosCardapio = ?";
-$stmt = $conn->prepare($sql);
-
-if (!$stmt) {
-    die('Erro no prepare: ' . $conn->error);
-}
-
+$stmt = $conexao->prepare("DELETE FROM produtosCardapio WHERE idProdutosCardapio = ?");
 $stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
-    // Redireciona de volta para a página de leitura com uma mensagem de sucesso
-    header("Location: listaProdutoCardapio.php?status=deleted_success");
+    header("Location: ../view/listaProdutoCardapio.php?status=deleted_success");
     exit;
 } else {
-    // Redireciona de volta para a página de leitura com uma mensagem de erro
-    header("Location: listaProdutoCardapio.php?status=deleted_error");
+    header("Location: ../view/listaProdutoCardapio.php?status=deleted_error");
     exit;
 }
 
-
 $stmt->close();
-$conn->close();
-
+$conexao->close();
 ?>

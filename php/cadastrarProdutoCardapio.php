@@ -1,94 +1,62 @@
 <?php
-require_once 'verificaPermissao.php'; 
-verificaLogin(); 
-
-$conn = mysqli_connect('localhost:3307', 'root', '', 'gestione_manager');
-
-if (!$conn) {
-    echo json_encode(['status' => 'nok', 'mensagem' => 'Erro na conexão: ' . mysqli_connect_error()]);
-    exit;
-}
+require_once '../php/verificaPermissao.php';
+verificaLogin();
+include_once('../php/conexao.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     $nomeProdutoCardapio = $_POST["nomeProdutoCardapio"] ?? '';
-    $descricao = $_POST["descricao"] ?? '';
-    $categoria = $_POST["categoria"] ?? '';
-    $tempoPreparo = $_POST["tempoPreparo"] ?? '';
-    $preco = $_POST["preco"] ?? '';
-    $quantidadeMedida = $_POST["quantidade"] ?? '';
-    $tipoMedida = $_POST["tipoMedida"] ?? '';
-    $statusProdutos = $_POST["statusProdutos"] ?? '';
+    $descricao           = $_POST["descricao"] ?? '';
+    $categoria           = $_POST["categoria"] ?? '';
+    $tempoPreparo        = $_POST["tempoPreparo"] ?? '';
+    $quantidadeMedida    = $_POST["quantidade"] ?? '';
+    $tipoMedida          = $_POST["tipoMedida"] ?? '';
+    $preco               = 0.00;
+    $statusProdutos      = 'Indisponível';
 
-    $preco = (float) str_replace(',', '.', $preco);
-
-    // Validação de campos vazios
-    if (
-        empty($nomeProdutoCardapio) ||
-        empty($descricao) ||
-        empty($categoria) ||
-        empty($tempoPreparo) ||
-        empty($quantidadeMedida) ||
-        empty($tipoMedida) ||
-        empty($statusProdutos)
-    ) {
-        // 2. Avisa o erro e PARA a execução com o exit
-        echo json_encode(['status' => 'nok', 'mensagem' => 'preencha todos os campos']);
-        exit; 
+    $imagem = null;
+    if (isset($_FILES["imagem"]) && $_FILES["imagem"]["error"] == UPLOAD_ERR_OK) {
+        $imagem = file_get_contents($_FILES["imagem"]["tmp_name"]);
     }
 
-    // Validação de imagem
-    if (!isset($_FILES["imagem"]) || $_FILES["imagem"]["error"] !== 0) {
-        echo json_encode(['status' => 'nok', 'mensagem' => 'erro ao enviar imagem']);
-        exit;
-    }
+    $stmt = $conexao->prepare("INSERT INTO produtosCardapio (
+        nomeProdutoCardapio, descricao, categoria, tempoPreparo,
+        preco, imagem, quantidadeMedida, tipoMedida, statusProdutos
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $imagem = file_get_contents($_FILES["imagem"]["tmp_name"]);
-
-    if ($imagem === false) {
-        echo json_encode(['status' => 'nok', 'mensagem' => 'erro ao ler imagem']);
-        exit;
-    }
-
-    $stmt = $conn->prepare("
-        INSERT INTO produtosCardapio 
-        (nomeProdutoCardapio, descricao, categoria, tempoPreparo, preco, imagem, quantidadeMedida, tipoMedida, statusProdutos)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ");
-
-    if (!$stmt) {
-        echo json_encode(['status' => 'nok', 'mensagem' => 'erro no prepare']);
-        exit;
-    }
-
-    $stmt->bind_param("ssssdsiss",
-        $nomeProdutoCardapio,
-        $descricao,
-        $categoria,
-        $tempoPreparo,
-        $preco,
-        $imagem,
-        $quantidadeMedida,
-        $tipoMedida,
-        $statusProdutos
+    $stmt->bind_param(
+        "ssssdisss",
+        $nomeProdutoCardapio, $descricao, $categoria, $tempoPreparo,
+        $preco, $imagem, $quantidadeMedida, $tipoMedida, $statusProdutos
     );
 
-    // 3. Devolvemos JSON de SUCESSO ao invés de redirecionar!
+    if ($imagem !== null) {
+        $stmt->send_long_data(5, $imagem);
+    }
+
     if ($stmt->execute()) {
-        $retorno = [
-            'status' => 'ok',
-            'mensagem' => 'Produto cadastrado com sucesso!'
-        ];
+        $idProduto = $conexao->insert_id;
+
+        if (isset($_POST["itensEstoque"]) && is_array($_POST["itensEstoque"]) && !empty($_POST["itensEstoque"])) {
+            $stmt_ing = $conexao->prepare("INSERT INTO produto_ingrediente (idProduto, idItemEstoque) VALUES (?, ?)");
+            $stmt_ing->bind_param("ii", $idProduto, $idItemEstoque);
+
+            foreach ($_POST["itensEstoque"] as $idItemEstoque) {
+                if (!$stmt_ing->execute()) {
+                    echo "Erro ao associar ingrediente ID " . htmlspecialchars($idItemEstoque) . ": " . $stmt_ing->error;
+                }
+            }
+            $stmt_ing->close();
+        }
+
+        header("Location: ../view/listaProdutoCardapio.php?status=success");
+        exit;
     } else {
-        $retorno = [
-            'status' => 'nok',
-            'mensagem' => 'erro ao cadastrar produto'
-        ];
+        header("Location: ../view/listaProdutoCardapio.php?status=error");
+        exit;
     }
 
     $stmt->close();
-    
-    echo json_encode($retorno);
 }
-$conn->close();
+
+$conexao->close();
 ?>

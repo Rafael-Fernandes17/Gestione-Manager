@@ -1,6 +1,7 @@
 <?php
-require_once '../php/verificaPermissao.php'; 
-verificaLogin(); 
+require_once '../php/verificaPermissao.php';
+verificaLogin();
+include_once('../php/conexao.php');
 
 $id = $_GET['id'] ?? null;
 
@@ -16,11 +17,6 @@ if (!$conn) {
 
 $sql = "SELECT * FROM produtosCardapio WHERE idProdutosCardapio = ?";
 $stmt = $conn->prepare($sql);
-
-if (!$stmt) {
-    die('Erro no prepare: ' . $conn->error);
-}
-
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -35,74 +31,49 @@ $stmt->close();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nomeProdutoCardapio = $_POST["nomeProdutoCardapio"] ?? '';
-    $descricao = $_POST["descricao"] ?? '';
-    $categoria = $_POST["categoria"] ?? '';
-    $tempoPreparo = $_POST["tempoPreparo"] ?? '';
-    $preco = $_POST["preco"] ?? '';
-    $tipoMedida = $_POST["tipoMedida"] ?? '';
-    $quantidade = $_POST["quantidadeMedida"] ?? '';
-    $status = $_POST["statusProdutos"] ?? '';
+    $descricao           = $_POST["descricao"] ?? '';
+    $categoria           = $_POST["categoria"] ?? '';
+    $tempoPreparo        = $_POST["tempoPreparo"] ?? '';
+    $tipoMedida          = $_POST["tipoMedida"] ?? '';
+    $quantidade          = $_POST["quantidadeMedida"] ?? '';
 
-    $novaImagem = null; // Inicializa como null
-    $imagemAtual = $produto['imagem'];
+    // Mantém preço e status do banco, não do POST
+    $preco  = $produto['preco'];
+    $status = $produto['statusProdutos'];
 
-    if (!empty($_FILES['imagem']['tmp_name'])) {
-        $novaImagem = file_get_contents($_FILES['imagem']['tmp_name']);
-    } else {
-        $novaImagem = $imagemAtual; // Mantém a imagem existente se nenhuma nova for enviada
-    }
+    $novaImagem = !empty($_FILES['imagem']['tmp_name'])
+        ? file_get_contents($_FILES['imagem']['tmp_name'])
+        : $produto['imagem'];
 
-    if (
-        empty($nomeProdutoCardapio) ||
-        empty($descricao) ||
-        empty($categoria) ||
-        empty($tempoPreparo) ||
-        empty($preco) ||
-        empty($tipoMedida) ||
-        empty($quantidade) ||
-        empty($status)
-    ) {
+    if (empty($nomeProdutoCardapio) || empty($descricao) || empty($categoria) ||
+        empty($tempoPreparo) || empty($tipoMedida) || empty($quantidade)) {
         echo "<h3 style='text-align:center;color:red;'>Preencha todos os campos!</h3>";
     } else {
 
         $sql_update = "UPDATE produtosCardapio SET 
-            nomeProdutoCardapio=?,
-            descricao=?,
-            categoria=?,
-            tempoPreparo=?,
-            preco=?,
-            tipoMedida=?,
-            quantidadeMedida=?,
-            statusProdutos=?,
-            imagem=?
-            WHERE idProdutosCardapio=?";
+            nomeProdutoCardapio = ?,
+            descricao           = ?,
+            categoria           = ?,
+            tempoPreparo        = ?,
+            tipoMedida          = ?,
+            quantidadeMedida    = ?,
+            imagem              = ?
+            WHERE idProdutosCardapio = ?";
 
         $stmt_update = $conn->prepare($sql_update);
-
-        if (!$stmt_update) {
-            die("Erro no prepare: " . $conn->error);
-        }
-
-
         $stmt_update->bind_param(
-            "sssssssssi", // 's' para imagem, 'i' para id
+            "sssssssi",
             $nomeProdutoCardapio,
             $descricao,
             $categoria,
             $tempoPreparo,
-            $preco,
             $tipoMedida,
             $quantidade,
-            $status,
-            $novaImagem, // Passamos a imagem aqui, mas o send_long_data será usado para o conteúdo real
+            $novaImagem,
             $id
         );
 
-        // Se a nova imagem não for nula (ou seja, uma imagem foi carregada ou mantida)
-        if ($novaImagem !== null) {
-            // O índice 8 corresponde ao nono parâmetro (imagem) na string de tipos "sssssssssi"
-            $stmt_update->send_long_data(8, $novaImagem);
-        }
+        $stmt_update->send_long_data(6, $novaImagem);
 
         if ($stmt_update->execute()) {
             header("Location: listaProdutoCardapio.php?status=success");
@@ -116,16 +87,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$idProdutoCardapio = htmlspecialchars($produto['idProdutosCardapio']);
+$idProdutoCardapio   = htmlspecialchars($produto['idProdutosCardapio']);
 $nomeProdutoCardapio = htmlspecialchars($produto['nomeProdutoCardapio']);
-$descricao = htmlspecialchars($produto['descricao']);
-$categoria = htmlspecialchars($produto['categoria']);
-$tempoPreparo = htmlspecialchars($produto['tempoPreparo']);
-$preco = htmlspecialchars($produto['preco']);
-$tipoMedida = htmlspecialchars($produto['tipoMedida']);
-$quantidade = htmlspecialchars($produto['quantidadeMedida']);
-$status = htmlspecialchars($produto['statusProdutos']);
-$imagem = $produto['imagem'];
+$descricao           = htmlspecialchars($produto['descricao']);
+$categoria           = htmlspecialchars($produto['categoria']);
+$tempoPreparo        = htmlspecialchars($produto['tempoPreparo']);
+$tipoMedida          = htmlspecialchars($produto['tipoMedida']);
+$quantidade          = htmlspecialchars($produto['quantidadeMedida']);
+$imagem              = $produto['imagem'];
 
 $conn->close();
 ?>
@@ -135,94 +104,84 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Editar Produto</title>
-    <link rel="stylesheet" href="../css/alterandoProdutosCardapio.css">
+    <link rel="icon" type="image/png" href="../img/logo.jpeg">
+    <link rel="stylesheet" href="../css/formularioProdutosCardapio.css">
 </head>
-
 <body>
-      <header>
+
+    <header>
         <a href="logout.php" class="logo">
             <img src="../img/logo.jpeg" alt="Gestione Manager Logo">
             <span>Gestione Manager</span>
         </a>
-
         <nav>
             <a href="paginaPrincipalFuncionario.php">HOME</a>
-            <a href="../php/aindaNao.php">DASHBOARD</a>
-            <a href="../php/aindaNao.php">CAIXA</a>
+            <a href="aindaNao.php">DASHBOARD</a>
+            <a href="aindaNao.php">CAIXA</a>
             <a href="listaItemEstoque.php">ESTOQUE</a>
             <a href="listaProdutoCardapio.php">PRODUTOS</a>
             <a href="../php/aindaNao.php">FINANCEIRO</a>
-            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="paginaRelatorios.php">RELATÓRIOS</a>
             <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+            <button class="logout-btn" onclick="window.location.href='../php/logout.php'">Logout</button>
         </nav>
     </header>
 
-<div class="container">
-    <div class="form-card">
-        <h2>Editar Produto</h2>
+    <div class="form-container">
+        <h1>Editar Produto do Cardápio</h1>
 
         <form method="POST" enctype="multipart/form-data">
 
             <label>ID:</label>
             <input type="text" value="<?= $idProdutoCardapio ?>" disabled>
 
-            <label>Nome:</label>
-            <input type="text" name="nomeProdutoCardapio" value="<?= $nomeProdutoCardapio ?>" required>
+            <label for="nomeProdutoCardapio">Nome do Produto:</label>
+            <input type="text" id="nomeProdutoCardapio" name="nomeProdutoCardapio"
+                   value="<?= $nomeProdutoCardapio ?>" required>
 
-            <label>Descrição:</label>
-            <textarea name="descricao"><?= $descricao ?></textarea>
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required><?= $descricao ?></textarea>
 
-            <label>Categoria:</label>
-            <select name="categoria">
-                <option value="Entradas" <?= $categoria == 'Entradas' ? 'selected' : '' ?>>Entradas</option>
+            <label for="categoria">Categoria:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="">Selecione</option>
+                <option value="Entradas"          <?= $categoria == 'Entradas'          ? 'selected' : '' ?>>Entradas</option>
                 <option value="Pratos Principais" <?= $categoria == 'Pratos Principais' ? 'selected' : '' ?>>Pratos Principais</option>
-                <option value="Bebidas" <?= $categoria == 'Bebidas' ? 'selected' : '' ?>>Bebidas</option>
-                <option value="Sobremesas" <?= $categoria == 'Sobremesas' ? 'selected' : '' ?>>Sobremesas</option>
+                <option value="Bebidas"           <?= $categoria == 'Bebidas'           ? 'selected' : '' ?>>Bebidas</option>
+                <option value="Sobremesas"        <?= $categoria == 'Sobremesas'        ? 'selected' : '' ?>>Sobremesas</option>
             </select>
 
-            <label>Tempo:</label>
-            <input type="time" name="tempoPreparo" value="<?= $tempoPreparo ?>" required>
+            <label for="tempoPreparo">Tempo de Preparo:</label>
+            <input type="time" id="tempoPreparo" name="tempoPreparo"
+                   value="<?= $tempoPreparo ?>" required>
 
-            <label>Preço:</label>
-            <input type="number" step="0.01" name="preco" value="<?= $preco ?>" required>
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" name="quantidadeMedida"
+                   value="<?= $quantidade ?>" required>
 
-            <label>Imagem Atual:</label>  
+            <label for="tipoMedida">Tipo de Medida:</label>
+            <select id="tipoMedida" name="tipoMedida" required>
+                <option value="">Selecione</option>
+                <option value="GM" <?= $tipoMedida == 'GM' ? 'selected' : '' ?>>Gramas</option>
+                <option value="ML" <?= $tipoMedida == 'ML' ? 'selected' : '' ?>>Mililitros</option>
+                <option value="L"  <?= $tipoMedida == 'L'  ? 'selected' : '' ?>>Litros</option>
+            </select>
 
+            <label>Imagem Atual:</label>
             <?php if (!empty($imagem)): ?>
-                <img src="data:image/jpeg;base64,<?= base64_encode($imagem) ?>" width="120">  
-  
-
+                <img src="data:image/jpeg;base64,<?= base64_encode($imagem) ?>"
+                     width="120" style="border-radius: 8px; margin-bottom: 10px; display: block;">
             <?php else: ?>
-                Sem imagem  
-  
-
+                <p>Sem imagem</p>
             <?php endif; ?>
 
-            <label>Alterar Imagem:</label>
-            <input type="file" name="imagem">
+            <label for="imagem">Alterar Imagem:</label>
+            <input type="file" id="imagem" name="imagem" accept="image/*">
 
-            <label>Quantidade:</label>
-            <input type="number" name="quantidadeMedida" value="<?= $quantidade ?>" required>
-
-            <label>Tipo:</label>
-            <select name="tipoMedida">
-                <option value="GM" <?= $tipoMedida == 'GM' ? 'selected' : '' ?>>GM</option>
-                <option value="ML" <?= $tipoMedida == 'ML' ? 'selected' : '' ?>>ML</option>
-                <option value="L" <?= $tipoMedida == 'L' ? 'selected' : '' ?>>L</option>
-            </select>
-
-            <label>Status:</label>
-            <select name="statusProdutos">
-                <option value="Disponível" <?= $status == 'Disponível' ? 'selected' : '' ?>>Disponível</option>
-                <option value="Indisponível" <?= $status == 'Indisponível' ? 'selected' : '' ?>>Indisponível</option>
-            </select>
-
-            <button type="submit">Atualizar</button>
+            <button class="submit-btn" type="submit">Atualizar Produto</button>
 
         </form>
     </div>
-</div>
 
 </body>
 </html>

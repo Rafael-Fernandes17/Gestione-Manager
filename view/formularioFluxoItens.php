@@ -146,14 +146,14 @@ $conexao->close();
             <span>Gestione Manager</span>
         </a>
         <nav>
-            <a href="../indexFuncionario.php">HOME</a>
+            <a href="paginaPrincipalFuncionario.php">HOME</a>
             <a href="aindaNao.php">DASHBOARD</a>
             <a href="aindaNao.php">CAIXA</a>
-            <a href="../view/listaItemEstoque.php" class="active">ESTOQUE</a>
-            <a href="../view/criandoProdutoCardapio.php">PRODUTOS</a>
-            <a href="/Gestione-Manager/php/aindaNao.php">FINANCEIRO</a>
-            <a href="/Gestione-Manager/php/aindaNao.php">RELATÓRIOS</a>
-            <a href="/Gestione-Manager/php/cadastrarFuncionarioEstrutura.php">CADASTRAR FUNCIONÁRIOS</a>
+            <a href="listaItemEstoque.php">ESTOQUE</a>
+            <a href="listaProdutoCardapio.php">PRODUTOS</a>
+            <a href="../php/aindaNao.php">FINANCEIRO</a>
+            <a href="paginaRelatorios.php" class="active">RELATÓRIOS</a>
+            <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
             <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
         </nav>
     </header>
@@ -162,7 +162,7 @@ $conexao->close();
         <div class="container">
             <h1 style="text-align: center; margin-bottom: 25px;">Registrar Entrada / Saída</h1>
             
-            <form method="POST" action="" enctype="multipart/form-data">
+            <form method="POST" action="../php/salvandoFluxoItem.php" enctype="multipart/form-data">
                 <div class="form-grid">
                     
                     <div class="input-box">
@@ -170,6 +170,7 @@ $conexao->close();
                         <div class="input-field field-readonly">
                             <span class="material-symbols-outlined">fingerprint</span>
                             <input type="text" value="#<?php echo $id; ?>" readonly tabindex="-1">
+                            <input type="hidden" name="id_item" value="<?php echo $id; ?>">
                         </div>
                     </div>
 
