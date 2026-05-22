@@ -15,7 +15,7 @@ if (!$conn) {
     die('Erro na conexão: ' . mysqli_connect_error());
 }
 
-$sql = "SELECT * FROM produtosCardapio WHERE idProdutosCardapio = ?";
+$sql = "SELECT * FROM produtoCardapio WHERE idProdutosCardapio = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<h3 style='text-align:center;color:red;'>Preencha todos os campos!</h3>";
     } else {
 
-        $sql_update = "UPDATE produtosCardapio SET 
+        $sql_update = "UPDATE produtoCardapio SET 
             nomeProdutoCardapio = ?,
             descricao           = ?,
             categoria           = ?,

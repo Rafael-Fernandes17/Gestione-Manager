@@ -19,7 +19,7 @@ $stmt_ing->bind_param("i", $id);
 $stmt_ing->execute();
 $stmt_ing->close();
 
-$stmt = $conexao->prepare("DELETE FROM produtosCardapio WHERE idProdutosCardapio = ?");
+$stmt = $conexao->prepare("DELETE FROM produtoCardapio WHERE idProdutosCardapio = ?");
 $stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {

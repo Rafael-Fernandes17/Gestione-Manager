@@ -18,13 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $imagem = file_get_contents($_FILES["imagem"]["tmp_name"]);
     }
 
-    $stmt = $conexao->prepare("INSERT INTO produtosCardapio (
+    $stmt = $conexao->prepare("INSERT INTO produtoCardapio (
         nomeProdutoCardapio, descricao, categoria, tempoPreparo,
         preco, imagem, quantidadeMedida, tipoMedida, statusProdutos
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     $stmt->bind_param(
-        "ssssdisss",
+        "ssssdbiss",
         $nomeProdutoCardapio, $descricao, $categoria, $tempoPreparo,
         $preco, $imagem, $quantidadeMedida, $tipoMedida, $statusProdutos
     );

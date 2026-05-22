@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $status = "Disponível";
-    $stmt = $conexao->prepare("UPDATE produtosCardapio SET preco = ?, statusProdutos = ? WHERE idProdutosCardapio = ?");
+    $stmt = $conexao->prepare("UPDATE produtoCardapio SET preco = ?, statusProdutos = ? WHERE idProdutosCardapio = ?");
     $stmt->bind_param("dsi", $precoFinal, $status, $idProduto);
 
     if ($stmt->execute()) {

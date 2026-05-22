@@ -42,8 +42,8 @@ CREATE TABLE produto_ingrediente (
     idProdutoIngrediente INT AUTO_INCREMENT PRIMARY KEY,
     idProduto INT NOT NULL,
     idItemEstoque INT NOT NULL,
-    FOREIGN KEY (idProduto) REFERENCES produtosCardapio(idProdutosCardapio),
-    FOREIGN KEY (idItemEstoque) REFERENCES itensEstoque(idItensEstoque)
+    FOREIGN KEY (idProduto) REFERENCES produtoCardapio(idProdutosCardapio),
+    FOREIGN KEY (idItemEstoque) REFERENCES itensEstoque(id)
 );
 
 CREATE TABLE pedido(

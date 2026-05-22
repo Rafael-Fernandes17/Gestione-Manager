@@ -8,14 +8,14 @@ if ($conn->connect_error) {
     die("<h3>Erro ao conectar ao banco de dados.</h3>");
 }
 
-$sql = "SELECT * FROM produtosCardapio";
+$sql = "SELECT * FROM produtoCardapio";
 $result = $conn->query($sql);
 
-$produtosCardapio = [];
+$produtoCardapio = [];
 
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $produtosCardapio[] = $row;
+        $produtoCardapio[] = $row;
     }
 }
 
@@ -53,7 +53,7 @@ $conn->close();
 
     <div class="produto-cardapio">
 
-        <?php if (count($produtosCardapio) > 0): ?>
+        <?php if (count($produtoCardapio) > 0): ?>
 
             <table>
                 <thead>
@@ -72,7 +72,7 @@ $conn->close();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($produtosCardapio as $p): ?>
+                    <?php foreach ($produtoCardapio as $p): ?>
                         <tr>
                             <td><?= $p['idProdutosCardapio'] ?></td>
                             <td><?= htmlspecialchars($p['nomeProdutoCardapio']) ?></td>

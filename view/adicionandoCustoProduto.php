@@ -10,7 +10,7 @@ $ingredientesDoProduto = [];
 if (isset($_GET["idProduto"]) && !empty($_GET["idProduto"])) {
     $idProduto = $_GET["idProduto"];
 
-    $stmt_produto = $conexao->prepare("SELECT idProdutosCardapio, nomeProdutoCardapio FROM produtosCardapio WHERE idProdutosCardapio = ?");
+    $stmt_produto = $conexao->prepare("SELECT idProdutosCardapio, nomeProdutoCardapio FROM produtoCardapio WHERE idProdutosCardapio = ?");
     $stmt_produto->bind_param("i", $idProduto);
     $stmt_produto->execute();
     $result_produto = $stmt_produto->get_result();
