@@ -47,14 +47,14 @@ $estoqueMinimoBD = $modoEdicao ? htmlspecialchars($item['estoqueMinimo'] ?? '') 
         </a>
        <nav>
             <a href="paginaPrincipalFuncionario.php">HOME</a>
-            <a href="../php/aindaNao.php">DASHBOARD</a>
-            <a href="../php/aindaNao.php">CAIXA</a>
+            <a href="aindaNao.php">DASHBOARD</a>
+            <a href="aindaNao.php">CAIXA</a>
             <a href="listaItemEstoque.php">ESTOQUE</a>
             <a href="listaProdutoCardapio.php">PRODUTOS</a>
             <a href="../php/aindaNao.php">FINANCEIRO</a>
-            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="paginaRelatorios.php" class="active">RELATÓRIOS</a>
             <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
         </nav>
     </header>
 
@@ -80,9 +80,6 @@ $estoqueMinimoBD = $modoEdicao ? htmlspecialchars($item['estoqueMinimo'] ?? '') 
                         <select id="categoria">
                             <option value="Ingredientes">Ingredientes</option>
                             <option value="Bebidas">Bebidas</option>
-                            <option value="Embalagens">Embalagens</option>
-                            <option value="Limpeza">Limpeza</option>
-                            <option value="Outros">Outros</option>
                         </select>
                     </div>
                 </div>

@@ -78,6 +78,7 @@ $conexao->close();
             padding: 14px 10px;
             border-bottom: 2px solid #eee;
             font-size: 14px;
+            white-space: nowrap;
         }
 
         .tabela-moderna td {
@@ -87,6 +88,7 @@ $conexao->close();
             font-size: 14px;
             vertical-align: middle;
             word-break: break-word; 
+            white-space: nowrap;
         }
 
         .tabela-moderna tbody tr:hover {
@@ -98,7 +100,7 @@ $conexao->close();
         .col-categoria { width: 140px; }
         .col-fornecedor { width: 180px; }
         .col-valor { width: 120px; }
-        .col-minimo { width: 120px; }
+        .col-minimo { width: 120px; white-space: nowrap;}
         .col-acoes { width: 300px; text-align: center; }
 
         .btn-grupo {
@@ -140,14 +142,14 @@ $conexao->close();
         </a>
         <nav>
             <a href="paginaPrincipalFuncionario.php">HOME</a>
-            <a href="../php/aindaNao.php">DASHBOARD</a>
-            <a href="../php/aindaNao.php">CAIXA</a>
-            <a href="listaItemEstoque.php" class="active">ESTOQUE</a>
+            <a href="aindaNao.php">DASHBOARD</a>
+            <a href="aindaNao.php">CAIXA</a>
+            <a href="listaItemEstoque.php">ESTOQUE</a>
             <a href="listaProdutoCardapio.php">PRODUTOS</a>
             <a href="../php/aindaNao.php">FINANCEIRO</a>
-            <a href="../php/aindaNao.php">RELATÓRIOS</a>
+            <a href="paginaRelatorios.php" class="active">RELATÓRIOS</a>
             <a href="formularioFuncionario.php">CADASTRAR FUNCIONÁRIOS</a>
-            <button class="logout-btn" onclick="window.location.href='logout.php'"> Logout </button>
+            <button class="logout-btn" onclick="window.location.href='../php/logout.php'"> Logout </button>
         </nav>
     </header>
 
@@ -167,6 +169,7 @@ $conexao->close();
                         <th class="col-fornecedor">Fornecedor</th>
                         <th class="col-valor">Valor Unitário</th>
                         <th class="col-minimo">Estoque Mínimo</th>
+                        <th class="col-minimo">Estoque</th>
                         <th class="col-acoes">Ações</th>
                     </tr>
                 </thead>
@@ -184,9 +187,10 @@ $conexao->close();
                             <td><?= htmlspecialchars($i['fornecedor']) ?></td>
                             <td>R$ <?= number_format($i['valorItem'], 2, ',', '.') ?></td>
                             <td style="color: #2c3e50; font-weight: bold;"><?= number_format($i['estoqueMinimo'], 2, ',', '.') ?></td>
+                            <td style="color: #2c3e50; font-weight: bold;"><?= number_format($i['quantidadeUnitaria'], 2, ',', '.') ?></td>
                             <td>
                                 <div class="btn-grupo">
-                                    <button class="btn-acao btn-fluxo" onclick="window.location.href='../php/formFluxoItens.php?id=<?= $i['id'] ?>'">Fluxo</button>
+                                    <button class="btn-acao btn-fluxo" onclick="window.location.href='formularioFluxoItens.php?id=<?= $i['id'] ?>'">Fluxo</button>
                                     <button class="btn-acao btn-alterar" onclick="window.location.href='alterandoItemEstoque.php?id=<?= $i['id'] ?>'">Alterar</button>
                                     <button class="btn-acao btn-excluir" onclick="excluirItem(<?= $i['id'] ?>)">Excluir</button>
                                 </div>
